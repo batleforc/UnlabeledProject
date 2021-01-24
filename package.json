@@ -1,0 +1,22 @@
+{
+  "name": "soundboard",
+  "version": "1.0.0",
+  "description": "Projet de soundboard afin de me familiariser avec certain package :",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batleforc/SoundBoard.git"
+  },
+  "author": "Batleforc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/batleforc/SoundBoard/issues"
+  },
+  "homepage": "https://github.com/batleforc/SoundBoard#readme",
+  "dependencies": {
+    "koa": "^2.13.1"
+  }
+}
