@@ -17,6 +17,7 @@ Projet de soundboard afin de me familiariser avec certain package :
 - Koa : Alternative a Express dont on ne ma dis que du bien
 
   - Koa router
+  - Koa Body
 
 - Swagger : Système de documentation de l'api
 - Mongo ? : Bdd que je connais déja tres bien
