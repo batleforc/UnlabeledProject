@@ -20,3 +20,5 @@ class WebServer{
 
     AddToAppContext = (key:string,ContextObject:object) => this.app.context[key] = ContextObject
 }
+
+module.exports = WebServer
