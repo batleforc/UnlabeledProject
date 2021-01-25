@@ -10,12 +10,14 @@ Projet de soundboard afin de me familiariser avec certain package :
 - React : Package que j'aime beaucoup et que je souhaite approfondir
 - Redux : Comme pour React
 - Typescript : Version d'un js typer qui me fait TRES ENVIE
+- Socket.io : Pas utiliser depuis un moment
 
 ## BackEnd
 
 - Koa : Alternative a Express dont on ne ma dis que du bien
 - Swagger : Système de documentation de l'api
 - Mongo ? : Bdd que je connais déja tres bien
+- Socket.io : Pas utiliser depuis un moment
 
 ## SoundBoard ?
 
