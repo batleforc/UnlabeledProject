@@ -5,7 +5,9 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node main.js"
+    "server": "node main.js",
+    "type": "tsc",
+    "typeWatch": "tsc-w"
   },
   "repository": {
     "type": "git",
@@ -20,10 +22,25 @@
   "dependencies": {
     "@koa/router": "^10.0.0",
     "chalk": "^4.1.0",
+    "concurrently": "^5.3.0",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
+    "koa-mount": "^4.0.0",
+    "koa-static": "^5.0.0",
     "nconf": "^0.11.1",
+    "nodemon": "^2.0.7",
     "socket.io": "^3.1.0",
     "underscore": "^1.12.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.6",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-json": "^2.0.18",
+    "@types/koa-mount": "^4.0.0",
+    "@types/koa-router": "^7.4.1",
+    "@types/koa-static": "^4.0.1",
+    "@types/nconf": "^0.10.0",
+    "@types/socket.io": "^2.1.13",
+    "@types/node": "^14.14.22"
   }
 }
