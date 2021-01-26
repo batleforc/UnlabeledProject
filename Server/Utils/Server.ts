@@ -1,5 +1,6 @@
-const Koa = require('koa')
-const KoaBody = require('koa-body')
+var Koa = require('koa')
+var KoaBody = require('koa-body')
+var mount = require('koa-mount')
 class WebServer{
     app : any
     io : any
@@ -21,6 +22,8 @@ class WebServer{
     ListenServer = (Port:number,callback:Function) => this.server.listen(Port,callback)
 
     AddToAppContext = (key:string,ContextObject:object) => this.app.context[key] = ContextObject
+
+    MountStatic = (path:string,koaMiddleware:any) => this.app.use(mount(path,koaMiddleware))
 }
 
 module.exports = WebServer

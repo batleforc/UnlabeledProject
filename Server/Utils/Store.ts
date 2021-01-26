@@ -1,6 +1,6 @@
-const path = require('path')
-const fs = require('fs')
-const {Log} = require('./Log')
+var path = require('path')
+var fs = require('fs')
+var {Log} = require('./Log')
 
 class Store{
     nconf
