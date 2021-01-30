@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "BuildServer",
+    "target": "es6",
+    "strict": true,
+    "allowJs":true,
+    "skipLibCheck":true
+  },
+  "include": [
+    "Server/**/*"
+  ]
+}

@@ -63,7 +63,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "WatchServer":"",
+    "watch":"concurrently --kill-others --names \"BUILD,SERVER,CLIENT\" -c \"bgGrey.bold,bgRed.bold,bgBlue.bold\" \"tsc -w --project ./serveur.tsconfig.json\" \"nodemon -q -w BuildServer BuildServer/index.js\" \"react-scripts start\""
   },
   "eslintConfig": {
     "extends": [
