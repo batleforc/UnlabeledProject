@@ -8,7 +8,7 @@ class WebServer{
     io : any
     server : any
     constructor(Port : number){
-        this.app=Koa();
+        this.app= new Koa();
         this.server = require('http').createServer(this.app)
         this.io = require('socket.io')(this.server)
         this.app.use(KoaBody())

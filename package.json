@@ -33,6 +33,7 @@
     "@types/underscore": "^1.10.24",
     "chalk": "^4.1.0",
     "concurrently": "^5.3.0",
+    "dotenv-flow": "^3.2.0",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
     "koa-mount": "^4.0.0",
@@ -64,8 +65,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "WatchServer":"",
-    "watch":"concurrently --kill-others --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"tsc -w --project ./serveur.tsconfig.json\" \"nodemon -q -w BuildServer BuildServer/index.js\" \"react-scripts start\""
+    "WatchServer": "",
+    "watch": "concurrently --kill-others --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"tsc -w --project ./serveur.tsconfig.json\" \"nodemon -q -w BuildServer BuildServer/index.js\" \"react-scripts start\""
   },
   "eslintConfig": {
     "extends": [
