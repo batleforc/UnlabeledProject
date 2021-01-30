@@ -14,6 +14,7 @@ class WebServer{
         this.app.use(KoaBody())
         this.app.use(async (ctx:any,next:any)=>{
 
+            next()
         })
     }
 
