@@ -70,10 +70,11 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "s:Build": "tsc -w --project ./serveur.tsconfig.json",
-    "s:Watch":"nodemon -q -w BuildServer BuildServer/index.js",
-    "S:DevWatch":"concurrently --names \"S:Build,S:Watch\" -c \"grey.bold,blue.bold\" \"yarn:s:Build\" \"yarn:s:Watch\"",
-    "watch": "concurrently --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"yarn:s:Build\" \"yarn:s:Watch\" \"yarn:start\""
+    "S:Build": "tsc -w --project ./serveur.tsconfig.json",
+    "S:ProdBuild": "tsc --project ./serveur.tsconfig.json",
+    "S:Watch":"nodemon -q -w BuildServer BuildServer/index.js",
+    "S:DevWatch":"concurrently --names \"S:Build,S:Watch\" -c \"grey.bold,blue.bold\" \"yarn:S:Build\" \"yarn:S:Watch\"",
+    "watch": "concurrently --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"yarn:S:Build\" \"yarn:S:Watch\" \"yarn:start\""
   },
   "eslintConfig": {
     "extends": [
