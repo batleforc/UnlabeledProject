@@ -8,6 +8,6 @@ var  getStaticContent = ()=>{
     }
 }
 
-module.exports={
+export default {
     
 }

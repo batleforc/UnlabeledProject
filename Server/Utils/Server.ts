@@ -7,9 +7,11 @@ class WebServer{
     app : any
     io : any
     server : any
+    Port : number
     constructor(Port : number){
+        this.Port =Port
         this.app= new Koa();
-        this.server = require('http').createServer(this.app)
+        this.server = require('http').createServer(this.app.callback())
         this.io = require('socket.io')(this.server)
         this.app.use(KoaBody())
         this.app.use(async (ctx:any,next:any)=>{
@@ -24,7 +26,7 @@ class WebServer{
 
     AddRouter = (router:Router) => this.app.use(router.routes()).use(router.allowedMethods())
     
-    ListenServer = (Port:number,callback:Function) => this.server.listen(Port,callback)
+    ListenServer = (callback:Function) => this.server.listen(this.Port,callback)
 
     AddToAppContext = (key:string,ContextObject:object) => this.app.context[key] = ContextObject
 
