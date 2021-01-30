@@ -32,6 +32,7 @@ Une sound board c'est quoi ? Une Sound board est une table non pas de mixage mai
 L'objectif est simple :
 
     -> Afficher une liste d'effet sonore
+    -> Modificateur de voix ?
     -> Déclencher ces effet sois via une page web sur l'ordinateur sois sur son smartphone
     -> Avoir un serveur local qui contiendrais la solution et qui jouerais les son sur le poste en utilisant le micro
     => L'intérêt est de pouvoir appliquer les effet sonore sur discord

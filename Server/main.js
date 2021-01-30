@@ -1,5 +1,19 @@
 const Koa = require('koa');
+const nconf = require('nconf')
+const path = require('path')
+const fs = require('fs')
+
 const app = new Koa();
+var Path = path.join(process.env.APPDATA,"SoundBoard");
+nconf
+    .argv()
+    .env()
+    //.file({file:})
+
+console.log(Path)
+
+if(!fs.existsSync(Path))
+    fs.mkdirSync(Path)
 
 app.use(async (ctx,next)=>{
     await next();
