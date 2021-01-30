@@ -13,7 +13,9 @@
     "url": "https://github.com/batleforc/SoundBoard/issues"
   },
   "dependencies": {
+    "@craco/craco": "^6.1.0",
     "@koa/router": "^10.0.0",
+    "@tailwindcss/postcss7-compat": "^2.0.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -31,6 +33,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/socket.io": "^2.1.13",
     "@types/underscore": "^1.10.24",
+    "autoprefixer": "9",
     "chalk": "^4.1.0",
     "concurrently": "^5.3.0",
     "dotenv-flow": "^3.2.0",
@@ -40,10 +43,12 @@
     "koa-static": "^5.0.0",
     "nconf": "^0.11.2",
     "nodemon": "^2.0.7",
+    "postcss": "7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "socket.io": "^3.1.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.0.3",
     "underscore": "^1.12.0",
     "web-vitals": "^0.2.4",
@@ -61,12 +66,14 @@
     "workbox-streams": "^5.1.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "WatchServer": "",
-    "watch": "concurrently --kill-others --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"tsc -w --project ./serveur.tsconfig.json\" \"nodemon -q -w BuildServer BuildServer/index.js\" \"react-scripts start\""
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
+    "s:Build": "tsc -w --project ./serveur.tsconfig.json",
+    "s:Watch":"nodemon -q -w BuildServer BuildServer/index.js",
+    "S:DevWatch":"concurrently --names \"S:Build,S:Watch\" -c \"grey.bold,blue.bold\" \"yarn:s:Build\" \"yarn:s:Watch\"",
+    "watch": "concurrently --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"yarn:s:Build\" \"yarn:s:Watch\" \"yarn:start\""
   },
   "eslintConfig": {
     "extends": [
