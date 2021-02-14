@@ -82,3 +82,19 @@ L'objectif serais d'émettre des sons sur un input audio que discord ou un autre
         => concurrently + --names (les alias de chaque commande) + -c (les couleur attribuer aux log de chaque commande) + les commande
       - build
         => Pas encore définis
+
+### Useful Link
+
+  https://discordjs.guide/creating-your-bot/#creating-the-bot-file
+
+  https://discord.com/developers/
+
+  https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md
+
+  https://animejs.com/documentation/#gridAxisStaggering
+
+  Voice :
+
+  https://discordjs.guide/voice/the-basics.html#joining-voice-channels
+
+  https://discordjs.guide/voice/understanding-voice.html#understanding-voice
