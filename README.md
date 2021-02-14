@@ -93,6 +93,8 @@ L'objectif serais d'émettre des sons sur un input audio que discord ou un autre
 
   https://animejs.com/documentation/#gridAxisStaggering
 
+  https://tailwindcss.com/
+
   Voice :
 
   https://discordjs.guide/voice/the-basics.html#joining-voice-channels
