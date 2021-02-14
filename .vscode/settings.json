@@ -3,6 +3,7 @@
         "APPDATA",
         "Spotify",
         "craco",
-        "deezer"
+        "deezer",
+        "varchar"
     ]
 }
