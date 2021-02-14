@@ -17,14 +17,26 @@ class Store{
             this.AddFileConfig(path.join(this.soundBoardRoot,"Store","config.json"))
             Log("Store","Le store est importer")
         }
+        this.nconf.defaults({
+            "db": path.join(this.soundBoardRoot,"soundboard.db"),
+            "tokenTable":"TokenTable",
+            "table":{
+                "token":"TokenTable",
+                "test":"TestTable"
+            },
+            "table:Token":"TokenTable",
+            "table:test":"TestTable"
+        })
 
     }
     CreateFolderIfNotExist = (pathDir:string)=>!fs.existsSync(pathDir)?fs.mkdirSync(pathDir):true
     AddFileConfig = (pathDir:string) => this.nconf.file({file:pathDir})
-    GetConf = () => this.nconf
+    GetNConf = () => this.nconf
+    GetConf = (label : string) => this.nconf.get(label)
+    setConf = (label : string,value : object) => this.nconf.set(label,value)
     GetVar = (store:string,variable:string) => this.nconf.get(`${store}:${variable}`)
-    SaveConf = (callback:Function)=> this.nconf.save(callback)
+    SaveConf = (callback?:Function)=> this.nconf.save(callback)
 
 }
 
-module.exports.Store
+export default Store;
