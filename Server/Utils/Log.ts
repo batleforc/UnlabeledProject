@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 module.exports ={
     /**
-     * * Permet de console.log 
+     * * Permet de console.log
      * @param tag Qui envoie le message
      * @param message Message envoyer par l'utilisateur
      */
