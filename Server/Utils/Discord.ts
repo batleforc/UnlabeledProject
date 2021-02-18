@@ -10,6 +10,8 @@ class Discord{
   LoginClient = (token : string) => this.client.login(token)
   DisconnectClient = () => this.client.destroy()
 
+  FireWhenReady = ( toDo : Function ) => this.client.on('ready',()=>toDo())
+
   GetAllServer = () => this.client.guilds.cache
   GetOneServer = ( guildId : string ) => this.client.guilds.cache.get(guildId)
   GetAllChan = ( guildId : string ) => this.GetOneServer(guildId)?.channels.cache
