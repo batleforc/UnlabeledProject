@@ -1,3 +1,4 @@
+import { Socket } from "dgram"
 import Router from "koa-router"
 
 var Koa = require('koa')
@@ -24,13 +25,19 @@ class WebServer{
     GetSocket = () => this.io
     GetServer = () => this.server
 
-    AddRouter = (router:Router) => this.app.use(router.routes()).use(router.allowedMethods())
+    // KOA
+    AddRouter = ( router : Router ) => this.app.use(router.routes()).use(router.allowedMethods())
 
-    ListenServer = (callback:Function) => this.server.listen(this.Port,callback)
+    ListenServer = ( callback : Function ) => this.server.listen(this.Port,callback)
 
-    AddToAppContext = (key:string,ContextObject:object) => this.app.context[key] = ContextObject
+    AddToAppContext = ( key : string , ContextObject : object ) => this.app.context[key] = ContextObject
 
-    MountStatic = (path:string,koaMiddleware:any) => this.app.use(mount(path,koaMiddleware))
+    MountStatic = ( path : string , koaMiddleware : any ) => this.app.use(mount(path,koaMiddleware))
+
+    // SOCKET.IO
+    AddListener = ( event : string , whatToDo : Function ) => this.io.on('connection', (Socket : Socket) => {
+        Socket.on(event,(param : any)=>whatToDo(Socket,param))
+    })
 }
 
 export default WebServer;
