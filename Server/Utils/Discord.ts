@@ -12,6 +12,7 @@ class Discord{
   GetAllServer = () => this.client.guilds.cache
   GetOneServer = (GuildId : string) => this.client.guilds.cache.get(GuildId)
   GetAllChan = (GuildId : string) => this.GetOneServer(GuildId).channels.cache
+  GetOneChan = (GuildId : string , ChanId : string) => this.GetAllChan(GuildId).get(ChanId)
 }
 
 export default Discord;
