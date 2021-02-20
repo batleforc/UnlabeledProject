@@ -1,4 +1,4 @@
-# SoundBoard
+# Bot Discord ? (OLD SOUNDBOARD)
 
 Projet de soundboard afin de me familiariser avec certain package :
 
