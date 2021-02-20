@@ -1,7 +1,5 @@
 import Router from '@koa/router'
-var Token = new Router({
-  prefix:'token'
-});
+var Token = new Router();
 
 Token
   .get("/", async (ctx : any , next : any) => {

@@ -11,6 +11,6 @@ router
     ctx.body=ctx.request.body
   })
 
-router.use('/', Token.routes(), Token.allowedMethods());
+router.use('/token', Token.routes(), Token.allowedMethods());
 
 export default router
