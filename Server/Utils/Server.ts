@@ -1,5 +1,6 @@
 import { Socket } from "dgram"
 import Router from "koa-router"
+var {Log} = require('./Log')
 
 var Koa = require('koa')
 var KoaBody = require('koa-body')
@@ -19,6 +20,7 @@ class WebServer{
 
             next()
         })
+        Log("WebServer","Le webServeur est initialiser")
     }
 
     GetApp = () => this.app

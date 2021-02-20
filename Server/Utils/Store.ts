@@ -15,7 +15,7 @@ class Store{
         if(this.CreateFolderIfNotExist(this.soundBoardRoot)){
             this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"Store"))
             this.AddFileConfig(path.join(this.soundBoardRoot,"Store","config.json"))
-            Log("Store","Le store est importer")
+            Log("Store","Le store est est initialiser")
         }
         this.nconf.defaults({
             "db": path.join(this.soundBoardRoot,"soundboard.db"),
