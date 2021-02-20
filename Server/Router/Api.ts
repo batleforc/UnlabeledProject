@@ -1,4 +1,5 @@
-var Router = require('@koa/router');
+import Router from '@koa/router'
+import Token from './Api/Token'
 var router = new Router({
   prefix: '/Api'
 });
@@ -10,9 +11,6 @@ router
     ctx.body=ctx.request.body
   })
 
-
-
-
-
+router.use('/', Token.routes(), Token.allowedMethods());
 
 export default router
