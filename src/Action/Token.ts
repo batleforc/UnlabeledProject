@@ -1,5 +1,6 @@
 import {createSlice,createAsyncThunk,PayloadAction} from '@reduxjs/toolkit'
 import axios, {AxiosResponse} from 'axios';
+import { any } from 'nconf';
 
 interface Token{
   id : number,
@@ -15,11 +16,13 @@ interface TokenState{
 export const TokenGetter = createAsyncThunk(
   "token/get",
   async (value,{dispatch}) => {
-    return
+    return axios.get(process.env.REACT_APP_SERVER+"/api/token")
+      .then((value)=>value.data)
   },{
     condition:(force : boolean |void,{getState}) : boolean => {
       var test = getState()
-      console.log(test)
+      if((test as any).Token.AllToken.length!==0)
+        return false
       return true
     }
   }
