@@ -1,6 +1,10 @@
-import React from 'react';
-
-function App() {
+import React, {useEffect} from 'react';
+import { connect } from 'react-redux'
+import {TokenGetter} from '../Action/Token'
+export const App = (props:any) => {
+  useEffect(() => {
+    props.dispatch(TokenGetter())
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -20,4 +24,5 @@ function App() {
   );
 }
 
-export default App;
+
+export default connect((state)=>state)(App)

@@ -11,6 +11,20 @@ interface TokenState{
   ActiveTokenId : number | null
 }
 
+
+export const TokenGetter = createAsyncThunk(
+  "token/get",
+  async (value,{dispatch}) => {
+    return
+  },{
+    condition:(force : boolean |void,{getState}) : boolean => {
+      var test = getState()
+      console.log(test)
+      return true
+    }
+  }
+)
+
 const initialState = {AllToken:[],ActiveTokenId:null} as TokenState
 
 const TokenSlicer = createSlice({

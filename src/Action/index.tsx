@@ -1,15 +1,10 @@
-import {combineReducers,createStore} from 'redux'
-import {composeWithDevTools} from 'redux-devtools-extension'
+import { configureStore} from '@reduxjs/toolkit'
 import Token from './Token'
 
-
-const rootReducer = combineReducers({
-  Token
+export default configureStore({
+  reducer: {
+    Token
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  devTools:true
 })
-
-const store = createStore(
-  rootReducer,
-  composeWithDevTools()
-)
-
-export default store;
