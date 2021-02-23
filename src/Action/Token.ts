@@ -1,6 +1,5 @@
 import {createSlice,createAsyncThunk,PayloadAction} from '@reduxjs/toolkit'
-import axios, {AxiosResponse} from 'axios';
-import { any } from 'nconf';
+import axios from 'axios';
 
 interface Token{
   id : number,
