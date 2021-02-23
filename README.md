@@ -2,7 +2,19 @@
 
 Projet de soundboard afin de me familiariser avec certain package :
 
-## SoundBoard ?
+## L'objectif
+
+Ce bot est et devient une "simple" boite a outils Discord avec une interface web.
+
+Les objectif sont :
+
+    -> Mettre en place une SoundBoard qui émet du son pour le moment via discord
+    => Contrôle de la soundboard via CMD discord
+    => Contrôle de la soundboard via interface WEB
+    -> Mise en place de plugin commande/Endpoint
+    -> Mise en place de configuration
+
+### SoundBoard ?
 
 Une sound board c'est quoi ? Une Sound board est une table non pas de mixage mais d'effet sonore.
 
