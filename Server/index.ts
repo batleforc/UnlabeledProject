@@ -15,7 +15,9 @@ Serveur.AddToAppContext("discord",DiscordClient)
 Serveur.AddToAppContext("store",store)
 Serveur.AddRouter(Api)
 
-
+DiscordClient.FireWhenReady(()=>{
+  console.log("I'm ready")
+})
 
 
 Serveur.ListenServer(()=>{
