@@ -1,6 +1,5 @@
 import {createSlice,createAsyncThunk,PayloadAction} from '@reduxjs/toolkit'
 import axios from 'axios';
-import Action from '.';
 
 interface Token{
   id : number,
@@ -35,6 +34,23 @@ export const TokenCreate = createAsyncThunk(
       label:label,
       token:token
     }).then((res)=>{
+      dispatch(TokenGetter())
+      return res.data
+    })
+  },{
+    condition:(force:boolean|void,{getState}) : boolean => {
+      var {Token} : any = getState();
+      if((Token as TokenState).Pending===true){
+        return false;
+      }
+      return true
+    }
+  }
+)
+export const TokenDelete = createAsyncThunk(
+  "token/post",
+  async (id:any,{dispatch}) => {
+    return axios.delete(process.env.REACT_APP_SERVER+`/api/token/${id}`).then((res)=>{
       dispatch(TokenGetter())
       return res.data
     })
