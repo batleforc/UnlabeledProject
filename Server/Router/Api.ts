@@ -10,6 +10,18 @@ router
   .post("/",(ctx : any,next : any)=>{
     ctx.body=ctx.request.body
   })
+  .get("/me",async (ctx:any,next:any)=>{
+    if(ctx.discord.Ready)
+      ctx.body={
+        img:ctx.discord.GetUser()?ctx.discord.GetUser().displayAvatarURL():"https://cdn.discordapp.com/embed/avatars/0.png",
+        user:ctx.discord.GetUser()
+      }
+    else
+      ctx.body={
+        img:"https://cdn.discordapp.com/embed/avatars/0.png",
+        message:"Bot not started yet or not ready"
+      }
+  })
 
 router.use('/token', Token.routes(), Token.allowedMethods());
 
