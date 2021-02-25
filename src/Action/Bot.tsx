@@ -4,6 +4,7 @@ import axios from 'axios';
 interface User{
   img : any,
   user : any,
+  link: string
   Pending:Boolean
 }
 
@@ -22,7 +23,7 @@ export const BotGetter = createAsyncThunk(
   }
 )
 
-const initialState = {img:null,user:null,Pending:false} as User
+const initialState = {img:null,user:null,Pending:false,link:""} as User
 
 const BotSlicer = createSlice({
   name : "Bot",
@@ -34,6 +35,7 @@ const BotSlicer = createSlice({
       state.Pending=false
       state.img=payload.img
       state.user=payload.user
+      state.link=payload.link
     })
     builder.addCase(BotGetter.rejected,(state,action)=>{
       state.Pending=false

@@ -7,6 +7,8 @@ export const App = ({dispatch}:any) => {
   useEffect(() => {
     dispatch(TokenGetter())
     dispatch(BotGetter())
+    if(process.env.REACT_APP_NAME!==undefined)
+      document.title=process.env.REACT_APP_NAME
   }, []);
   return (
     <div className="App">
