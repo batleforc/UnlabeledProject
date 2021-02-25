@@ -6,9 +6,11 @@ var router = new Router({
 router
   .get("/",async (ctx : any,next : any)=>{
     ctx.body = "Hello World"
+    next()
   })
   .post("/",(ctx : any,next : any)=>{
     ctx.body=ctx.request.body
+    next()
   })
   .get("/me",async (ctx:any,next:any)=>{
     if(ctx.discord.Ready)
@@ -21,6 +23,7 @@ router
         img:"https://cdn.discordapp.com/embed/avatars/0.png",
         message:"Bot not started yet or not ready"
       }
+      next()
   })
 
 router.use('/token', Token.routes(), Token.allowedMethods());
