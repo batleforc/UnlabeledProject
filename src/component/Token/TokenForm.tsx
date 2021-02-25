@@ -7,6 +7,8 @@ export const TokenForm = ({dispatch,...props}:any) => {
   var [token,setToken] = useState("");
   var send = () =>{
     dispatch(TokenCreate({label,token}))
+    setLabel("")
+    setToken("")
   }
   return (
     <div className=" px-3 py-3 space-y-4 justify-self-center">
