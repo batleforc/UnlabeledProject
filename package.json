@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Projet de soundboard afin de me familiariser avec certain package",
+  "url":"https://github.com/batleforc/SoundBoard",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/batleforc/SoundBoard.git"
