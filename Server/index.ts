@@ -18,6 +18,7 @@ Serveur.AddRouter(Api)
 DiscordClient.FireWhenReady(()=>{
   console.log("I'm ready")
 })
+DiscordClient.LoginClient(process.env.Token)
 
 
 Serveur.ListenServer(()=>{
