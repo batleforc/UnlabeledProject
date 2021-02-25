@@ -9,6 +9,7 @@ interface Token{
 interface TokenState{
   AllToken : [Token] | [],
   ActiveTokenId : number | null
+  Pending:Boolean
 }
 
 
@@ -27,7 +28,7 @@ export const TokenGetter = createAsyncThunk(
   }
 )
 
-const initialState = {AllToken:[],ActiveTokenId:null} as TokenState
+const initialState = {AllToken:[],ActiveTokenId:null,Pending:false} as TokenState
 
 const TokenSlicer = createSlice({
   name : "Token",
@@ -36,6 +37,16 @@ const TokenSlicer = createSlice({
     setActiveTokenId : (state,action:PayloadAction<number>) => {
       state.ActiveTokenId = action.payload
     }
+  },
+  extraReducers:builder =>{
+    builder.addCase(TokenGetter.fulfilled,(state,action)=>{
+      state.Pending=false
+      state.AllToken=action.payload
+    })
+    builder.addCase(TokenGetter.rejected,(state,action)=>{
+      state.Pending=false
+    })
+    builder.addCase(TokenGetter.pending,(state,Action)=>{state.Pending=true})
   }
 })
 
