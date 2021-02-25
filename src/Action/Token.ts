@@ -1,5 +1,6 @@
 import {createSlice,createAsyncThunk,PayloadAction} from '@reduxjs/toolkit'
 import axios from 'axios';
+import Action from '.';
 
 interface Token{
   id : number,
@@ -27,6 +28,26 @@ export const TokenGetter = createAsyncThunk(
     }
   }
 )
+export const TokenCreate = createAsyncThunk(
+  "token/post",
+  async ({label,token}:any,{dispatch}) => {
+    return axios.post(process.env.REACT_APP_SERVER+"/api/token",{
+      label:label,
+      token:token
+    }).then((res)=>{
+      dispatch(TokenGetter())
+      return res.data
+    })
+  },{
+    condition:(force:boolean|void,{getState}) : boolean => {
+      var {Token} : any = getState();
+      if((Token as TokenState).Pending===true){
+        return false;
+      }
+      return true
+    }
+  }
+)
 
 const initialState = {AllToken:[],ActiveTokenId:null,Pending:false} as TokenState
 
@@ -39,14 +60,19 @@ const TokenSlicer = createSlice({
     }
   },
   extraReducers:builder =>{
-    builder.addCase(TokenGetter.fulfilled,(state,action)=>{
-      state.Pending=false
-      state.AllToken=action.payload
-    })
-    builder.addCase(TokenGetter.rejected,(state,action)=>{
-      state.Pending=false
-    })
-    builder.addCase(TokenGetter.pending,(state,Action)=>{state.Pending=true})
+    builder
+      .addCase(TokenGetter.rejected,(state)=>{state.Pending=false})
+      .addCase(TokenGetter.pending,(state)=>{state.Pending=true})
+      .addCase(TokenGetter.fulfilled,(state,action)=>{
+        state.Pending=false
+        state.AllToken=action.payload
+      })
+      .addCase(TokenCreate.pending,(state)=>{state.Pending=true})
+      .addCase(TokenCreate.rejected,(state)=>{state.Pending=false})
+      .addCase(TokenCreate.fulfilled,(state,Action)=>{
+        state.Pending=false
+        console.log(Action.payload)
+      })
   }
 })
 
