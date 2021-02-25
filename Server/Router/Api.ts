@@ -1,5 +1,6 @@
 import Router from '@koa/router'
 import Token from './Api/Token'
+import Bot from './Api/Bot'
 var router = new Router({
   prefix: '/Api'
 });
@@ -27,5 +28,6 @@ router
   })
 
 router.use('/token', Token.routes(), Token.allowedMethods());
+router.use('/bot', Bot.routes(), Bot.allowedMethods());
 
 export default router
