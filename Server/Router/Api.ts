@@ -17,12 +17,14 @@ router
     if(ctx.discord.Ready)
       ctx.body={
         img:ctx.discord.GetUser()?ctx.discord.GetUser().displayAvatarURL():"https://cdn.discordapp.com/embed/avatars/0.png",
-        user:ctx.discord.GetUser()
+        user:ctx.discord.GetUser(),
+        link:`https://discord.com/oauth2/authorize?client_id=${ctx.discord.GetUser().id}&scope=bot&permissions=343273214`
       }
     else
       ctx.body={
         img:"https://cdn.discordapp.com/embed/avatars/0.png",
-        message:"Bot not started yet or not ready"
+        message:"Bot not started yet or not ready",
+        link:""
       }
       next()
   })
