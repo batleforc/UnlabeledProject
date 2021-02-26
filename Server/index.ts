@@ -18,9 +18,6 @@ Serveur.AddRouter(Api)
 DiscordClient.FireWhenReady(()=>{
   console.log("I'm ready")
 })
-if(process.env.Token!==undefined)
-  DiscordClient.LoginClient(process.env.Token)
-
 
 Serveur.ListenServer(()=>{
   console.log("Serveur is listening on "+process.env.SERVER_PORT)
