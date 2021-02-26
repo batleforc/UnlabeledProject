@@ -16,7 +16,7 @@ export const index = ({Bot,...props}: any) => {
       <div id="BotLogo" className="flex flex-1 place-items-center text-center justify-end leading-3">
         {Bot.link!==""&&
         <div className="px-2">
-          <p className="text-base">{Bot.user?Bot.user.tag:""}</p>
+          <Link to="/token"><p className="text-base">{Bot.user?Bot.user.tag:""}</p></Link>
           <a className="text-xs" href={Bot.link} target="_blank" rel="noreferrer">Lien d'invitation</a>
         </div>}
         {Bot.link===""&&
