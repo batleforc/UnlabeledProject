@@ -1,4 +1,6 @@
 import Router from '@koa/router'
+import DataBase from '../../Utils/Db';
+import Discord from '../../Utils/Discord';
 var Bot = new Router();
 
 Bot
@@ -18,6 +20,14 @@ Bot
       ctx.body={
         message:"Bot not started yet or not ready"
       }
+    next()
+  })
+  .post("/start", async (ctx : any, next :any) => {
+    if(ctx.request.body.id===undefined)
+    if(!ctx.discord.Ready)
+      (ctx.discord as Discord).DisconnectClient();
+    (ctx.discord as Discord).LoginClient((ctx.Db as DataBase).GetToken(ctx.request.body.id).token);
+    ctx.body={message:"all Is Green"}
     next()
   })
 
