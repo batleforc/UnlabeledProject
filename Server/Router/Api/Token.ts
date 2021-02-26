@@ -17,7 +17,6 @@ Token
   })
   .delete("/:id", async (ctx : any , next : any) => {
     var params = ctx.params.id;
-    console.log(params)
     if(params===undefined){
       ctx.status = 400
       ctx.body={message:"Error one argument missing"}
