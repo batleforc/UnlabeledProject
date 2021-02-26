@@ -6,6 +6,7 @@ interface User{
   user : any,
   link: string
   Pending:Boolean
+  Serveur: [any] | []
 }
 
 export const BotGetter = createAsyncThunk(
@@ -22,8 +23,22 @@ export const BotGetter = createAsyncThunk(
     }
   }
 )
+export const BotServerGetter = createAsyncThunk(
+  "Bot/serveur/get",
+  async (value,{dispatch}) => {
+    return axios.get(process.env.REACT_APP_SERVER+"/api/bot/serveur")
+      .then((value)=>value.data)
+  },{
+    condition:(force : boolean |void,{getState}) : boolean => {
+      var test = getState()
+      if((test as any).Bot.user===null)
+        return false
+      return true
+    }
+  }
+)
 
-const initialState = {img:null,user:null,Pending:false,link:""} as User
+const initialState = {img:null,user:null,Pending:false,link:"",Serveur:[]} as User
 
 const BotSlicer = createSlice({
   name : "Bot",
@@ -31,16 +46,23 @@ const BotSlicer = createSlice({
   reducers : {
   },
   extraReducers:builder =>{
-    builder.addCase(BotGetter.fulfilled,(state,{payload})=>{
-      state.Pending=false
-      state.img=payload.img
-      state.user=payload.user
-      state.link=payload.link
-    })
-    builder.addCase(BotGetter.rejected,(state,action)=>{
-      state.Pending=false
-    })
-    builder.addCase(BotGetter.pending,(state,Action)=>{state.Pending=true})
+    builder
+      .addCase(BotGetter.fulfilled,(state,{payload})=>{
+        state.Pending=false
+        state.img=payload.img
+        state.user=payload.user
+        state.link=payload.link
+      })
+      .addCase(BotGetter.rejected,(state,action)=>{
+        state.Pending=false
+      })
+      .addCase(BotGetter.pending,(state,Action)=>{state.Pending=true})
+      .addCase(BotServerGetter.pending,(state)=>{state.Pending=true})
+      .addCase(BotServerGetter.rejected,(state)=>{state.Pending=false})
+      .addCase(BotServerGetter.fulfilled,(state,{payload})=>{
+        state.Pending=false
+        state.Serveur=payload
+      })
   }
 })
 

@@ -11,7 +11,10 @@ export const index = ({Bot,...props}: any) => {
         </Link>
       </div>
       <div id="Nav" className="flex-1 justify-start">
-        
+        {Bot.user!==undefined&&
+        <div>
+          <p>Cerveaux</p>
+        </div>}
       </div>
       <div id="BotLogo" className="flex flex-1 place-items-center text-center justify-end leading-3">
         {Bot.link!==""&&
