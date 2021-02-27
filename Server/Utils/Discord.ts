@@ -11,13 +11,20 @@ class Discord{
 
   LoginClient = (token : string) => this.client.login(token)
   DisconnectClient = () =>{
-    this.client.destroy()
-    this.Ready = false;
+    this.client= new Discordjs.Client();
+    this.FireWhenReady(()=>{})
+    this.FireWhenDisconnect(()=>{})
+    console.log("test")
+    this.Ready=false
   }
 
   FireWhenReady = ( toDo : Function ) => this.client.on('ready',()=>{
     this.Ready = true;
     toDo()
+  })
+  FireWhenDisconnect = (toDo : Function) => this.client.on("disconnect",()=>{
+    this.Ready=false;
+    toDo();
   })
 
   GetAllServer = () => this.client.guilds.cache
