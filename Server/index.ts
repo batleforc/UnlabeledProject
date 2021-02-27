@@ -19,6 +19,10 @@ DiscordClient.FireWhenReady(()=>{
   console.log("I'm ready")
 })
 
+DiscordClient.FireWhenDisconnect(()=>{
+  console.log("I'm Off")
+})
+
 Serveur.ListenServer(()=>{
   console.log("Serveur is listening on "+process.env.SERVER_PORT)
 })
