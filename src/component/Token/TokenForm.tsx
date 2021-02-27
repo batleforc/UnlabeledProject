@@ -14,7 +14,6 @@ export const TokenForm = ({dispatch,Token,...props}:any) => {
   }
   return (
     <div className=" px-3 py-3 space-y-4 justify-self-center">
-      <p>Create Token : </p>
       <div className="flex flex-col flex-wrap content-center">
         <label className="block text-center">
           <span>Label</span>
