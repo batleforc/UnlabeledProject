@@ -6,6 +6,7 @@ import { Route ,Link} from 'react-router-dom'
 import TokenComponent from './Token'
 import NavBar from './navbar'
 import Modal from './Modal'
+import TokenModalForm from './Token/TokenModalForm'
 export const App = ({dispatch,Token}:any) => {
   useEffect(() => {
     dispatch(TokenGetter())
@@ -20,7 +21,8 @@ export const App = ({dispatch,Token}:any) => {
       {(!Token.Pending && Token.AllToken.length===0) &&<Link to="/token">Est mec ta pas de token ! clic moi dessus</Link>}
       <NavBar />
       <Route path="/token" component={TokenComponent} />
-      <Modal warn={true} />
+      <Modal warn={true} on={false} />
+      <TokenModalForm />
     </div>
   );
 }
