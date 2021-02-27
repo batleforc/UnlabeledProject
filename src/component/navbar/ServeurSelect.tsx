@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 export const ServeurSelect = ({}:any) => {
   return (
-    <div>
+    <div id="Nav" className="flex-1 justify-start">
       
     </div>
   )

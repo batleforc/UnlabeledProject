@@ -84,6 +84,24 @@ export const TokenActivate = createAsyncThunk(
     }
   }
 )
+export const TokenDeactivate = createAsyncThunk(
+  "token/Deactivate",
+  async (id:any,{dispatch}) => {
+    return axios.post(process.env.REACT_APP_SERVER+`/api/bot/stop`)
+      .then((res)=>{
+        dispatch(TokenGetter())
+        return res.data
+      })
+  },{
+    condition:(force:boolean|void,{getState}) : boolean => {
+      var {Token} : any = getState();
+      if((Token as TokenState).Pending===true){
+        return false;
+      }
+      return true
+    }
+  }
+)
 
 
 
@@ -114,6 +132,12 @@ const TokenSlicer = createSlice({
       .addCase(TokenActivate.pending,(state)=>{state.Pending=true})
       .addCase(TokenActivate.rejected,(state)=>{state.Pending=false})
       .addCase(TokenActivate.fulfilled,(state,Action)=>{
+        state.Pending=false
+        console.log(Action.payload)
+      })
+      .addCase(TokenDeactivate.pending,(state)=>{state.Pending=true})
+      .addCase(TokenDeactivate.rejected,(state)=>{state.Pending=false})
+      .addCase(TokenDeactivate.fulfilled,(state,Action)=>{
         state.Pending=false
         console.log(Action.payload)
       })

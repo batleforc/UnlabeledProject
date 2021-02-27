@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import ServeurSelect from './ServeurSelect'
 
 export const index = ({Bot,...props}: any) => {
   return (
@@ -10,12 +11,7 @@ export const index = ({Bot,...props}: any) => {
           <p className="text-lg">{process.env.REACT_APP_NAME}</p>
         </Link>
       </div>
-      <div id="Nav" className="flex-1 justify-start">
-        {Bot.user!==undefined&&
-        <div>
-          <p>Cerveaux</p>
-        </div>}
-      </div>
+      {Bot.user!==undefined&&<ServeurSelect />}
       <div id="BotLogo" className="flex flex-1 place-items-center text-center justify-end leading-3">
         {Bot.link!==""&&
         <div className="px-2">
