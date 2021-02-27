@@ -112,3 +112,5 @@ L'objectif serais d'émettre des sons sur un input audio que discord ou un autre
   https://discordjs.guide/voice/the-basics.html#joining-voice-channels
 
   https://discordjs.guide/voice/understanding-voice.html#understanding-voice
+
+  https://jsonlogic.com/
