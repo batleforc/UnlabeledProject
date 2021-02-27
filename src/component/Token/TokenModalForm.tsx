@@ -6,8 +6,10 @@ import {hideTokenForm} from '../../Action/showModal'
 
 const TokenModalForm = ({ShowModal,dispatch}:any) =>{
   const onEchap = ({key}:any)=>{
-    if(key==="Escape")
+    if(key==="Escape"){
       dispatch(hideTokenForm())
+      window.removeEventListener('keydown',onEchap);
+    }
   }
   useEffect(()=>{
     window.addEventListener("keydown",onEchap);
