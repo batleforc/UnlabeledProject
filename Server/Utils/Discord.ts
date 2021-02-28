@@ -1,4 +1,5 @@
 import Discordjs, { ActivityType, Guild, Presence, PresenceData } from 'discord.js'
+import { Server } from 'socket.io';
 
 class Discord{
   client : Discordjs.Client
@@ -10,16 +11,17 @@ class Discord{
   GetClient = () => this.client
 
   LoginClient = (token : string) => this.client.login(token)
-  DisconnectClient = () =>{
+  DisconnectClient = (io : Server) =>{
     this.client= new Discordjs.Client();
-    this.FireWhenReady(()=>{})
+    this.FireWhenReady(io,()=>{})
     this.FireWhenDisconnect(()=>{})
     console.log("test")
     this.Ready=false
   }
 
-  FireWhenReady = ( toDo : Function ) => this.client.on('ready',()=>{
+  FireWhenReady = ( io : Server , toDo : Function ) => this.client.on('ready',()=>{
     this.Ready = true;
+    io.emit("botupdate")
     toDo()
   })
   FireWhenDisconnect = (toDo : Function) => this.client.on("disconnect",()=>{
