@@ -7,6 +7,8 @@ import TokenComponent from './Token'
 import NavBar from './navbar'
 import Modal from './Modal'
 import TokenModalForm from './Token/TokenModalForm'
+import io from 'socket.io-client'
+var socket = io((process.env.REACT_APP_SERVER as string),{})
 export const App = ({dispatch,Token}:any) => {
   useEffect(() => {
     dispatch(TokenGetter())
@@ -18,8 +20,8 @@ export const App = ({dispatch,Token}:any) => {
 
   return (
     <div className="App">
-      {(!Token.Pending && Token.AllToken.length===0) &&<Link to="/token">Est mec ta pas de token ! clic moi dessus</Link>}
       <NavBar />
+      {(!Token.Pending && Token.AllToken.length===0) &&<Link to="/token">Est mec ta pas de token ! clic moi dessus</Link>}
       <Route path="/token" component={TokenComponent} />
       <Modal warn={true} on={false} />
       <TokenModalForm />
