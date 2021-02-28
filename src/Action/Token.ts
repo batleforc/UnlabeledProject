@@ -1,4 +1,5 @@
 import {createSlice,createAsyncThunk,PayloadAction} from '@reduxjs/toolkit'
+import {resetUpdateBot} from './Event'
 import axios from 'axios';
 
 interface Token{
@@ -17,7 +18,10 @@ export const TokenGetter = createAsyncThunk(
   "token/get",
   async (value,{dispatch}) => {
     return axios.get(process.env.REACT_APP_SERVER+"/api/token")
-      .then((value)=>value.data)
+      .then((value)=>{
+        dispatch(resetUpdateBot())
+        return value.data
+      })
   },{
     condition:(force : boolean |void,{getState}) : boolean => {
       var test = getState()
