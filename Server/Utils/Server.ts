@@ -1,6 +1,6 @@
-import { Socket } from "dgram"
 import Router from "koa-router"
 import cors from "@koa/cors"
+import {Server,Socket} from 'socket.io'
 var {Log} = require('./Log')
 
 var Koa = require('koa')
@@ -15,7 +15,11 @@ class WebServer{
     this.Port =Port
     this.app= new Koa();
     this.server = require('http').createServer(this.app.callback())
-    this.io = require('socket.io')(this.server)
+    this.io = new Server(this.server,{
+      cors:{
+        origin:"*"
+      }
+    })
     this.app.use(cors())
     this.app.use(KoaBody())
     this.app.use(async (ctx:any,next:any)=>{
