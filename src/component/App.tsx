@@ -8,15 +8,22 @@ import NavBar from './navbar'
 import Modal from './Modal'
 import TokenModalForm from './Token/TokenModalForm'
 import io from 'socket.io-client'
+import {EventInit} from '../Action/Event'
 var socket = io((process.env.REACT_APP_SERVER as string),{})
-export const App = ({dispatch,Token}:any) => {
+export const App = ({dispatch,Token,Event}:any) => {
   useEffect(() => {
     dispatch(TokenGetter())
-    dispatch(BotGetter())
+    dispatch(BotGetter({}))
+    dispatch(EventInit({socket}))
     if(process.env.REACT_APP_NAME!==undefined)
       document.title=process.env.REACT_APP_NAME
       // eslint-disable-next-line
   }, []);
+  useEffect(()=>{
+    if(Event.ReloadBot){
+      dispatch(BotGetter({force:true}))
+    }
+  },[Event])
 
   return (
     <div className="App">
