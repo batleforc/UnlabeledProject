@@ -22,7 +22,7 @@ export const index = ({Bot,...props}: any) => {
         <Link to="/token" className="px-2">
           <p className="text-base">No bot Ready</p>
         </Link>}
-        <img className=" z-10 w-9 rounded" src={Bot.img} />
+        <img alt="Icon du bot" className=" z-10 w-9 rounded" src={Bot.img} />
       </div>
     </nav>
   )
