@@ -13,6 +13,9 @@ const initialState = {
 export const EventInit = createAsyncThunk(
   "Event/init",
   async ({socket}:any,{dispatch}) =>{
+    socket.on("botupdate",()=>{
+      dispatch(setUpdateBot())
+    })
 
   },{
     condition:(force:boolean|void,{getState}) : boolean => {
@@ -30,7 +33,8 @@ const EventSlicer = createSlice({
   name:"Event",
   initialState,
   reducers:{
-
+    setUpdateBot : (state) => {state.ReloadBot = true;},
+    resetUpdateBot : (state) => {state.ReloadBot = false}
   },
   extraReducers : builder => {
     builder
@@ -45,6 +49,7 @@ const EventSlicer = createSlice({
 
 
 export const {
-
+  setUpdateBot,
+  resetUpdateBot
 } = EventSlicer.actions
 export default EventSlicer.reducer
