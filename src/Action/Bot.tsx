@@ -11,13 +11,14 @@ interface User{
 
 export const BotGetter = createAsyncThunk(
   "Bot/get",
-  async (value,{dispatch}) => {
+  async ({force}:{force?: boolean |undefined},{dispatch}) => {
+    console.log("BotGetter")
     return axios.get(process.env.REACT_APP_SERVER+"/api/me")
       .then((value)=>value.data)
   },{
-    condition:(force : boolean |void,{getState}) : boolean => {
+    condition:({force}:{force?: boolean |undefined},{getState}) : boolean => {
       var test = getState()
-      if((test as any).Bot.user!==null)
+      if((test as any).Bot.user!==null&&force!==true)
         return false
       return true
     }
