@@ -26,7 +26,7 @@ DiscordClient.FireWhenReady(Serveur.GetSocket(),()=>{
   console.log("I'm ready")
 })
 
-DiscordClient.FireWhenDisconnect(()=>{
+DiscordClient.FireWhenDisconnect(Serveur.GetSocket(),()=>{
   console.log("I'm Off")
 })
 

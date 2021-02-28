@@ -14,7 +14,7 @@ class Discord{
   DisconnectClient = (io : Server) =>{
     this.client= new Discordjs.Client();
     this.FireWhenReady(io,()=>{})
-    this.FireWhenDisconnect(()=>{})
+    this.FireWhenDisconnect(io,()=>{})
     console.log("test")
     this.Ready=false
   }
@@ -24,8 +24,9 @@ class Discord{
     io.emit("botupdate")
     toDo()
   })
-  FireWhenDisconnect = (toDo : Function) => this.client.on("disconnect",()=>{
+  FireWhenDisconnect = ( io :Server ,toDo : Function) => this.client.on("disconnect",()=>{
     this.Ready=false;
+    io.emit("botupdate")
     toDo();
   })
 
