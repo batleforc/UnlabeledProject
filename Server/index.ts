@@ -13,9 +13,16 @@ var Db = new DataBase(store);
 Serveur.AddToAppContext("Db",Db)
 Serveur.AddToAppContext("discord",DiscordClient)
 Serveur.AddToAppContext("store",store)
+Serveur.AddToAppContext("io",Serveur.GetSocket())
 Serveur.AddRouter(Api)
+Serveur.GetSocket().on('connection',(socket:any)=>{
+  console.log("JOSEPHINE EST CONNECTER")
+})
+Serveur.AddListener("message",(socket : any,param : any)=>{
+  socket.emit("test",param)
+})
 
-DiscordClient.FireWhenReady(()=>{
+DiscordClient.FireWhenReady(Serveur.GetSocket(),()=>{
   console.log("I'm ready")
 })
 
