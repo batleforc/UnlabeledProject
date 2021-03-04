@@ -13,7 +13,7 @@ const initialState = {
 export const EventInit = createAsyncThunk(
   "Event/init",
   async ({socket}:any,{dispatch}) =>{
-    socket.on("botupdate",()=>{
+    socket.on("botUpdate",()=>{
       dispatch(setUpdateBot())
     })
 

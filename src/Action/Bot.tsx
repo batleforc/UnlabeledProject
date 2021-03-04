@@ -12,7 +12,6 @@ interface User{
 export const BotGetter = createAsyncThunk(
   "Bot/get",
   async ({force}:{force?: boolean |undefined},{dispatch}) => {
-    console.log("BotGetter")
     return axios.get(process.env.REACT_APP_SERVER+"/api/me")
       .then((value)=>value.data)
   },{

@@ -23,12 +23,13 @@ export const App = ({dispatch,Token,Event}:any) => {
     if(Event.ReloadBot){
       dispatch(BotGetter({force:true}))
     }
+    // eslint-disable-next-line
   },[Event])
 
   return (
     <div className="App">
       <NavBar />
-      {(!Token.Pending && Token.AllToken.length===0) &&<Link to="/token">Est mec ta pas de token ! clic moi dessus</Link>}
+      {(!Token.Pending && Token.AllToken.length===0) && <Link to="/token">Est mec ta pas de token ! clic moi dessus</Link>}
       <Route path="/token" component={TokenComponent} />
       <Modal warn={true} on={false} />
       <TokenModalForm />
