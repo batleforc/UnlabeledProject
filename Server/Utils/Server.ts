@@ -1,7 +1,7 @@
 import Router from "koa-router"
 import cors from "@koa/cors"
 import {Server,Socket} from 'socket.io'
-var {Log} = require('./Log')
+import {ModuleLog} from '../Utils/Log'
 
 var Koa = require('koa')
 var KoaBody = require('koa-body')
@@ -26,7 +26,7 @@ class WebServer{
 
       next()
     })
-    Log("WebServer","Le webServeur est initialiser")
+    ModuleLog("WebServer",undefined,true)
   }
 
   GetApp = () => this.app

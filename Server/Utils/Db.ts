@@ -1,6 +1,6 @@
 import BetterDatabase from 'better-sqlite3'
 import Store from './Store'
-var {Log} = require('./Log')
+import {ModuleLog} from '../Utils/Log'
 class DataBase{
   db : BetterDatabase.Database
   Table : any
@@ -8,7 +8,7 @@ class DataBase{
     this.db = new BetterDatabase(conf.GetConf("db"))
     this.Table = conf.GetConf("table")
     this.CreateTokenTable(conf.GetConf("table").token).run()
-    Log("DataBase","La base de donnée est initialiser")
+    ModuleLog("DataBase",undefined,true)
   }
   CreateTokenTable = (TokenTableName : string)=> this.db.prepare(
     `CREATE TABLE IF NOT EXISTS ${TokenTableName} (

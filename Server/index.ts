@@ -1,4 +1,5 @@
-console.log("Serveur Start")
+import {Log, ModuleLog} from './Utils/Log'
+ModuleLog("Serveur","Starting")
 require('dotenv-flow').config()
 import WebServer from './Utils/Server'
 import Store from './Utils/Store'
@@ -16,20 +17,13 @@ Serveur.AddToAppContext("store",store)
 Serveur.AddToAppContext("io",Serveur.GetSocket())
 Serveur.AddRouter(Api)
 Serveur.GetSocket().on('connection',(socket:any)=>{
-  console.log("JOSEPHINE EST CONNECTER")
+  Log("Socket","Un uttilisateur est connecter")
 })
 Serveur.AddListener("message",(socket : any,param : any)=>{
   socket.emit("test",param)
 })
-
-DiscordClient.FireWhenReady(Serveur.GetSocket(),()=>{
-  console.log("I'm ready")
-})
-
-DiscordClient.FireWhenDisconnect(Serveur.GetSocket(),()=>{
-  console.log("I'm Off")
-})
+DiscordClient.DefaultFire(Serveur.GetSocket())
 
 Serveur.ListenServer(()=>{
-  console.log("Serveur is listening on "+process.env.SERVER_PORT)
+  ModuleLog("Serveur",`Le serveur est en écoute sur le port ${String(process.env.SERVER_PORT)}`)
 })

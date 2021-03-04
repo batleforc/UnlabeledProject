@@ -1,6 +1,6 @@
-var path = require('path')
-var fs = require('fs')
-var {Log} = require('./Log')
+import path from 'path'
+import fs from 'fs'
+import {ModuleLog} from '../Utils/Log'
 
 class Store{
   nconf
@@ -8,14 +8,14 @@ class Store{
 
   constructor(){
     this.nconf = require('nconf')
-    this.soundBoardRoot = path.join(process.env.APPDATA,"SoundBoard")
+    this.soundBoardRoot = path.join(String(process.env.APPDATA),"SoundBoard")
     this.nconf
       .argv()
       .env()
     if(this.CreateFolderIfNotExist(this.soundBoardRoot)){
       this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"Store"))
       this.AddFileConfig(path.join(this.soundBoardRoot,"Store","config.json"))
-      Log("Store","Le store est est initialiser")
+      ModuleLog("Store",undefined,true)
     }
     this.nconf.defaults({
       "db": path.join(this.soundBoardRoot,"soundboard.db"),
