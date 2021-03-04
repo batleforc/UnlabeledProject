@@ -22,19 +22,36 @@ class Discord{
   DefaultFire = (io : Server) => {
     this.FireWhenReady(io,()=>{})
     this.FireWhenDisconnect(io,()=>{})
+    this.FireWhenGuildJoin(io,()=>{})
+    if(process.env.NODE_ENV=="development"){
+      this.FireWhenDebug()
+      this.FireWhenWarn()
+      this.FireWhenError()
+    }
+    ModuleLog("Discord","Event initialiser")
   }
 
+  FireWhenDebug = () => this.client.on("debug",(message : string) => Log("Discord",message))
+  FireWhenWarn = () => this.client.on("warn",(message : string) => Log("Discord",message))
+  FireWhenError = () => this.client.on("error",(message : Error) => Log("Discord",message.message))
   FireWhenReady = ( io : Server , toDo : Function ) => this.client.on('ready',()=>{
     this.Ready = true;
-    io.emit("botupdate")
+    io.emit("botUpdate")
     Log("Discord","Bot Started")
+    Log("Socket","Tout les client sont actualiser")
     toDo()
   })
   FireWhenDisconnect = ( io :Server ,toDo : Function) => this.client.on("disconnect",()=>{
     this.Ready=false;
-    io.emit("botupdate")
+    io.emit("botUpdate")
     Log("Discord","Bot Off")
     toDo();
+  })
+  FireWhenGuildJoin = (io : Server, toDo : Function) => this.client.on("guildCreate",(guild)=>{
+    io.emit("guildUpdate")
+    Log("Discord","Bot join guild "+guild.name)
+    Log("Socket","Tout les client sont actualiser")
+    toDo()
   })
 
   GetAllServer = () => this.client.guilds.cache

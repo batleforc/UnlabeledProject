@@ -17,7 +17,7 @@ Serveur.AddToAppContext("store",store)
 Serveur.AddToAppContext("io",Serveur.GetSocket())
 Serveur.AddRouter(Api)
 Serveur.GetSocket().on('connection',(socket:any)=>{
-  Log("Socket","Un uttilisateur est connecter")
+  Log("Socket","Un utilisateur est connecter")
 })
 Serveur.AddListener("message",(socket : any,param : any)=>{
   socket.emit("test",param)
@@ -25,5 +25,5 @@ Serveur.AddListener("message",(socket : any,param : any)=>{
 DiscordClient.DefaultFire(Serveur.GetSocket())
 
 Serveur.ListenServer(()=>{
-  ModuleLog("Serveur",`Le serveur est en écoute sur le port ${String(process.env.SERVER_PORT)}`)
+  ModuleLog("Serveur",`Le serveur est en écoute sur le port ${String(process.env.SERVER_PORT)} et fonctionne en ${String(process.env.NODE_ENV)}`)
 })
