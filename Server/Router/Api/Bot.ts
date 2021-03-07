@@ -1,4 +1,5 @@
 import Router from '@koa/router'
+import { VoiceChannel } from 'discord.js';
 import DataBase from '../../Utils/Db';
 import Discord from '../../Utils/Discord';
 var Bot = new Router();
@@ -30,6 +31,11 @@ Bot
     else
       ctx.body=[]
     next()
+  })
+  .get("/join", async (ctx : any, next: any)=>{
+    var chann = (ctx.discord as Discord).GetOneChan("516033688484446228","516033688933498892")
+    var connection = (chann as VoiceChannel).join()
+    var dispatch = (await connection).play("C:\\Users\\Maxime\\Downloads\\run-vine-sound-effect.mp3")
   })
   .post("/start", async (ctx : any, next :any) => {
     if(ctx.request.body.id===undefined)
