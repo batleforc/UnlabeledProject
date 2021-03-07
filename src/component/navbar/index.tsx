@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ServeurSelect from './ServeurSelect'
+import Nav from './nav'
 
 export const index = ({Bot,...props}: any) => {
   return (
@@ -12,6 +13,7 @@ export const index = ({Bot,...props}: any) => {
         </Link>
       </div>
       {Bot.user!==undefined&&<ServeurSelect />}
+      <Nav />
       <div id="BotLogo" className="flex flex-1 place-items-center text-center justify-end leading-3">
         {Bot.link!==""&&
         <div className="px-2">

@@ -22,6 +22,15 @@ Bot
       }
     next()
   })
+  .get("/chan/:id", async (ctx : any, next : any) => {
+    var params = ctx.params.id;
+    if(ctx.discord.Ready){
+      ctx.body = (ctx.discord as Discord).GetAllChan(params).filter(value=>["text","voice"].includes(value.type))
+    }
+    else
+      ctx.body=[]
+    next()
+  })
   .post("/start", async (ctx : any, next :any) => {
     if(ctx.request.body.id===undefined)
     if(ctx.discord.Ready)

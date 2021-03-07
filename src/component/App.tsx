@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import {TokenGetter} from '../Action/Token'
-import {BotGetter} from '../Action/Bot'
+import {BotGetter, BotServerGetter, reset} from '../Action/Bot'
 import { Route ,Link} from 'react-router-dom'
 import TokenComponent from './Token'
 import NavBar from './navbar'
@@ -10,19 +10,22 @@ import TokenModalForm from './Token/TokenModalForm'
 import io from 'socket.io-client'
 import {EventInit} from '../Action/Event'
 var socket = io((process.env.REACT_APP_SERVER as string),{})
-export const App = ({dispatch,Token,Event}:any) => {
+export const App = ({dispatch,Token,Event,Bot}:any) => {
   useEffect(() => {
     dispatch(TokenGetter())
     dispatch(BotGetter({}))
+      .then(()=>dispatch(BotServerGetter()))
     dispatch(EventInit({socket}))
     if(process.env.REACT_APP_NAME!==undefined)
       document.title=process.env.REACT_APP_NAME
       // eslint-disable-next-line
   }, []);
   useEffect(()=>{
-    if(Event.ReloadBot){
+    if(Event.ReloadBot)
       dispatch(BotGetter({force:true}))
-    }
+        .then(()=>dispatch(BotServerGetter()))
+    if(Event.ResetBot)
+      dispatch(reset())
     // eslint-disable-next-line
   },[Event])
 

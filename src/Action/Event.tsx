@@ -2,12 +2,14 @@ import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 interface Event {
   ReloadBot : Boolean,
   Ready : Boolean,
-  Pending : Boolean
+  Pending : Boolean,
+  ResetBot : Boolean
 }
 const initialState = {
   ReloadBot: false,
   Ready:false,
-  Pending:false
+  Pending:false,
+  ResetBot:false
 } as Event
 
 export const EventInit = createAsyncThunk(
@@ -15,6 +17,9 @@ export const EventInit = createAsyncThunk(
   async ({socket}:any,{dispatch}) =>{
     socket.on("botUpdate",()=>{
       dispatch(setUpdateBot())
+    })
+    socket.on("botReset",()=>{
+      dispatch(setResetBot())
     })
 
   },{
@@ -34,7 +39,9 @@ const EventSlicer = createSlice({
   initialState,
   reducers:{
     setUpdateBot : (state) => {state.ReloadBot = true;},
-    resetUpdateBot : (state) => {state.ReloadBot = false}
+    resetUpdateBot : (state) => {state.ReloadBot = false},
+    setResetBot : (state) => {state.ResetBot=true},
+    resetResetBot : (state) => {state.ResetBot=false}
   },
   extraReducers : builder => {
     builder
@@ -50,6 +57,8 @@ const EventSlicer = createSlice({
 
 export const {
   setUpdateBot,
-  resetUpdateBot
+  resetUpdateBot,
+  setResetBot,
+  resetResetBot
 } = EventSlicer.actions
 export default EventSlicer.reducer

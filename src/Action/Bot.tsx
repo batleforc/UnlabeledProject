@@ -4,9 +4,11 @@ import axios from 'axios';
 interface User{
   img : any,
   user : any,
-  link: string
-  Pending:Boolean
-  Serveur: [any] | []
+  link: string,
+  Pending:Boolean,
+  Serveur: [any] | [],
+  ActiveServeur : String,
+  ServeurChan : [any] |[]
 }
 
 export const BotGetter = createAsyncThunk(
@@ -38,12 +40,21 @@ export const BotServerGetter = createAsyncThunk(
   }
 )
 
-const initialState = {img:null,user:null,Pending:false,link:"",Serveur:[]} as User
+export const BotServeurChanGetter = createAsyncThunk(
+  "Bot/Serveur/chan/get",
+  async(value : string,{dispatch}) => {
+    return axios.get(process.env.REACT_APP_SERVER+`/api/bot/chan/${value}`)
+      .then((res)=>({id:value,res:res.data}))
+  }
+)
+
+const initialState = {img:null,user:null,Pending:false,link:"",Serveur:[],ActiveServeur:"-1",ServeurChan:[]} as User
 
 const BotSlicer = createSlice({
   name : "Bot",
   initialState,
   reducers : {
+    reset : (state) => {state=initialState}
   },
   extraReducers:builder =>{
     builder
@@ -63,7 +74,15 @@ const BotSlicer = createSlice({
         state.Pending=false
         state.Serveur=payload
       })
+      .addCase(BotServeurChanGetter.pending,(state)=>{state.Pending=true})
+      .addCase(BotServeurChanGetter.rejected,(state)=>{state.Pending=false})
+      .addCase(BotServeurChanGetter.fulfilled,(state,{payload})=>{
+        state.Pending=false
+        state.ActiveServeur=payload.id
+        state.ServeurChan=payload.res
+      })
   }
 })
 
+export const {reset} = BotSlicer.actions
 export default BotSlicer.reducer

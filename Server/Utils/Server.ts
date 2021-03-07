@@ -26,6 +26,7 @@ class WebServer{
 
       next()
     })
+    this.io.emit("botReset");
     ModuleLog("WebServer",undefined,true)
   }
 

@@ -41,7 +41,7 @@ class Discord{
     Log("Socket","Tout les client sont actualiser")
     toDo()
   })
-  FireWhenDisconnect = ( io :Server ,toDo : Function) => this.client.on("disconnect",()=>{
+  FireWhenDisconnect = ( io :Server ,toDo : Function) => this.client.on("disconnect",() => {
     this.Ready=false;
     io.emit("botUpdate")
     Log("Discord","Bot Off")
@@ -55,9 +55,9 @@ class Discord{
   })
 
   GetAllServer = () => this.client.guilds.cache
-  GetOneServer = ( guildId : string ) => this.client.guilds.cache.get(guildId)
+  GetOneServer = ( guildId : string ) => this.client.guilds.cache.find((value,index)=>index===guildId)
   GetAllChan = ( guildId : string ) => this.GetOneServer(guildId)?.channels.cache
-  GetOneChan = ( guildId : string , ChanId : string ) => this.GetAllChan(guildId)?.get(ChanId)
+  GetOneChan = ( guildId : string , ChanId : string ) => this.GetAllChan(guildId)?.find((value,index)=>index===ChanId)
 
   GetUser = () => this.client.user
 
