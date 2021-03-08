@@ -1,24 +1,27 @@
-import Discordjs, { ActivityType, Guild, Presence, PresenceData } from 'discord.js'
+import Discordjs, { ActivityType, Guild, Presence, PresenceData, StreamOptions, VoiceChannel } from 'discord.js'
 import { Server } from 'socket.io';
 import {Log, ModuleLog} from '../Utils/Log'
 
 class Discord{
   client : Discordjs.Client
   Ready : Boolean
+  Voice : Discordjs.VoiceConnection
   constructor() {
     this.client = new Discordjs.Client();
     this.Ready = false;
     ModuleLog("Discord",undefined,true)
   }
-  GetClient = () => this.client
 
+  //#region Auth
   LoginClient = (token : string) => this.client.login(token)
   DisconnectClient = (io : Server) =>{
     this.client= new Discordjs.Client();
     this.DefaultFire(io);
     this.Ready=false
   }
+  //#endregion
 
+  //#region FireEvent
   DefaultFire = (io : Server) => {
     this.FireWhenReady(io,()=>{})
     this.FireWhenDisconnect(io,()=>{})
@@ -30,7 +33,6 @@ class Discord{
     }
     ModuleLog("Discord","Event initialiser")
   }
-
   FireWhenDebug = () => this.client.on("debug",(message : string) => Log("Discord",message))
   FireWhenWarn = () => this.client.on("warn",(message : string) => Log("Discord",message))
   FireWhenError = () => this.client.on("error",(message : Error) => Log("Discord",message.message))
@@ -53,14 +55,19 @@ class Discord{
     Log("Socket","Tout les client sont actualiser")
     toDo()
   })
+  //#endregion
 
+  //#region Getter
+  GetClient = () => this.client
+  GetUser = () => this.client.user
+  GetVoice = () => this.Voice
   GetAllServer = () => this.client.guilds.cache
   GetOneServer = ( guildId : string ) => this.client.guilds.cache.find((value,index)=>index===guildId)
   GetAllChan = ( guildId : string ) => this.GetOneServer(guildId)?.channels.cache
   GetOneChan = ( guildId : string , ChanId : string ) => this.GetAllChan(guildId)?.find((value,index)=>index===ChanId)
+  //#endregion
 
-  GetUser = () => this.client.user
-
+  //#region PresenceHandler
   SetPresenceFromPresenceData = (presence : PresenceData ) => this.client.user?.setPresence(presence)
   SetPresence = (online : boolean , name : string , type : ActivityType) => this.SetPresenceFromPresenceData({
     status : online ? "online" : "idle" ,
@@ -69,6 +76,19 @@ class Discord{
       type : type
     }
   })
+  //#endregion
+
+  //#region Voice
+  VoiceJoin = (guildId : string, channelId : string) =>
+    (this.GetOneChan(guildId,channelId)as VoiceChannel)?.join()
+      .then(value=>this.Voice=value)
+  VoiceLeave = () => this.Voice?.disconnect()
+  VoicePlay = (toPlay : any,option? : StreamOptions) => this.Voice?.play(toPlay,option)
+  VoiceStop = () => this.Voice?.dispatcher?.pause()
+  VoiceResume = () => this.Voice?.dispatcher?.resume()
+  VoiceVolume = (volume : number) => this.Voice?.dispatcher?.setVolume(volume);
+  VoiceGetVolume = () => this.Voice?.dispatcher?.volume
+  //#endregion
 }
 
 export default Discord;
