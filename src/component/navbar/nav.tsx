@@ -2,9 +2,9 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 
-export const NavButton = ({}:any) => {
+export const NavButton = ({Bot}:any) => {
   return (
-    <div id="Nav" className={`flex-1 flex justify-center place-items-center`}>
+    <div id="Nav" className={`flex-1 flex justify-center place-items-center ${Bot.user!==undefined?"":"hidden"}`}>
       <Link to="/voice">Voice</Link>
     </div>
   )
