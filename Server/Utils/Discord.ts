@@ -81,13 +81,16 @@ class Discord{
   //#region Voice
   VoiceJoin = (guildId : string, channelId : string) =>
     (this.GetOneChan(guildId,channelId)as VoiceChannel)?.join()
-      .then(value=>this.Voice=value)
+      .then(value=>{this.Voice=value})
   VoiceLeave = () => this.Voice?.disconnect()
   VoicePlay = (toPlay : any,option? : StreamOptions) => this.Voice?.play(toPlay,option)
   VoiceStop = () => this.Voice?.dispatcher?.pause()
   VoiceResume = () => this.Voice?.dispatcher?.resume()
   VoiceVolume = (volume : number) => this.Voice?.dispatcher?.setVolume(volume);
   VoiceGetVolume = () => this.Voice?.dispatcher?.volume
+  VoiceGetIsPaused = ()=> this.Voice?.dispatcher?.paused
+  VoiceGetStatus = () => this.Voice?.status
+  VoiceGetChan = () => this.Voice?.channel
   //#endregion
 }
 
