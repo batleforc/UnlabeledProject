@@ -91,6 +91,12 @@ class Discord{
   VoiceGetIsPaused = ()=> this.Voice?.dispatcher?.paused
   VoiceGetStatus = () => this.Voice?.status
   VoiceGetChan = () => this.Voice?.channel
+
+  VoiceEventStart = (io : Server) => {
+    this.Voice.on("start", ()=>{io.emit("VoiceStart")})
+    this.Voice.on("volumeChange", ()=>{io.emit("VoiceVolume")})
+    this.Voice.on("speaking", ()=>{io.emit("VoiceSpeaking")})
+  }
   //#endregion
 }
 

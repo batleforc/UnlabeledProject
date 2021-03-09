@@ -25,6 +25,7 @@ Voice
       ctx.body={message:"Param manquant",guildId:guildId===undefined,chanId:chanId===undefined}
     }
     ctx.body=(ctx.discord as Discord).VoiceJoin(guildId,chanId);
+    (ctx.discord as Discord).VoiceEventStart(ctx.io)
     next()
   })
   .post("/leave",async (ctx : any, next : any)=>{
