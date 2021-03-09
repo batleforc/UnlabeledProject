@@ -3,13 +3,23 @@ interface Event {
   ReloadBot : Boolean,
   Ready : Boolean,
   Pending : Boolean,
-  ResetBot : Boolean
+  ResetBot : Boolean,
+  Voice  : {
+    Start : Boolean,
+    Volume : Boolean,
+    Speaking : Boolean
+  }
 }
 const initialState = {
   ReloadBot: false,
   Ready:false,
   Pending:false,
-  ResetBot:false
+  ResetBot:false,
+  Voice : {
+    Start : false,
+    Volume : false,
+    Speaking : false
+  }
 } as Event
 
 export const EventInit = createAsyncThunk(
@@ -20,6 +30,15 @@ export const EventInit = createAsyncThunk(
     })
     socket.on("botReset",()=>{
       dispatch(setResetBot())
+    })
+    socket.on("VoiceStart",()=>{
+      dispatch(setVoiceStart())
+    })
+    socket.on("VoiceVolume",()=>{
+      dispatch(setVoiceVolume())
+    })
+    socket.on("VoiceSpeaking",()=>{
+      dispatch(setVoiceSpeaking())
     })
 
   },{
@@ -41,7 +60,13 @@ const EventSlicer = createSlice({
     setUpdateBot : (state) => {state.ReloadBot = true;},
     resetUpdateBot : (state) => {state.ReloadBot = false},
     setResetBot : (state) => {state.ResetBot=true},
-    resetResetBot : (state) => {state.ResetBot=false}
+    resetResetBot : (state) => {state.ResetBot=false},
+    setVoiceStart : (state) => {state.Voice.Start=true},
+    resetVoiceStart : (state) => {state.Voice.Start=false},
+    setVoiceVolume : (state) => {state.Voice.Volume=true},
+    resetVoiceVolume : (state) => {state.Voice.Volume=false},
+    setVoiceSpeaking : (state) => {state.Voice.Speaking=true},
+    resetVoiceSpeaking : (state) => {state.Voice.Speaking=false},
   },
   extraReducers : builder => {
     builder
@@ -59,6 +84,12 @@ export const {
   setUpdateBot,
   resetUpdateBot,
   setResetBot,
-  resetResetBot
+  resetResetBot,
+  setVoiceSpeaking,
+  setVoiceStart,
+  setVoiceVolume,
+  resetVoiceSpeaking,
+  resetVoiceStart,
+  resetVoiceVolume
 } = EventSlicer.actions
 export default EventSlicer.reducer
