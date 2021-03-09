@@ -15,7 +15,7 @@ export const leaveChan = createAsyncThunk(
 )
 export const getVolume = createAsyncThunk(
   "voice/getVolume",
-  async ({guildId,ChanId}: any,{dispatch}) => {
+  async (something : void,{dispatch}) => {
 
   }
 )
@@ -33,19 +33,32 @@ export const startVoice = createAsyncThunk(
 )
 export const resumeVoice = createAsyncThunk(
   "voice/resumeVoice",
-  async ({guildId,ChanId}: any,{dispatch}) => {
+  async (something : void,{dispatch}) => {
 
   }
 )
 export const setVolume = createAsyncThunk(
   "voice/setVolume",
-  async ({guildId,ChanId}: any,{dispatch}) => {
+  async (volume : number,{dispatch}) => {
+
+  }
+)
+export const getStatus = createAsyncThunk(
+  "voice/getStatus",
+  async (something : void,{dispatch}) => {
+
+  }
+)
+export const getPause = createAsyncThunk(
+  "voice/getStatus",
+  async (something : void,{dispatch}) => {
 
   }
 )
 
 interface Voice{
   Pending   : boolean,
+  Playing   : boolean,
   Volume    : number,
   ChanId    : string,
   GuildId   : string,
@@ -53,6 +66,7 @@ interface Voice{
 }
 const initialState = {
   Pending : false,
+  Playing : false,
   Volume  : 0,
   ChanId  : "",
   GuildId : "",

@@ -8,7 +8,15 @@ import NavBar from './navbar'
 import Modal from './Modal'
 import TokenModalForm from './Token/TokenModalForm'
 import io from 'socket.io-client'
-import {EventInit} from '../Action/Event'
+import {
+  EventInit,
+  resetResetBot,
+  resetUpdateBot,
+  resetVoiceSpeaking,
+  resetVoiceStart,
+  resetVoiceVolume,
+} from '../Action/Event'
+import {startVoice,getVolume, getPause, getStatus} from '../Action/Voice'
 var socket = io((process.env.REACT_APP_SERVER as string),{})
 export const App = ({dispatch,Token,Event,Bot}:any) => {
   useEffect(() => {
@@ -23,9 +31,20 @@ export const App = ({dispatch,Token,Event,Bot}:any) => {
   useEffect(()=>{
     if(Event.ReloadBot)
       dispatch(BotGetter({force:true}))
+        .then(()=>dispatch(resetUpdateBot()))
         .then(()=>dispatch(BotServerGetter()))
     if(Event.ResetBot)
       dispatch(reset())
+        .then(()=>dispatch(resetResetBot()))
+    if(Event.Voice.Start)
+      dispatch(getStatus())
+        .then(()=>dispatch(resetVoiceStart()))
+    if(Event.Voice.Volume)
+      dispatch(getVolume())
+        .then(()=>dispatch(resetVoiceVolume()))
+    if(Event.Voice.Speaking)
+      dispatch(getPause())
+        .then(()=>dispatch(resetVoiceSpeaking()))
     // eslint-disable-next-line
   },[Event])
 
