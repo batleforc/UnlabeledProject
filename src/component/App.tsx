@@ -5,7 +5,6 @@ import {BotGetter, BotServerGetter, reset} from '../Action/Bot'
 import { Route, Link} from 'react-router-dom'
 import TokenComponent from './Token'
 import NavBar from './navbar'
-import Modal from './Modal'
 import TokenModalForm from './Token/TokenModalForm'
 import io from 'socket.io-client'
 import {
@@ -17,6 +16,7 @@ import {
   resetVoiceVolume,
 } from '../Action/Event'
 import {getVolume, getPause, getStatus} from '../Action/Voice'
+import Voice from './Voice';
 var socket = io((process.env.REACT_APP_SERVER as string),{})
 export const App = ({dispatch,Token,Event,Bot}:any) => {
   useEffect(() => {
@@ -53,7 +53,7 @@ export const App = ({dispatch,Token,Event,Bot}:any) => {
       <NavBar />
       {(!Token.Pending && Token.AllToken.length===0) && <Link to="/token">Est mec ta pas de token ! clic moi dessus</Link>}
       <Route path="/token" component={TokenComponent} />
-      <Modal warn={true} on={false} />
+      <Route path="/voice" component={Voice} />
       <TokenModalForm />
     </div>
   );
