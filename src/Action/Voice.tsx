@@ -1,58 +1,73 @@
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
+var ApiVoice = process.env.REACT_APP_SERVER+"/api/voice/"
 
 export const joinChan = createAsyncThunk(
   "voice/Join",
   async ({guildId,ChanId}: any,{dispatch}) => {
-
+    return axios.post(ApiVoice+"join",{
+      guildId:guildId,
+      chanId:ChanId
+    })
+      .then(value=>console.log(value))
   }
 )
 export const leaveChan = createAsyncThunk(
   "voice/leaveChan",
   async ({guildId,ChanId}: any,{dispatch}) => {
-
-  }
-)
-export const getVolume = createAsyncThunk(
-  "voice/getVolume",
-  async (something : void,{dispatch}) => {
-
+    return axios.post(ApiVoice+"leave")
+      .then(value=>console.log(value))
   }
 )
 export const stopVoice = createAsyncThunk(
   "voice/stopVoice",
-  async ({guildId,ChanId}: any,{dispatch}) => {
-
+  async (something : void,{dispatch}) => {
+    return axios.post(ApiVoice+"pause")
+      .then(value=>console.log(value))
   }
 )
 export const startVoice = createAsyncThunk(
   "voice/startVoice",
-  async ({guildId,ChanId}: any,{dispatch}) => {
-
+  async (something: string,{dispatch}) => {
+    return axios.post(ApiVoice+"play",{
+      toPlay : something
+    })
+      .then(value=>console.log(value))
   }
 )
 export const resumeVoice = createAsyncThunk(
   "voice/resumeVoice",
   async (something : void,{dispatch}) => {
-
+    return axios.post(ApiVoice+"resume")
+      .then(value=>console.log(value))
   }
 )
 export const setVolume = createAsyncThunk(
   "voice/setVolume",
   async (volume : number,{dispatch}) => {
-
+    return axios.post(ApiVoice+"volume")
+      .then(value=>console.log(value))
   }
 )
 export const getStatus = createAsyncThunk(
   "voice/getStatus",
   async (something : void,{dispatch}) => {
-
+    return axios.get(ApiVoice+"status")
+      .then(value=>console.log(value)) //if 0 = good sinon pas good
   }
 )
 export const getPause = createAsyncThunk(
   "voice/getStatus",
   async (something : void,{dispatch}) => {
-
+    return axios.get(ApiVoice+"pause")
+      .then(value=>console.log(value))
+  }
+)
+export const getVolume = createAsyncThunk(
+  "voice/getVolume",
+  async (something : void,{dispatch}) => {
+    return axios.get(ApiVoice+"volume")
+      .then(value=>console.log(value))
   }
 )
 

@@ -93,7 +93,7 @@ class Discord{
   VoiceGetChan = () => this.Voice?.channel
 
   VoiceEventStart = (io : Server) => {
-    this.Voice.on("start", ()=>{io.emit("VoiceStart")})
+    this.Voice.on("ready", ()=>{io.emit("VoiceStart")})
     this.Voice.on("volumeChange", ()=>{io.emit("VoiceVolume")})
     this.Voice.on("speaking", ()=>{io.emit("VoiceSpeaking")})
   }
