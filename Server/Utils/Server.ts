@@ -27,6 +27,9 @@ class WebServer{
       next()
     })
     this.io.emit("botReset");
+    this.io.on('connection',(Socket : Socket)=>{
+      this.io.emit("botUpdate")
+    })
     ModuleLog("WebServer",undefined,true)
   }
 
