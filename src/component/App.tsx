@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import {TokenGetter} from '../Action/Token'
 import {BotGetter, BotServerGetter, reset} from '../Action/Bot'
-import { Route ,Link} from 'react-router-dom'
+import { Route, Link} from 'react-router-dom'
 import TokenComponent from './Token'
 import NavBar from './navbar'
 import Modal from './Modal'
@@ -16,7 +16,7 @@ import {
   resetVoiceStart,
   resetVoiceVolume,
 } from '../Action/Event'
-import {startVoice,getVolume, getPause, getStatus} from '../Action/Voice'
+import {getVolume, getPause, getStatus} from '../Action/Voice'
 var socket = io((process.env.REACT_APP_SERVER as string),{})
 export const App = ({dispatch,Token,Event,Bot}:any) => {
   useEffect(() => {
