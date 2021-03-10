@@ -20,12 +20,14 @@ Voice
     next()
   })
   .post("/join",async (ctx : any, next : any)=>{
-    var {guildId,chanId} = ctx.request
+    var {guildId,chanId} = ctx.request.body
     if(guildId===undefined||chanId===undefined){
       ctx.body={message:"Param manquant",guildId:guildId===undefined,chanId:chanId===undefined}
     }
-    ctx.body=(ctx.discord as Discord).VoiceJoin(guildId,chanId);
-    (ctx.discord as Discord).VoiceEventStart(ctx.io)
+    (ctx.discord as Discord).VoiceJoin(guildId,chanId,ctx.io)
+    ctx.body={
+      launched:true
+    };
     next()
   })
   .post("/leave",async (ctx : any, next : any)=>{
@@ -33,7 +35,7 @@ Voice
     next()
   })
   .post("/volume",async (ctx : any, next : any)=>{
-    var {vol} = ctx.request
+    var {vol} = ctx.request.body
     if(vol===undefined){
       ctx.body={message:"Param manquant",vol:vol===undefined}
     }
@@ -41,11 +43,12 @@ Voice
     next()
   })
   .post("/play",async (ctx : any, next : any)=>{
-    var {toPlay,option} = ctx.request
+    var {toPlay,option} = ctx.request.body
     if(toPlay===undefined){
-      ctx.body={message:"Param manquant",toPlay:toPlay===undefined}
+      ctx.body={message:"Param manquant ",toPlay:toPlay===undefined}
     }
-    ctx.body=(ctx.discord as Discord).VoicePlay(toPlay,option);
+    (ctx.discord as Discord).VoicePlay(toPlay,option)
+    ctx.body={launched:true}
     next()
   })
   .post("/pause",async (ctx : any, next : any)=>{

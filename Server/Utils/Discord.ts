@@ -79,9 +79,9 @@ class Discord{
   //#endregion
 
   //#region Voice
-  VoiceJoin = (guildId : string, channelId : string) =>
+  VoiceJoin = (guildId : string, channelId : string,io : Server) =>
     (this.GetOneChan(guildId,channelId)as VoiceChannel)?.join()
-      .then(value=>{this.Voice=value})
+      .then(value=>{this.Voice=value;this.VoiceEventStart(io)})
   VoiceLeave = () => this.Voice?.disconnect()
   VoicePlay = (toPlay : any,option? : StreamOptions) => this.Voice?.play(toPlay,option)
   VoiceStop = () => this.Voice?.dispatcher?.pause()
