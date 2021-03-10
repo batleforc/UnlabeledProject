@@ -31,7 +31,8 @@ Voice
     next()
   })
   .post("/leave",async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceLeave()
+    (ctx.discord as Discord).VoiceLeave()
+    ctx.body={launched:true}
     next()
   })
   .post("/volume",async (ctx : any, next : any)=>{
@@ -39,7 +40,8 @@ Voice
     if(vol===undefined){
       ctx.body={message:"Param manquant",vol:vol===undefined}
     }
-    ctx.body=(ctx.discord as Discord).VoiceVolume(vol);
+    (ctx.discord as Discord).VoiceVolume(vol);
+    ctx.body={launched:true}
     next()
   })
   .post("/play",async (ctx : any, next : any)=>{
@@ -53,10 +55,12 @@ Voice
   })
   .post("/pause",async (ctx : any, next : any)=>{
     ctx.body=(ctx.discord as Discord).VoiceStop()
+    ctx.body={launched:true}
     next()
   })
   .post("/resume",async (ctx : any, next : any)=>{
     ctx.body=(ctx.discord as Discord).VoiceResume()
+    ctx.body={launched:true}
     next()
   })
 
