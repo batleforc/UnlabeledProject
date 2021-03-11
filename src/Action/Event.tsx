@@ -37,9 +37,6 @@ export const EventInit = createAsyncThunk(
     socket.on("VoiceVolume",()=>{
       dispatch(setVoiceVolume())
     })
-    socket.on("VoiceSpeaking",()=>{
-      dispatch(setVoiceSpeaking())
-    })
 
   },{
     condition:(force:boolean|void,{getState}) : boolean => {
