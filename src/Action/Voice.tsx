@@ -14,7 +14,7 @@ export const joinChan = createAsyncThunk(
 )
 export const leaveChan = createAsyncThunk(
   "voice/leaveChan",
-  async ({guildId,ChanId}: any,{dispatch}) => {
+  async (something : void,{dispatch}) => {
     return axios.post(ApiVoice+"leave")
       .then(value=>console.log(value))
   }
@@ -45,15 +45,15 @@ export const resumeVoice = createAsyncThunk(
 export const setVolume = createAsyncThunk(
   "voice/setVolume",
   async (volume : number,{dispatch}) => {
-    return axios.post(ApiVoice+"volume")
-      .then(value=>console.log(value))
+    return axios.post(ApiVoice+"volume",{vol:volume})
+      .then(value=>value.data)
   }
 )
 export const getStatus = createAsyncThunk(
   "voice/getStatus",
   async (something : void,{dispatch}) => {
     return axios.get(ApiVoice+"status")
-      .then(value=>console.log(value)) //if 0 = good sinon pas good
+      .then(value=>value.data===0) //if 0 = good sinon pas good
   }
 )
 export const getPause = createAsyncThunk(
@@ -67,7 +67,7 @@ export const getVolume = createAsyncThunk(
   "voice/getVolume",
   async (something : void,{dispatch}) => {
     return axios.get(ApiVoice+"volume")
-      .then(value=>console.log(value))
+      .then(value=>value.data)
   }
 )
 
@@ -83,7 +83,7 @@ const initialState = {
   Pending : false,
   Playing : false,
   Volume  : 0,
-  ChanId  : "",
+  ChanId  : "-1",
   GuildId : "",
   Status  : false
 } as Voice
@@ -92,11 +92,18 @@ const VoiceSlicer = createSlice({
   name:"Voice",
   initialState,
   reducers:{
-
+    setChanId : (state,{payload}) =>{state.ChanId=payload}
   },
   extraReducers: builder => {
-
+    builder
+      .addCase(getStatus.pending,(state,payload)=>{state.Pending=true})
+      .addCase(getStatus.rejected,(state,payload)=>{state.Pending=false})
+      .addCase(getStatus.fulfilled,(state,{payload})=>{state.Pending=false;state.Status=payload})
+      .addCase(getVolume.pending,(state,payload)=>{state.Pending=true})
+      .addCase(getVolume.rejected,(state,payload)=>{state.Pending=false})
+      .addCase(getVolume.fulfilled,(state,{payload})=>{state.Pending=false;state.Volume=payload})
   }
 })
 
+export const {setChanId} = VoiceSlicer.actions
 export default VoiceSlicer.reducer
