@@ -39,6 +39,7 @@ Voice
     var {vol} = ctx.request.body
     if(vol===undefined){
       ctx.body={message:"Param manquant",vol:vol===undefined}
+      return next()
     }
     (ctx.discord as Discord).VoiceVolume(vol);
     ctx.body={launched:true}

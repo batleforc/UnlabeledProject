@@ -93,9 +93,11 @@ class Discord{
   VoiceGetChan = () => this.Voice?.channel
 
   VoiceEventStart = (io : Server) => {
-    this.Voice.on("ready", ()=>{io.emit("VoiceStart")})
-    this.Voice.on("volumeChange", ()=>{io.emit("VoiceVolume")})
-    this.Voice.on("speaking", ()=>{io.emit("VoiceSpeaking")})
+    io.emit("VoiceStart")
+    io.emit("VoiceVolume")
+    this.client.on("authenticated", ()=>{io.emit("VoiceStart")})
+    this.client.on("volumeChange", ()=>{io.emit("VoiceVolume")})
+    this.client.on("speaking", ()=>{io.emit("VoiceSpeaking")})
   }
   //#endregion
 }
