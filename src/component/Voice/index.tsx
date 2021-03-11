@@ -1,14 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React,{useState} from 'react';
+import { connect } from 'react-redux';
+import {startVoice} from '../../Action/Voice'
 
-export const index = ({Voice,Bot} : any) => {
-
+export const Index = ({Voice,Bot,dispatch} : any) => {
+  var [sound,setSound] = useState("")
   return(
-    <div>
-      <h1>je suis voice</h1>
+    <div className="bg-gray-500">
+      <input type="string" value={sound} onChange={(event)=>setSound(event.currentTarget.value)} />
+      <button onClick={()=>dispatch(startVoice(sound))} >Play</button>
     </div>
   )
 }
 
 
-export default connect(state=>state)(index)
+export default connect(state=>state)(Index)

@@ -14,7 +14,9 @@ module.exports = {
     fill: theme => theme('colors')
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity:['disabled']
+    },
   },
   plugins: [],
 }
