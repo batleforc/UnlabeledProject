@@ -1,6 +1,6 @@
 # Bot Discord ? (OLD SOUNDBOARD)
 
-Projet de soundboard afin de me familiariser avec certain package :
+Projet d'une soundboard vers une toolbox afin de me familiariser avec certain package :
 
 ## L'objectif
 
