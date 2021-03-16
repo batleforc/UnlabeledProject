@@ -22,10 +22,10 @@ class Store{
       "tokenTable":"TokenTable",
       "table":{
         "token":"TokenTable",
-        "test":"TestTable"
-      },
-      "table:Token":"TokenTable",
-      "table:test":"TestTable"
+        "test":"TestTable",
+        "tab":"TabTable",
+        "tabItem":"TabItemTable"
+      }
     })
 
   }
