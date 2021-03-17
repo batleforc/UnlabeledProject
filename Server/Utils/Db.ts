@@ -43,7 +43,7 @@ class DataBase{
   EditToken = (idToken : number, label : string , token : string) => this.db.prepare(`Update ${this.Table.token} set label = '${label}', token = '${token}' where id=${idToken}`).run()
 
   GetAllTab =() => this.db.prepare(`select * from ${this.Table.tab}`).all()
-  GetAllTabItem =() => this.db.prepare(`select * from ${this.Table.tabItem}`).all()
+  GetAllTabItem =( TabId : number) => this.db.prepare(`select * from ${this.Table.tabItem} where idTab=${TabId}`).all()
 
   DeleteTab = (TabId : number) =>{
     this.db.prepare(`Delete from ${this.Table.tab} where id=${TabId}`).run()
