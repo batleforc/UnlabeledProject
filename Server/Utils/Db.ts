@@ -29,7 +29,9 @@ class DataBase{
     `CREATE TABLE IF NOT EXISTS ${TabItemTableName} (
       id integer PRIMARY KEY,
       idTab integer NOT NULL,
-      label varchar(55) NOT NULL
+      label varchar(55) NOT NULL,
+      Coo varchar(55),
+      style varchar(55)
     )`
   )
 
@@ -40,6 +42,26 @@ class DataBase{
   DeleteToken = (idToken : number) => this.db.prepare(`Delete from ${this.Table.token} where id=${idToken}`).run()
   EditToken = (idToken : number, label : string , token : string) => this.db.prepare(`Update ${this.Table.token} set label = '${label}', token = '${token}' where id=${idToken}`).run()
 
+  GetAllTab =() => this.db.prepare(`select * from ${this.Table.tab}`).all()
+  GetAllTabItem =() => this.db.prepare(`select * from ${this.Table.tabItem}`).all()
+
+  DeleteTab = (TabId : number) =>{
+    this.db.prepare(`Delete from ${this.Table.tab} where id=${TabId}`).run()
+    this.db.prepare(`Delete from ${this.Table.tabItem} where idTab=${TabId}`).run()
+  }
+  DeleteTabItem = (TabItem : number) =>this.db.prepare(`Delete from ${this.Table.tabItem} where idTab=${TabItem}`).run()
+
+  InsertTab = (label : string) =>this.db.prepare(`INSERT INTO ${this.Table.tab} (label) VALUES (?)`)
+    .run(label)
+  InsertTabItem = (TabId : number, label : string) =>this.db.prepare(`INSERT INTO ${this.Table.tabItem} (idTab,label) VALUES (?,?)`)
+    .run(TabId,label)
+
+  EditTabLabel = (TabId : number, label : string) =>
+    this.db.prepare(`Update ${this.Table.tab} set label = '${label} where id=${TabId}'`).run()
+  EditTabItemLabel = (TabItemId : number, label : string) =>
+    this.db.prepare(`Update ${this.Table.tabItem} set label = '${label} where id=${TabItemId}'`).run()
+  EditTabItemOption = (TabItemId : number, Coo : object, style : object) =>
+    this.db.prepare(`Update ${this.Table.tabItem} set coo = '${JSON.stringify(Coo)}' , style = '${JSON.stringify(style)}'  where id=${TabItemId}'`).run()
 }
 
 export default DataBase;
