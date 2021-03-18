@@ -41,7 +41,7 @@ export const Index = ({Voice,Bot,dispatch} : any) => {
         <button onClick={unLock} > UnLock </button>
       </div>
       <GridLayout onLayoutChange={setHandlerLayout} className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
-        {layout.map(value=><div key={value.i} className="bg-red-500 border-black border-2" onClick={()=>{if(value.static)dispatch(startVoice(value.url))}} >{value.text}</div>)}
+        {layout.map(value=><div key={value.i} className="bg-red-500 border-black border-2 cursor-pointer select-none" onClick={()=>{if(value.static)dispatch(startVoice(value.url))}} >{value.text}</div>)}
       </GridLayout>
     </div>
   )
