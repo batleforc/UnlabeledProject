@@ -2,6 +2,7 @@ import Router from '@koa/router'
 import Token from './Api/Token'
 import Bot from './Api/Bot'
 import Voice from './Api/Voice'
+import sBoard from './Api/sboard'
 var router = new Router({
   prefix: '/Api'
 });
@@ -33,5 +34,6 @@ router
 router.use('/token', Token.routes(), Token.allowedMethods());
 router.use('/bot', Bot.routes(), Bot.allowedMethods());
 router.use('/voice',Voice.routes(),Voice.allowedMethods());
+router.use('/sboard',sBoard.routes(),sBoard.allowedMethods());
 
 export default router
