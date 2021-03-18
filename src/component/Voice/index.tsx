@@ -8,13 +8,13 @@ export const Index = ({Voice,Bot,dispatch} : any) => {
   var [sound,setSound] = useState("")
   var [button,setButton] = useState("")
   var [layout, setLayout] = useState([
-    {i: "1", x: 0, y: 0, w: 1, h: 2,text:"a",url:"",type:1},
-    {i: "2", x: 1, y: 0, w: 3, h: 2,text:"jojo",url:"",type:1},
-    {i: "3", x: 4, y: 0, w: 1, h: 2,text:"b",url:"",type:1},
-    {i: "4", x: 4, y: 0, w: 1, h: 2,text:1,url:"",type:1}
+    {i: "1", x: 0, y: 0, w: 1, h: 2,text:"a",url:"",type:1,static:false},
+    {i: "2", x: 1, y: 0, w: 3, h: 2,text:"jojo",url:"",type:1,static:false},
+    {i: "3", x: 4, y: 0, w: 1, h: 2,text:"b",url:"",type:1,static:false},
+    {i: "4", x: 4, y: 0, w: 1, h: 2,text:1,url:"",type:1,static:false}
   ])
   var addButton = ()=>{
-    setLayout(layout.concat([ {i:String(layout.length+1), x: 0, y: 0, w: 1, h: 2,text:button,url:"",type:1}]))
+    setLayout(layout.concat([ {i:String(layout.length+1), x: 0, y: 0, w: 1, h: 2,text:button,url:"",type:1,static:layout[0].static}]))
   }
   var setHandlerLayout = (layoutSwap : Layout[]) => {
     console.log(layoutSwap)
