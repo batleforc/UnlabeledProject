@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { connect } from 'react-redux';
 import {startVoice} from '../../Action/Voice'
 import GridLayout, { Layout } from 'react-grid-layout'
@@ -13,16 +13,12 @@ export const Index = ({Voice,Bot,dispatch} : any) => {
     {i: "3", x: 4, y: 0, w: 1, h: 2,text:"b",url:"",type:1,static:true},
     {i: "4", x: 4, y: 0, w: 1, h: 2,text:1,url:"",type:1,static:true}
   ])
+  useEffect(()=>console.log(layout),[layout])
   var addButton = ()=>{
     setLayout(layout.concat([ {i:String(layout.length+1), x: 0, y: 0, w: 1, h: 2,text:button,url:"",type:1,static:layout[0].static}]))
   }
   var setHandlerLayout = (layoutSwap : Layout[]) => {
-    console.log(layoutSwap)
-    var layoutCopy = [...layout]
-    layoutSwap.forEach((value,index)=>{
-      layoutCopy[index]={...layoutCopy[index],...value}
-    })
-    setLayout(layoutCopy)
+    setLayout(layoutSwap.map((value,index)=>({...layout[index],...value})))
   }
   var lock = () =>{
     setLayout(layout.map(value=>({...value,static:true})))
