@@ -7,6 +7,7 @@ export const Index = ({Voice,Bot,dispatch} : any) => {
   var enumMedia ={1:"mp3",2:"Youtube",3:"spotify"}
   var [sound,setSound] = useState("")
   var [button,setButton] = useState("")
+  var [url,setUrl] = useState("")
   var [layout, setLayout] = useState([
     {i: "1", x: 0, y: 0, w: 1, h: 2,text:"nout nout",url:"https://www.myinstants.com/media/sounds/noot-noot.mp3",type:1,static:true},
     {i: "2", x: 1, y: 0, w: 3, h: 2,text:"ara ara",url:"https://www.myinstants.com/media/sounds/ara-ara.MP3",type:1,static:true},
@@ -15,7 +16,9 @@ export const Index = ({Voice,Bot,dispatch} : any) => {
   ])
   useEffect(()=>console.log(layout),[layout])
   var addButton = ()=>{
-    setLayout(layout.concat([ {i:String(layout.length+1), x: 0, y: 0, w: 1, h: 2,text:button,url:"",type:1,static:layout[0].static}]))
+    setLayout(layout.concat([ {i:String(layout.length+1), x: 0, y: 0, w: 1, h: 2,text:button,url:url,type:1,static:layout[0].static}]))
+    setButton("")
+    setUrl("")
   }
   var setHandlerLayout = (layoutSwap : Layout[]) => {
     setLayout(layoutSwap.map((value,index)=>({...layout[index],...value})))
@@ -31,7 +34,8 @@ export const Index = ({Voice,Bot,dispatch} : any) => {
       <div className="bg-gray-500">
         <input type="string" value={sound} onChange={(event)=>setSound(event.currentTarget.value)} />
         <button onClick={()=>dispatch(startVoice(sound))} >Play</button>
-        <input type="string" value={button} onChange={(event)=>setButton(event.currentTarget.value)} />
+        <input className="border-2 border-gray-800 mx-2" placeholder="Label" type="string" value={button} onChange={(event)=>setButton(event.currentTarget.value)} />
+        <input className="border-2 border-gray-800 mx-2" placeholder="Url" type="string" value={url} onChange={(event)=>setUrl(event.currentTarget.value)} />
         <button onClick={()=>addButton()} > addButton </button>
         <button className="mx-2" onClick={lock} > Lock </button>
         <button onClick={unLock} > UnLock </button>
