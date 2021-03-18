@@ -8,10 +8,10 @@ export const Index = ({Voice,Bot,dispatch} : any) => {
   var [sound,setSound] = useState("")
   var [button,setButton] = useState("")
   var [layout, setLayout] = useState([
-    {i: "1", x: 0, y: 0, w: 1, h: 2,text:"a",url:"",type:1,static:true},
-    {i: "2", x: 1, y: 0, w: 3, h: 2,text:"jojo",url:"",type:1,static:true},
-    {i: "3", x: 4, y: 0, w: 1, h: 2,text:"b",url:"",type:1,static:true},
-    {i: "4", x: 4, y: 0, w: 1, h: 2,text:1,url:"",type:1,static:true}
+    {i: "1", x: 0, y: 0, w: 1, h: 2,text:"nout nout",url:"https://www.myinstants.com/media/sounds/noot-noot.mp3",type:1,static:true},
+    {i: "2", x: 1, y: 0, w: 3, h: 2,text:"ara ara",url:"https://www.myinstants.com/media/sounds/ara-ara.MP3",type:1,static:true},
+    {i: "3", x: 4, y: 0, w: 1, h: 2,text:"baby shark",url:"https://www.myinstants.com/media/sounds/baby-shark-dance-sing-and-dance-animal-songs-pinkfong-songs-for-children-audiotrimmer.mp3",type:1,static:true},
+    {i: "4", x: 4, y: 0, w: 1, h: 2,text:"moan",url:"https://www.myinstants.com/media/sounds/moaning-sex.mp3",type:1,static:true}
   ])
   useEffect(()=>console.log(layout),[layout])
   var addButton = ()=>{
