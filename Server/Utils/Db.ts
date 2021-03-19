@@ -37,12 +37,12 @@ class DataBase{
   DeleteTab = (TabId : number) =>{
     this.db.prepare(`Delete from ${this.Table.tab} where id=${TabId}`).run()
   }
-  InsertTab = (label : string) =>this.db.prepare(`INSERT INTO ${this.Table.tab} (label,content) VALUES (?)`)
+  InsertTab = (label : string) =>this.db.prepare(`INSERT INTO ${this.Table.tab} (label,content) VALUES (?,?)`)
     .run(label,"[]")
   EditTabLabel = (TabId : number, label : string) =>
-    this.db.prepare(`Update ${this.Table.tab} set label = '${label} where id=${TabId}'`).run()
+    this.db.prepare(`Update ${this.Table.tab} set label = '${label}' where id=${TabId}`).run()
   EditTabContent = (TabId : number, content : string) =>
-    this.db.prepare(`Update ${this.Table.tab} set content = '${content} where id=${TabId}'`).run()
+    this.db.prepare(`Update ${this.Table.tab} set content = '${content}' where id=${TabId}`).run()
 }
 
 export default DataBase;
