@@ -39,50 +39,76 @@ export const CreateBoard = createAsyncThunk(
 )
 
 interface Board{
-  Pending     : Boolean,
-  Board       : [any] | [] | any,
-  ActiveBoard : Number
+  Pending         : Boolean,
+  Board           : [any] | [] | any,
+  ActiveBoard     : Number,
+  ActiveLayout    : [any] |[] | any,
+  sound           : String,
+  url             : String,
+  button          : String
 }
 const initialState = {
-  Pending : false,
-  Board   : [],
-  ActiveBoard : 1
-} as Board
+  Pending         : false,
+  Board           : [],
+  ActiveBoard     : -1,
+  ActiveLayout    : [],
+  sound           : "",
+  url             : "",
+  button          : "",
 
+} as Board
+const parse= (state:any,{payload}:any)=>{
+  state.Pending=false
+  state.Board=payload
+  state.ActiveLayout=state.Board[Number(state.ActiveBoard)]!==undefined?JSON.parse(state.Board[Number(state.ActiveBoard)].content):[]
+}
 const SBoardSlicer = createSlice({
   name:"sBoard",
   initialState,
   reducers:{
-    setActiveBoard : (state,{payload}) =>{state.ActiveBoard=payload}
+    setActiveBoard : (state,{payload}) =>{
+      state.ActiveBoard=payload
+      state.ActiveLayout=state.Board[Number(state.ActiveBoard)]!==undefined?JSON.parse(state.Board[payload].content):[]
+    },
+    setSound : (state,{payload}) => ({...state,sound:payload}),
+    setHandlerLayout : (state,{payload})=>{
+      state.ActiveLayout=payload.map((value : any,index : any)=>({...state.ActiveLayout[index],...value}))
+    },
+    lock : (state) => {state.ActiveLayout=state.ActiveLayout.map((value:any)=>({...value,static:true}))},
+    unLock : (state) => {state.ActiveLayout=state.ActiveLayout.map((value:any)=>({...value,static:false}))},
+    addButton : (state)=>{
+      state.ActiveLayout=state.ActiveLayout.concat([ {i:String(state.ActiveLayout.length+1), x: 0, y: 0, w: 1, h: 2,text:state.button,url:state.url,type:1,static:state.ActiveLayout[0].static}])
+      state.url=""
+      state.button=""
+    },
+    setUrl : (state,{payload})=>({...state,url:payload}),
+    setButton : (state,{payload})=>({...state,button:payload})
   },
   extraReducers : builder => {
     builder
       .addCase(GetBoard.pending,(state)=>{state.Pending=true})
       .addCase(GetBoard.rejected,(state)=>{state.Pending=false})
-      .addCase(GetBoard.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.Board=payload
-      })
+      .addCase(GetBoard.fulfilled,parse)
       .addCase(DeleteBoard.pending,(state)=>{state.Pending=true})
       .addCase(DeleteBoard.rejected,(state)=>{state.Pending=false})
-      .addCase(DeleteBoard.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.Board=payload
-      })
+      .addCase(DeleteBoard.fulfilled,parse)
       .addCase(UpdateBoard.pending,(state)=>{state.Pending=true})
       .addCase(UpdateBoard.rejected,(state)=>{state.Pending=false})
-      .addCase(UpdateBoard.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.Board=payload
-      })
+      .addCase(UpdateBoard.fulfilled,parse)
       .addCase(CreateBoard.pending,(state)=>{state.Pending=true})
       .addCase(CreateBoard.rejected,(state)=>{state.Pending=false})
-      .addCase(CreateBoard.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.Board=payload
-      })
+      .addCase(CreateBoard.fulfilled,parse)
   }
 })
 
-export const {setActiveBoard} = SBoardSlicer.actions
+export const {
+  setActiveBoard,
+  setSound,
+  setHandlerLayout,
+  lock,
+  unLock,
+  addButton,
+  setUrl,
+  setButton
+} = SBoardSlicer.actions
 export default SBoardSlicer.reducer
