@@ -9,18 +9,21 @@ export const joinChan = createAsyncThunk(
       guildId:guildId,
       chanId:ChanId
     })
+      .then(value=>value.data)
   }
 )
 export const leaveChan = createAsyncThunk(
   "voice/leaveChan",
   async (something : void,{dispatch}) => {
     return axios.post(ApiVoice+"leave")
+      .then(value=>value.data)
   }
 )
 export const stopVoice = createAsyncThunk(
   "voice/stopVoice",
   async (something : void,{dispatch}) => {
     return axios.post(ApiVoice+"pause")
+      .then(value=>value.data)
   }
 )
 export const startVoice = createAsyncThunk(
@@ -29,12 +32,14 @@ export const startVoice = createAsyncThunk(
     return axios.post(ApiVoice+"play",{
       toPlay : something
     })
+    .then(value=>value.data)
   }
 )
 export const resumeVoice = createAsyncThunk(
   "voice/resumeVoice",
   async (something : void,{dispatch}) => {
     return axios.post(ApiVoice+"resume")
+      .then(value=>value.data)
   }
 )
 export const setVolume = createAsyncThunk(
@@ -55,6 +60,7 @@ export const getPause = createAsyncThunk(
   "voice/getStatus",
   async (something : void,{dispatch}) => {
     return axios.get(ApiVoice+"pause")
+      .then(value=>value.data)
   }
 )
 export const getVolume = createAsyncThunk(
