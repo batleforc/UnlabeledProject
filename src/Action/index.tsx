@@ -4,6 +4,7 @@ import ShowModal from './showModal'
 import Bot from './Bot'
 import Event from './Event'
 import Voice from './Voice'
+import sBoard from './sBoard'
 
 export default configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export default configureStore({
     Bot,
     ShowModal,
     Event,
-    Voice
+    Voice,
+    sBoard
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools:true
