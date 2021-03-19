@@ -2,23 +2,32 @@ import React,{useState,useEffect} from 'react';
 import { connect } from 'react-redux';
 import {startVoice} from '../../Action/Voice'
 import GridLayout from 'react-grid-layout'
-import { addButton, GetBoard, lock, setActiveBoard, setButton, setHandlerLayout, setUrl, unLock } from '../../Action/sBoard';
+import { addButton, GetBoard, lock, setActiveBoard, setButton, setHandlerLayout, setUrl, unLock, UpdateBoard } from '../../Action/sBoard';
 
 export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
-  var enumMedia ={1:"mp3",2:"Youtube",3:"spotify"}
-  var [sound,setSound] = useState("")
+  var enumMedia ={1:"mp3",2:"YouTube",3:"spotify"}
   // eslint-disable-next-line
   useEffect(()=>dispatch(GetBoard()),[])
   return(
     <div>
-      <div className="bg-gray-500">
-        <input type="string" value={sound} onChange={(event)=>setSound(event.currentTarget.value)} />
-        <button onClick={()=>dispatch(startVoice(sound))} >Play</button>
-        <input className="border-2 border-gray-800 mx-2" placeholder="Label" type="string" value={sBoard.button} onChange={(event)=>dispatch(setButton(event.currentTarget.value))} />
-        <input className="border-2 border-gray-800 mx-2" placeholder="Url" type="string" value={sBoard.url} onChange={(event)=>dispatch(setUrl(event.currentTarget.value))} />
-        <button onClick={()=>dispatch(addButton())} > addButton </button>
-        <button className="mx-2" onClick={()=>dispatch(lock())} > Lock </button>
-        <button onClick={()=>dispatch(unLock())} > UnLock </button>
+      <div className="bg-gray-500 flex">
+        {sBoard.ActiveLayout.length!==0&&
+          <div>
+            <input className="border-2 border-gray-800 mx-2" placeholder="Label" type="string" value={sBoard.button} onChange={(event)=>dispatch(setButton(event.currentTarget.value))} />
+            <input className="border-2 border-gray-800 mx-2" placeholder="Url" type="string" value={sBoard.url} onChange={(event)=>dispatch(setUrl(event.currentTarget.value))} />
+            <button onClick={()=>dispatch(addButton())} > addButton </button>
+            <button className="mx-2" onClick={()=>dispatch(lock())} > Lock </button>
+            <button className="mx-2" onClick={()=>dispatch(unLock())} > UnLock </button>
+            <button
+              className="mx-2"
+              onClick={()=>dispatch(UpdateBoard({
+                tabId:sBoard.Board[sBoard.ActiveBoard].id,
+                content:sBoard.ActiveLayout
+              }))}
+            >
+              Save Layout
+            </button>
+          </div>}
       </div>
       <div>
         <nav className="flex flex-col sm:flex-row">
