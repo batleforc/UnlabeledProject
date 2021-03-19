@@ -81,6 +81,9 @@ const SBoardSlicer = createSlice({
       state.url=""
       state.button=""
     },
+    removeButton : (state,{payload})=>{
+      state.ActiveLayout.splice(payload,1)
+    },
     setUrl : (state,{payload})=>({...state,url:payload}),
     setButton : (state,{payload})=>({...state,button:payload})
   },
@@ -109,6 +112,7 @@ export const {
   unLock,
   addButton,
   setUrl,
-  setButton
+  setButton,
+  removeButton
 } = SBoardSlicer.actions
 export default SBoardSlicer.reducer
