@@ -2,7 +2,8 @@ import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
 import {startVoice} from '../../Action/Voice'
 import GridLayout from 'react-grid-layout'
-import { addButton, GetBoard, lock, removeButton, setActiveBoard, setButton, setHandlerLayout, setUrl, unLock, UpdateBoard } from '../../Action/sBoard';
+import { GetBoard, lock, removeButton, setActiveBoard, setHandlerLayout, unLock, UpdateBoard } from '../../Action/sBoard';
+import {showCreateButton} from '../../Action/showModal'
 import AddButtonModal from './AddButtonModal'
 import AddTabModal from './AddTabModal'
 
@@ -15,9 +16,6 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
       <div className="bg-gray-500 flex">
         {sBoard.ActiveLayout.length!==0&&
           <div>
-            <input className="border-2 border-gray-800 mx-2" placeholder="Label" type="string" value={sBoard.button} onChange={(event)=>dispatch(setButton(event.currentTarget.value))} />
-            <input className="border-2 border-gray-800 mx-2" placeholder="Url" type="string" value={sBoard.url} onChange={(event)=>dispatch(setUrl(event.currentTarget.value))} />
-            <button onClick={()=>dispatch(addButton())} > addButton </button>
             <button className="mx-2" onClick={()=>dispatch(lock())} > Lock </button>
             <button className="mx-2" onClick={()=>dispatch(unLock())} > UnLock </button>
             <button
@@ -28,6 +26,11 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
               }))}
             >
               Save Layout
+            </button>
+            <button
+              className="mx-2"
+              onClick={()=>dispatch(showCreateButton())} >
+              CreateButton
             </button>
           </div>}
       </div>
