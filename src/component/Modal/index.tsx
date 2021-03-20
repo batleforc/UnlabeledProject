@@ -1,6 +1,18 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 
-export const Modal = ({on,warn,title=process.env.REACT_APP_NAME,Content,message,activateText,activate,deactivateText,deactivate}:any) => {
+export const Modal = ({on,warn,exitOnEscape=true,title=process.env.REACT_APP_NAME,Content,message,activateText,activate,deactivateText,deactivate}:any) => {
+  const onEscape = ({key}:any)=>{
+    if(key==="Escape"){
+      activate()
+      window.removeEventListener('keydown',onEscape);
+    }
+  }
+  useEffect(()=>{
+    if(exitOnEscape){
+      window.addEventListener("keydown",onEscape);
+    return () => window.removeEventListener('keydown',onEscape);
+    }
+  })
   return(
   <div className={`fixed z-10 inset-0 overflow-y-auto ${on?"":"hidden"}`}>
     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
