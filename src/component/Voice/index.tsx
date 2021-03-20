@@ -14,7 +14,7 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
   return(
     <div>
       <div className="bg-gray-500 flex">
-        {sBoard.ActiveLayout.length!==0&&
+        {sBoard.ActiveBoard!==-1&&
           <div>
             <button className="mx-2" onClick={()=>dispatch(lock())} > Lock </button>
             <button className="mx-2" onClick={()=>dispatch(unLock())} > UnLock </button>

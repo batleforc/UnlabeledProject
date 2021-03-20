@@ -77,7 +77,7 @@ const SBoardSlicer = createSlice({
     lock : (state) => {state.ActiveLayout=state.ActiveLayout.map((value:any)=>({...value,static:true}))},
     unLock : (state) => {state.ActiveLayout=state.ActiveLayout.map((value:any)=>({...value,static:false}))},
     addButton : (state)=>{
-      state.ActiveLayout=state.ActiveLayout.concat([ {i:String(state.ActiveLayout.length+1), x: 0, y: 0, w: 1, h: 2,text:state.button,url:state.url,type:1,static:state.ActiveLayout[0].static}])
+      state.ActiveLayout=state.ActiveLayout.concat([ {i:String(state.ActiveLayout.length+1), x: 0, y: 0, w: 1, h: 2,text:state.button,url:state.url,type:1,static:state.ActiveLayout[0]?.static||false}])
       state.url=""
       state.button=""
     },
