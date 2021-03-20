@@ -2,7 +2,7 @@ import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
 import {startVoice} from '../../Action/Voice'
 import GridLayout from 'react-grid-layout'
-import { GetBoard, lock, removeButton, setActiveBoard, setHandlerLayout, unLock, UpdateBoard } from '../../Action/sBoard';
+import { DeleteBoard, GetBoard, lock, removeButton, setActiveBoard, setHandlerLayout, unLock, UpdateBoard } from '../../Action/sBoard';
 import {showCreateButton} from '../../Action/showModal'
 import AddButtonModal from './AddButtonModal'
 import AddTabModal from './AddTabModal'
@@ -16,11 +16,16 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
       <div className="bg-gray-500 flex">
         {sBoard.ActiveBoard!==-1&&
           <div>
-            <button className="mx-2" onClick={()=>dispatch(lock())} > Lock </button>
-            <button className="mx-2" onClick={()=>dispatch(unLock())} > UnLock </button>
-            <button
-              className="mx-2"
-              onClick={()=>dispatch(UpdateBoard({
+            <button className="mx-2" onClick={()=>dispatch(DeleteBoard({tabId:sBoard.Board[sBoard.ActiveBoard].id}))} >
+              Delete Board
+            </button>
+            <button className="mx-2" onClick={()=>dispatch(lock())} >
+              Lock
+            </button>
+            <button className="mx-2" onClick={()=>dispatch(unLock())} >
+              UnLock
+            </button>
+            <button className="mx-2" onClick={()=>dispatch(UpdateBoard({
                 tabId:sBoard.Board[sBoard.ActiveBoard].id,
                 content:sBoard.ActiveLayout
               }))}
@@ -31,6 +36,11 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
               className="mx-2"
               onClick={()=>dispatch(showCreateButton())} >
               CreateButton
+            </button>
+            <button
+              className="mx-2"
+              onClick={()=>dispatch(showCreateButton())} >
+              Delete Board
             </button>
           </div>}
       </div>
