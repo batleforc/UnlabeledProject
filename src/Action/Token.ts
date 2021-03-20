@@ -2,6 +2,7 @@ import {createSlice,createAsyncThunk,PayloadAction} from '@reduxjs/toolkit'
 import {resetUpdateBot} from './Event'
 import axios from 'axios';
 
+var Api = process.env.REACT_APP_SERVER+"/api/"
 interface Token{
   id : number,
   label : string,
@@ -17,7 +18,7 @@ interface TokenState{
 export const TokenGetter = createAsyncThunk(
   "token/get",
   async (value,{dispatch}) => {
-    return axios.get(process.env.REACT_APP_SERVER+"/api/token")
+    return axios.get(Api+"token")
       .then((value)=>{
         dispatch(resetUpdateBot())
         return value.data
@@ -34,7 +35,7 @@ export const TokenGetter = createAsyncThunk(
 export const TokenCreate = createAsyncThunk(
   "token/post",
   async ({label,token}:any,{dispatch}) => {
-    return axios.post(process.env.REACT_APP_SERVER+"/api/token",{
+    return axios.post(Api+"token",{
       label:label,
       token:token
     }).then((res)=>{
@@ -54,7 +55,7 @@ export const TokenCreate = createAsyncThunk(
 export const TokenDelete = createAsyncThunk(
   "token/post",
   async (id:any,{dispatch}) => {
-    return axios.delete(process.env.REACT_APP_SERVER+`/api/token/${id}`).then((res)=>{
+    return axios.delete(`${Api}token/${id}`).then((res)=>{
       dispatch(TokenGetter())
       return res.data
     })
@@ -72,7 +73,7 @@ export const TokenDelete = createAsyncThunk(
 export const TokenActivate = createAsyncThunk(
   "token/Activate",
   async (id:any,{dispatch}) => {
-    return axios.post(process.env.REACT_APP_SERVER+`/api/bot/start`,{
+    return axios.post(`${Api}bot/start`,{
       id:id
     }).then((res)=>{
       dispatch(TokenGetter())
@@ -91,7 +92,7 @@ export const TokenActivate = createAsyncThunk(
 export const TokenDeactivate = createAsyncThunk(
   "token/Deactivate",
   async (id:any,{dispatch}) => {
-    return axios.post(process.env.REACT_APP_SERVER+`/api/bot/stop`)
+    return axios.post(`${Api}bot/stop`)
       .then((res)=>{
         dispatch(TokenGetter())
         return res.data

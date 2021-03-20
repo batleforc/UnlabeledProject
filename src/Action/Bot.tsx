@@ -1,6 +1,6 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios';
-
+var ApiBot = process.env.REACT_APP_SERVER+"/api/bot/"
 interface User{
   img : any,
   user : any,
@@ -28,7 +28,7 @@ export const BotGetter = createAsyncThunk(
 export const BotServerGetter = createAsyncThunk(
   "Bot/serveur/get",
   async (value,{dispatch}) => {
-    return axios.get(process.env.REACT_APP_SERVER+"/api/bot/serveur")
+    return axios.get(ApiBot+"serveur")
       .then((value)=>value.data)
   },{
     condition:(force : boolean |void,{getState}) : boolean => {
@@ -43,7 +43,7 @@ export const BotServerGetter = createAsyncThunk(
 export const BotServeurChanGetter = createAsyncThunk(
   "Bot/Serveur/chan/get",
   async(value : string,{dispatch}) => {
-    return axios.get(process.env.REACT_APP_SERVER+`/api/bot/chan/${value}`)
+    return axios.get(`${ApiBot}chan/${value}`)
       .then((res)=>({id:value,res:res.data}))
   }
 )
