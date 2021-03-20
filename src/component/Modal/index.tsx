@@ -9,7 +9,6 @@ export const Modal = ({on,warn,exitOnEscape=true,title=process.env.REACT_APP_NAM
     }
   }
   const onOutside = (event : any) =>{
-    console.log("plop")
     if(!modalRef.current?.contains(event.target)){
       activate()
     }

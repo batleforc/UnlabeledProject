@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Modal from '../Modal'
 import {hideCreateTab} from '../../Action/showModal'
-
+import TabForm from './TabForm'
 const TokenModalForm = ({ShowModal,dispatch}:any) =>{
   return(
     <Modal
@@ -12,7 +12,7 @@ const TokenModalForm = ({ShowModal,dispatch}:any) =>{
       title="Create Tab : "
       activate={()=>dispatch(hideCreateTab())}
       activateText="Exit"
-      Content={()=><div></div>} />
+      Content={TabForm} />
   )
 }
 

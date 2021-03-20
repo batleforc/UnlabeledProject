@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Modal from '../Modal'
 import {hideCreateButton} from '../../Action/showModal'
+import ButtonForm from './ButtonForm'
 
 const TokenModalForm = ({ShowModal,dispatch}:any) =>{
   return(
@@ -12,7 +13,7 @@ const TokenModalForm = ({ShowModal,dispatch}:any) =>{
       title="Create Button : "
       activate={()=>dispatch(hideCreateButton())}
       activateText="Exit"
-      Content={()=><div></div>} />
+      Content={ButtonForm} />
   )
 }
 
