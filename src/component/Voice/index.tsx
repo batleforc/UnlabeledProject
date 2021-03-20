@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {startVoice} from '../../Action/Voice'
 import GridLayout from 'react-grid-layout'
 import { addButton, GetBoard, lock, removeButton, setActiveBoard, setButton, setHandlerLayout, setUrl, unLock, UpdateBoard } from '../../Action/sBoard';
+import AddButtonModal from './AddButtonModal'
+import AddTabModal from './AddTabModal'
 
 export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
   var enumMedia ={1:"mp3",2:"YouTube",3:"spotify"}
@@ -55,6 +57,8 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
             </div>}
           </div>)}
       </GridLayout>
+      <AddButtonModal />
+      <AddTabModal />
     </div>
   )
 }

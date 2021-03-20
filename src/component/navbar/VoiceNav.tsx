@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { joinChan, leaveChan, setChanId, setVolume, stopVoice, resumeVoice } from '../../Action/Voice';
-
+import {showCreateButton,showCreateTab} from '../../Action/showModal'
 export const VoiceNav = ({Voice,Bot,dispatch} : any) => {
   return(
     <nav className="bg-grey text-white flex">
@@ -25,6 +25,16 @@ export const VoiceNav = ({Voice,Bot,dispatch} : any) => {
         className={`px-1 mx-4 my-1 bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
         onClick={()=>dispatch(leaveChan())} >
           Leave
+        </button>
+        <button
+        className={`px-1 mx-4 my-1 bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
+        onClick={()=>dispatch(showCreateTab())} >
+          CreateTab
+        </button>
+        <button
+        className={`px-1 mx-4 my-1 bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
+        onClick={()=>dispatch(showCreateButton())} >
+          CreateButton
         </button>
       </div>
       <div className={`${Voice.Status?"":"hidden"} self-center justify-end flex flex-1`}>
