@@ -22,7 +22,7 @@ class DataBase{
     `CREATE TABLE IF NOT EXISTS ${TabTableName} (
       id integer PRIMARY KEY,
       label varchar(55) NOT NULL,
-      content varchar(255)
+      content TEXT
     )`
   )
 
