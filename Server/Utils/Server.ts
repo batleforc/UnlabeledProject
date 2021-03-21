@@ -45,7 +45,14 @@ class WebServer{
   // KOA
   AddRouter = ( router : Router ) => this.app.use(router.routes()).use(router.allowedMethods())
 
-  ListenServer = ( callback : Function ) => this.server.listen(this.Port,callback)
+  ListenServer = ( callback : Function ) => {
+    this.app.use(async (ctx : any,next:any)=>{
+      if(ctx.body===undefined){
+        ctx.redirect("/")
+      }
+    })
+    this.server.listen(this.Port,callback)
+  }
 
   AddToAppContext = ( key : string , ContextObject : object ) => this.app.context[key] = ContextObject
 
