@@ -2,6 +2,8 @@ import Router from "koa-router"
 import cors from "@koa/cors"
 import {Server,Socket} from 'socket.io'
 import {ModuleLog} from '../Utils/Log'
+import serve from "koa-static"
+import path from 'path'
 
 var Koa = require('koa')
 var KoaBody = require('koa-body')
@@ -20,6 +22,9 @@ class WebServer{
         origin:"*"
       }
     })
+    var static_pages = new Koa();
+    static_pages.use(serve(path.resolve(__dirname,"..",'..',"build")))
+    this.app.use(mount("/",static_pages))
     this.app.use(cors())
     this.app.use(KoaBody())
     this.app.use(async (ctx:any,next:any)=>{
