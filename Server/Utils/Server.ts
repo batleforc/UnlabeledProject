@@ -50,6 +50,7 @@ class WebServer{
       if(ctx.body===undefined){
         ctx.redirect("/")
       }
+      next()
     })
     this.server.listen(this.Port,callback)
   }

@@ -4,7 +4,7 @@ var Voice = new Router();
 
 Voice
   .get("/volume", async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceGetVolume()
+    ctx.body=(ctx.discord as Discord).VoiceGetVolume()||5
     next()
   })
   .get("/pause",async (ctx : any, next : any)=>{

@@ -5,7 +5,7 @@ import {Log, ModuleLog} from '../Utils/Log'
 class Discord{
   client : Discordjs.Client
   Ready : Boolean
-  Voice : Discordjs.VoiceConnection
+  Voice! : Discordjs.VoiceConnection
   constructor() {
     this.client = new Discordjs.Client();
     this.Ready = false;
