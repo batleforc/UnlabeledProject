@@ -11,15 +11,15 @@
   "author": "Batleforc",
   "license": "ISC",
   "homepage": "./",
-  "main":"./build/electron.js",
-  "build":{
+  "main": "./build/electron.js",
+  "build": {
     "appId": "com.example.unlabeledproject",
     "files": [
       "build/**/*",
       "node_modules/**/*",
       "BuildServer/**/*"
     ],
-    "directories":{
+    "directories": {
       "buildResources": "assets"
     }
   },
@@ -75,6 +75,7 @@
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
     "nconf": "^0.11.2",
+    "node-abi": "^2.21.0",
     "nodemon": "^2.0.7",
     "postcss": "7",
     "react": "^17.0.1",
@@ -115,14 +116,14 @@
     "S:Watch": "nodemon -q -w BuildServer BuildServer/index.js",
     "S:DevWatch": "cross-env NODE_ENV=development concurrently --names \"S:Build,S:Watch\" -c \"grey.bold,blue.bold\" \"yarn:S:Build\" \"yarn:S:Watch\" --node-env=development",
     "watch": "cross-env NODE_ENV=development concurrently --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"yarn:S:Build\" \"yarn:S:Watch\" \"yarn:start\"",
-    "ebuild":"yarn run build && node_modules/.bin/build",
-    "electronDev":"concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "allInDev":"concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\" \"yarn S:DevWatch\"",
-    "preelectron-pack":"yarn build && yarn S:ProdBuild",
+    "ebuild": "yarn run build && node_modules/.bin/build",
+    "electronDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "allInDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\" \"yarn S:DevWatch\"",
+    "preelectron-pack": "yarn build && yarn S:ProdBuild",
     "postinstall": "electron-builder install-app-deps",
     "electron-pack": "build --em.main=build/electron.js",
-    "pack":"electron-builder --dir",
-    "dist":"electron-builder"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "eslintConfig": {
     "extends": [
