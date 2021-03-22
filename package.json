@@ -10,6 +10,19 @@
   },
   "author": "Batleforc",
   "license": "ISC",
+  "homepage": "./",
+  "main":"./build/electron.js",
+  "build":{
+    "appId": "com.example.unlabeledproject",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "BuildServer/**/*"
+    ],
+    "directories":{
+      "buildResources": "assets"
+    }
+  },
   "bugs": {
     "url": "https://github.com/batleforc/SoundBoard/issues"
   },
@@ -55,6 +68,7 @@
     "cross-env": "^7.0.3",
     "discord.js": "^12.5.1",
     "dotenv-flow": "^3.2.0",
+    "electron-is-dev": "^2.0.0",
     "ffmpeg-static": "^4.2.7",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
@@ -100,7 +114,15 @@
     "S:ProdBuild": "cross-env NODE_ENV=production tsc --project ./serveur.tsconfig.json",
     "S:Watch": "nodemon -q -w BuildServer BuildServer/index.js",
     "S:DevWatch": "cross-env NODE_ENV=development concurrently --names \"S:Build,S:Watch\" -c \"grey.bold,blue.bold\" \"yarn:S:Build\" \"yarn:S:Watch\" --node-env=development",
-    "watch": "cross-env NODE_ENV=development concurrently --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"yarn:S:Build\" \"yarn:S:Watch\" \"yarn:start\""
+    "watch": "cross-env NODE_ENV=development concurrently --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"yarn:S:Build\" \"yarn:S:Watch\" \"yarn:start\"",
+    "ebuild":"yarn run build && node_modules/.bin/build",
+    "electronDev":"concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "allInDev":"concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\" \"yarn S:DevWatch\"",
+    "preelectron-pack":"yarn build && yarn S:ProdBuild",
+    "postinstall": "electron-builder install-app-deps",
+    "electron-pack": "build --em.main=build/electron.js",
+    "pack":"electron-builder --dir",
+    "dist":"electron-builder"
   },
   "eslintConfig": {
     "extends": [
@@ -119,5 +141,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^12.0.1",
+    "electron-builder": "^22.10.5",
+    "wait-on": "^5.3.0"
   }
 }
