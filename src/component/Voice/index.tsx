@@ -12,7 +12,7 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
   // eslint-disable-next-line
   useEffect(()=>dispatch(GetBoard()),[])
   return(
-    <div>
+    <div className=" w-full">
       <div className="bg-gray-500 flex">
         {sBoard.ActiveBoard!==-1&&
           <div>
@@ -55,11 +55,11 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
           </button>)}
         </nav>
       </div>
-      <GridLayout onLayoutChange={(Layout)=>dispatch(setHandlerLayout(Layout))} className="layout" layout={sBoard.ActiveLayout} cols={12} rowHeight={30} width={1200}>
+      <GridLayout onLayoutChange={(Layout)=>dispatch(setHandlerLayout(Layout))} className="layout overflow-auto h-full w-full" layout={sBoard.ActiveLayout} cols={11} rowHeight={30} width={1200}>
         {sBoard.ActiveLayout.map((value:any, index:number)=>
           <div
           key={value.i}
-          className="bg-red-500 border-black border-2 cursor-pointer select-none"
+          className="bg-red-500 border-black border-2 cursor-pointer select-none overflow-hidden text-center"
           onClick={()=>{if(value.static)dispatch(startVoice(value.url))}} >
             {value.text}
             {!value.static&&
