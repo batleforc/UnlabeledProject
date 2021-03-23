@@ -21,7 +21,9 @@
     ],
     "directories": {
       "buildResources": "assets"
-    }
+    },
+    "npmRebuild": true,
+    "buildDependenciesFromSource": true
   },
   "bugs": {
     "url": "https://github.com/batleforc/SoundBoard/issues"
@@ -69,6 +71,7 @@
     "discord.js": "^12.5.1",
     "dotenv-flow": "^3.2.0",
     "electron-is-dev": "^2.0.0",
+    "electron-log": "^4.3.2",
     "ffmpeg-static": "^4.2.7",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
@@ -120,7 +123,7 @@
     "electronDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "allInDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\" \"yarn S:DevWatch\"",
     "preelectron-pack": "yarn build && yarn S:ProdBuild",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall2": "electron-builder install-app-deps",
     "electron-pack": "build --em.main=build/electron.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
@@ -144,7 +147,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^12.0.1",
+    "electron": "11.4.0",
     "electron-builder": "^22.10.5",
     "wait-on": "^5.3.0"
   }

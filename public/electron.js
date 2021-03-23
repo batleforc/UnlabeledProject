@@ -1,9 +1,11 @@
 const electron = require('electron');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
+const { fork } = require('child_process')
 const path = require('path');
 const url = require('url');
 const Server = require('../BuildServer/index')
+const log = require('electron-log')
 let mainWindow;
 
 const createWindow = () => {
@@ -17,8 +19,20 @@ const createWindow = () => {
   mainWindow.once('ready-to-show', () => mainWindow.show());
 }
 
+const init = () => {
+  app.on("window-all-closed", (e)=> e.preventDefault())
+}
+
+const onQuit = () =>{
+  
+}
+
+
+app.requestSingleInstanceLock() ? init() : app.quit();
+app.on("second-instance", () => mainWindow.show());
+
+
 app.on('ready', ()=>{
-  Server()
   createWindow()
 });
 
@@ -33,3 +47,6 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+process.on("SIGINT", onQuit);
+process.on("SIGTERM", onQuit);
