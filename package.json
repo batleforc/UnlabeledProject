@@ -112,7 +112,8 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development craco start",
-    "build": "cross-env NODE_ENV=production craco build",
+    "c:build":"cross-env NODE_ENV=production craco build",
+    "build": "yarn c:build && yarn S:ProdBuild",
     "test": "craco test",
     "eject": "craco eject",
     "S:Build": "tsc -w --project ./serveur.tsconfig.json",
@@ -123,7 +124,7 @@
     "ebuild": "yarn run build && node_modules/.bin/build",
     "electronDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "allInDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\" \"yarn S:DevWatch\"",
-    "preelectron-pack": "yarn build && yarn S:ProdBuild",
+    "preelectron-pack": "yarn c:build && yarn S:ProdBuild",
     "postinstall": "electron-builder install-app-deps",
     "electron-pack": "build --em.main=build/electron.js",
     "pack": "electron-builder --dir",
