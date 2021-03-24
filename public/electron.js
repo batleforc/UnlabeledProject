@@ -16,7 +16,10 @@ const createWindow = () => {
   });
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : "http://localhost:5000/" ); //`file://${path.join(__dirname, '../build/index.html')}`
   mainWindow.on('closed', () => mainWindow = null);
-  mainWindow.once('ready-to-show', () => mainWindow.show());
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    mainWindow.webContents.openDevTools()
+  });
 }
 
 const init = () => {

@@ -37,11 +37,6 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
               onClick={()=>dispatch(showCreateButton())} >
               CreateButton
             </button>
-            <button
-              className="mx-2"
-              onClick={()=>dispatch(showCreateButton())} >
-              Delete Board
-            </button>
           </div>}
       </div>
       <div>
