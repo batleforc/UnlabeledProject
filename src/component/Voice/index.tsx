@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
 import {startVoice} from '../../Action/Voice'
-import GridLayout,{Layout} from 'react-grid-layout'
+import GridLayout from 'react-grid-layout'
 import { DeleteBoard, GetBoard, lock, removeButton, setActiveBoard, setHandlerLayout, unLock, UpdateBoard } from '../../Action/sBoard';
 import {showCreateButton} from '../../Action/showModal'
 import AddButtonModal from './AddButtonModal'
@@ -55,7 +55,7 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
           </button>)}
         </nav>
       </div>
-      <GridLayout onLayoutChange={(Layout : Layout)=>dispatch(setHandlerLayout(Layout))} className="layout overflow-auto h-full w-full" layout={sBoard.ActiveLayout} cols={11} rowHeight={30} width={1200}>
+      <GridLayout onLayoutChange={(Layout : GridLayout.Layout[])=>dispatch(setHandlerLayout(Layout))} className="layout overflow-auto h-full w-full" layout={sBoard.ActiveLayout} cols={11} rowHeight={30} width={1200}>
         {sBoard.ActiveLayout.map((value:any, index:number)=>
           <div
           key={value.i}
