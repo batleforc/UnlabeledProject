@@ -39,7 +39,10 @@ Bot
     }
     if(ctx.discord.Ready)
       (ctx.discord as Discord).DisconnectClient(ctx.io);
-    (ctx.discord).LoginClient((ctx.Db as DataBase).GetToken(ctx.request.body.id).token);
+      (ctx.Db as DataBase).GetToken(ctx.request.body.id)
+        .then((value)=>{
+          (ctx.discord).LoginClient(value.token);
+        });
     ctx.body={message:"all Is Green"}
     return await next()
   })

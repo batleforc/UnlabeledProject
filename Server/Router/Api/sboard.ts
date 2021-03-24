@@ -4,7 +4,7 @@ var sBoard = new Router();
 
 sBoard
   .get("/", async (ctx : any, next : any) =>{
-    ctx.body=ctx.Db.GetAllTab()
+    ctx.body= await ctx.Db.GetAllTab()
     next()
   })
   .post("/",async (ctx : any, next : any) => {
@@ -42,7 +42,7 @@ sBoard
     if(content!==undefined){
       await (ctx.Db as DataBase).EditTabContent(TabId,JSON.stringify(content))
     }
-    ctx.body=ctx.Db.GetAllTab()
+    ctx.body= await ctx.Db.GetAllTab()
     return await next()
   })
 

@@ -2,8 +2,8 @@ import Router from '@koa/router'
 var Token = new Router();
 
 Token
-  .get("/", async (ctx : any , next : any) => {
-    ctx.body = ctx.Db.GetAllToken()
+  .get("/", async (ctx : any, next :any) => {
+    ctx.body = await ctx.Db.GetAllToken()
     return await next()
   })
   .post("/", async (ctx : any , next : any) => {

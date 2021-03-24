@@ -1,24 +1,30 @@
-import BetterDatabase from 'better-sqlite3'
+import sq from 'sqlite3'
+import sqlite,{ open } from 'sqlite'
 import Store from './Store'
 import {ModuleLog} from '../Utils/Log'
 class DataBase{
-  db : BetterDatabase.Database
+  db : sqlite.Database
   Table : any
   constructor(conf : Store){
-    this.db = new BetterDatabase(conf.GetConf("db"))
-    this.Table = conf.GetConf("table")
-    this.CreateTokenTable(conf.GetConf("table").token).run()
-    this.CreateTabTable(conf.GetConf("table").tab).run()
-    ModuleLog("DataBase",undefined,true)
+    open({
+      filename:conf.GetConf("db"),
+      driver:sq.cached.Database
+    }).then((db)=>{
+      this.db=db;
+      this.Table = conf.GetConf("table")
+      this.CreateTokenTable(conf.GetConf("table").token)
+      this.CreateTabTable(conf.GetConf("table").tab)
+      ModuleLog("DataBase",undefined,true)
+    })
   }
-  CreateTokenTable = (TokenTableName : string)=> this.db.prepare(
+  CreateTokenTable = (TokenTableName : string)=> this.db.run(
     `CREATE TABLE IF NOT EXISTS ${TokenTableName} (
       id integer PRIMARY KEY,
       label varchar(55) NOT NULL,
       token varchar(255) NOT NULL
     )`
   )
-  CreateTabTable = (TabTableName : string)=> this.db.prepare(
+  CreateTabTable = (TabTableName : string)=> this.db.run(
     `CREATE TABLE IF NOT EXISTS ${TabTableName} (
       id integer PRIMARY KEY,
       label varchar(55) NOT NULL,
@@ -26,23 +32,21 @@ class DataBase{
     )`
   )
 
-  InsertToken =(label : string , token : string) =>this.db.prepare(`INSERT INTO ${this.Table.token} (label,token) VALUES (?,?)`)
-    .run(label,token)
-  GetAllToken = () => this.db.prepare(`select * from ${this.Table.token} `).all()
-  GetToken = (id : string) => this.db.prepare(`Select * from ${this.Table.token} where id = ?`).get(id)
-  DeleteToken = (idToken : number) => this.db.prepare(`Delete from ${this.Table.token} where id=${idToken}`).run()
-  EditToken = (idToken : number, label : string , token : string) => this.db.prepare(`Update ${this.Table.token} set label = '${label}', token = '${token}' where id=${idToken}`).run()
+  InsertToken = (label : string , token : string) => this.db.run(`INSERT INTO ${this.Table.token} (label,token) VALUES (?,?)`,[label,token])
+  GetAllToken = async () => await this.db.all(`select * from ${this.Table.token} `)
+  GetToken = async (id : string) => await this.db.get(`Select * from ${this.Table.token} where id = ?`,id)
+  DeleteToken = (idToken : number) => this.db.exec(`Delete from ${this.Table.token} where id=${idToken}`)
+  EditToken = (idToken : number, label : string , token : string) => this.db.run(`Update ${this.Table.token} set label = '${label}', token = '${token}' where id=${idToken}`)
 
-  GetAllTab =() => this.db.prepare(`select * from ${this.Table.tab}`).all()
+  GetAllTab = async () => await this.db.all(`select * from ${this.Table.tab}`)
   DeleteTab = (TabId : number) =>{
-    this.db.prepare(`Delete from ${this.Table.tab} where id=${TabId}`).run()
+    this.db.exec(`Delete from ${this.Table.tab} where id=${TabId}`)
   }
-  InsertTab = (label : string) =>this.db.prepare(`INSERT INTO ${this.Table.tab} (label,content) VALUES (?,?)`)
-    .run(label,"[]")
+  InsertTab = (label : string) =>this.db.run(`INSERT INTO ${this.Table.tab} (label,content) VALUES (?,?)`,[label,"[]"])
   EditTabLabel = (TabId : number, label : string) =>
-    this.db.prepare(`Update ${this.Table.tab} set label = '${label}' where id=${TabId}`).run()
+    this.db.run(`Update ${this.Table.tab} set label = '${label}' where id=${TabId}`)
   EditTabContent = (TabId : number, content : string) =>
-    this.db.prepare(`Update ${this.Table.tab} set content = '${content}' where id=${TabId}`).run()
+    this.db.run(`Update ${this.Table.tab} set content = '${content}' where id=${TabId}`)
 }
 
 export default DataBase;
