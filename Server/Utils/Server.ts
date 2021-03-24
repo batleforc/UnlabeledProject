@@ -27,10 +27,6 @@ class WebServer{
     this.app.use(mount("/",static_pages))
     this.app.use(cors())
     this.app.use(KoaBody())
-    this.app.use(async (ctx:any,next:any)=>{
-
-      next()
-    })
     this.io.emit("botReset");
     this.io.on('connection',(Socket : Socket)=>{
       this.io.emit("botUpdate")
@@ -50,7 +46,7 @@ class WebServer{
       if(ctx.body===undefined){
         ctx.redirect("/")
       }
-      next()
+      return await next()
     })
     this.server.listen(this.Port,callback)
   }

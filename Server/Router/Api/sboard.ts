@@ -12,21 +12,21 @@ sBoard
     if(label===undefined){
       ctx.status = 400
       ctx.body={message:"Error one argument missing"}
-      return next()
+      return await next()
     }
     await (ctx.Db as DataBase).InsertTab(label);
     ctx.body=ctx.Db.GetAllTab()
-    return next()
+    await next()
   })
   .delete("/:TabId", async (ctx : any, next : any) =>{
     if(ctx.params.TabId===undefined){
       ctx.status = 400
       ctx.body={message:"Error one argument missing"}
-      return next()
+      return await next()
     }
     await ctx.Db.DeleteTab(ctx.params.TabId)
     ctx.body=ctx.Db.GetAllTab()
-    next()
+    return await next()
   })
   .put("/:TabId", async (ctx : any, next : any) => {
     var {label,content} = ctx.request.body
@@ -34,7 +34,7 @@ sBoard
     if(TabId===undefined){
       ctx.status = 400
       ctx.body={message:"Error one argument missing"}
-      return next()
+      return await next()
     }
     if(label!==undefined){
       await (ctx.Db as DataBase).EditTabLabel(TabId,label)
@@ -43,7 +43,7 @@ sBoard
       await (ctx.Db as DataBase).EditTabContent(TabId,JSON.stringify(content))
     }
     ctx.body=ctx.Db.GetAllTab()
-    return next()
+    return await next()
   })
 
 
