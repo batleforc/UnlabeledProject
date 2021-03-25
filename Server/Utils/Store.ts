@@ -8,7 +8,7 @@ class Store{
 
   constructor(){
     this.nconf = require('nconf')
-    this.soundBoardRoot = path.join(String(process.env.APPDATA),"SoundBoard")
+    this.soundBoardRoot = path.join(String(process.env.APPDATA||process.env.HOME),"SoundBoard")
     this.nconf
       .argv()
       .env()
