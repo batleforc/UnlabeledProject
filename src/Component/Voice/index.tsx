@@ -8,6 +8,7 @@ import AddButtonModal from './AddButtonModal'
 import AddTabModal from './AddTabModal'
 
 export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
+  // eslint-disable-next-line
   var enumMedia ={1:"mp3",2:"YouTube",3:"spotify"}
   // eslint-disable-next-line
   useEffect(()=>dispatch(GetBoard()),[])
