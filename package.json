@@ -1,5 +1,5 @@
 {
-  "name": "unlabeled_project",
+  "name": "unlabeledProject",
   "version": "0.1.0",
   "private": true,
   "description": "Projet de soundboard afin de me familiariser avec certain package",
@@ -13,7 +13,7 @@
   "homepage": "./",
   "main": "./build/electron.js",
   "build": {
-    "appId": "com.example.unlabeled_project",
+    "appId": "com.example.unlabeledProject",
     "files": [
       "build/**/*",
       "node_modules/**/*",
