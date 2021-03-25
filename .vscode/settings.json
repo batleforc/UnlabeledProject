@@ -3,8 +3,17 @@
         "APPDATA",
         "Discordjs",
         "Spotify",
+        "bodyparser",
+        "browserslist",
+        "bufferutil",
+        "cacheable",
+        "compat",
         "craco",
         "deezer",
+        "opusscript",
+        "precaching",
+        "preelectron",
+        "preload",
         "varchar"
     ]
 }
