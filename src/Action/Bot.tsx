@@ -8,7 +8,8 @@ interface User{
   Pending:Boolean,
   Serveur: [any] | [],
   ActiveServeur : String,
-  ServeurChan : [any] |[]
+  ServeurChan : [any] |[],
+  canPlay : any
 }
 
 export const BotGetter = createAsyncThunk(
@@ -25,6 +26,16 @@ export const BotGetter = createAsyncThunk(
     }
   }
 )
+
+export const CanPlay = createAsyncThunk(
+  "Bot/CanPlay",
+  async (nothing,{dispatch}) => {
+    return axios.get(process.env.REACT_APP_SERVER+"/api/canplay")
+      .then((value)=>value.data)
+  }
+)
+
+
 export const BotServerGetter = createAsyncThunk(
   "Bot/serveur/get",
   async (value,{dispatch}) => {
@@ -48,7 +59,18 @@ export const BotServeurChanGetter = createAsyncThunk(
   }
 )
 
-const initialState = {img:null,user:null,Pending:false,link:"",Serveur:[],ActiveServeur:"-1",ServeurChan:[]} as User
+const initialState = {
+  img:null,
+  user:null,
+  Pending:false,
+  link:"",
+  Serveur:[],
+  ActiveServeur:"-1",
+  ServeurChan:[],
+  canPlay:{
+    canPlay:true,
+  }
+} as User
 
 const BotSlicer = createSlice({
   name : "Bot",
@@ -81,6 +103,13 @@ const BotSlicer = createSlice({
         state.ActiveServeur=payload.id
         state.ServeurChan=payload.res
       })
+      .addCase(CanPlay.pending,(state)=>{state.Pending=true})
+      .addCase(CanPlay.rejected,(state)=>{state.Pending=false})
+      .addCase(CanPlay.fulfilled,(state,{payload})=>{
+        state.Pending=false
+        state.canPlay=payload
+      })
+
   }
 })
 

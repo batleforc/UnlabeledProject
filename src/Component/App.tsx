@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import {TokenGetter} from '../Action/Token'
-import {BotGetter, BotServerGetter, reset} from '../Action/Bot'
+import {BotGetter, BotServerGetter, reset,CanPlay} from '../Action/Bot'
 import { Route, Link} from 'react-router-dom'
 import TokenComponent from './Token'
 import NavBar from './navbar'
@@ -21,6 +21,7 @@ var socket = io((process.env.REACT_APP_SERVER as string),{})
 export const App = ({dispatch,Token,Event,Bot}:any) => {
   useEffect(() => {
     dispatch(TokenGetter())
+    dispatch(CanPlay())
     dispatch(BotGetter({}))
       .then(()=>dispatch(BotServerGetter()))
     dispatch(EventInit({socket}))
