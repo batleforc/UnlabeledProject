@@ -13,7 +13,7 @@ class Store{
       .env()
     this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"ffmpeg"))
     this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"command"))
-    process.env.FFMPEG_BIN=path.join(this.soundBoardRoot,"ffmpeg")
+    process.env.FFMPEG_BIN=path.join(this.soundBoardRoot,"ffmpeg","ffmpeg")
     if(this.CreateFolderIfNotExist(this.soundBoardRoot)){
       this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"Store"))
       this.AddFileConfig(path.join(this.soundBoardRoot,"Store","config.json"))
