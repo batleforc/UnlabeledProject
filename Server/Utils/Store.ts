@@ -1,7 +1,6 @@
 import path from 'path'
 import fs from 'fs'
 import {ModuleLog} from '../Utils/Log'
-import ffmpeg from 'ffmpeg-static'
 class Store{
   nconf
   soundBoardRoot
