@@ -13,12 +13,18 @@
   "homepage": "./",
   "main": "./build/electron.js",
   "build": {
+    "productName":"unlabeledProject",
     "appId": "com.example.unlabeledProject",
+    "icon":"build/toolbox.png",
+    "asar":true,
     "files": [
       "build/**/*",
       "node_modules/**/*",
       "BuildServer/**/*"
     ],
+    "snap":{
+      "confinement":"classic"
+    },
     "directories": {
       "buildResources": "assets"
     }
