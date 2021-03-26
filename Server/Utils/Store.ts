@@ -1,17 +1,19 @@
 import path from 'path'
 import fs from 'fs'
 import {ModuleLog} from '../Utils/Log'
-
+import ffmpeg from 'ffmpeg-static'
 class Store{
   nconf
   soundBoardRoot
-
   constructor(){
     this.nconf = require('nconf')
     this.soundBoardRoot = path.join(String(process.env.APPDATA||process.env.HOME),"SoundBoard")
     this.nconf
       .argv()
       .env()
+    this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"ffmpeg"))
+    this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"command"))
+    process.env.FFMPEG_BIN=path.join(this.soundBoardRoot,"ffmpeg")
     if(this.CreateFolderIfNotExist(this.soundBoardRoot)){
       this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"Store"))
       this.AddFileConfig(path.join(this.soundBoardRoot,"Store","config.json"))
@@ -19,6 +21,7 @@ class Store{
     }
     this.nconf.defaults({
       "db": path.join(this.soundBoardRoot,"soundboard.db"),
+      "ffmpeg": path.join(this.soundBoardRoot,"ffmpeg"),
       "tokenTable":"TokenTable",
       "table":{
         "token":"TokenTable",
