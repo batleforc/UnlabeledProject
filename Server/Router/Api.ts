@@ -3,6 +3,8 @@ import Token from './Api/Token'
 import Bot from './Api/Bot'
 import Voice from './Api/Voice'
 import sBoard from './Api/sboard'
+import FFmpeg from 'prism-media'
+import os from 'os'
 var router = new Router({
   prefix: '/Api'
 });
@@ -13,6 +15,27 @@ router
   })
   .post("/", async (ctx : any,next : any)=>{
     ctx.body=ctx.request.body
+    return await next()
+  })
+  .get("/canPlay", async (ctx : any, next:any)=>{
+    ctx.body={
+      canPlay:false,
+      os : process.env.npm_config_platform || os.platform(),
+      ffmpeg:"https://www.ffmpeg.org/download.html",
+      link:{
+        win:"#build-windows",
+        linux:"#build-linux",
+        mac:"#build-mac"
+      },
+      where:ctx.store.GetConf("ffmpeg")
+    }
+    try{
+      FFmpeg.FFmpeg.getInfo()
+      ctx.body.canPlay = true
+    } catch(error){
+      ctx.body.canPlay = false
+      ctx.body.message=error
+    }
     return await next()
   })
   .get("/me",async (ctx:any,next:any)=>{
