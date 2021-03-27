@@ -22,6 +22,17 @@
       "node_modules/**/*",
       "BuildServer/**/*"
     ],
+    "win":{
+      "target":[
+        {
+          "target":"portable"
+        },{
+          "target":"nsis"
+        },{
+          "target":"zip"
+        }
+      ]
+    },
     "snap":{
       "confinement":"classic"
     },

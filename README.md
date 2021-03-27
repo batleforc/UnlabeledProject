@@ -40,15 +40,24 @@ Deux choix s'offre a vous :
 
 ### Linux
 
+Pour installer la version snap :
+
   ```shell
 
     $  snap install ${filename} --dangerous --classic
-    Install the snap application
+      Install the snap application
 
   ```
 
 Le param dangerous permet d'installer le fichier snap qui n'est pas encore signer.
 Le param classic permet d'installer le fichier snap en lui laissant l'accès aux fichier du pc (cella permet entre autre d'installer les fichier ffmpeg)
+
+Pour installer la version AppImage
+  ```shell
+    $ chmod a+x ${filename}.appImage
+      Permet d'indiquer que le fichier est exécutable
+    $ ./${filename}.appImage
+  ```
 
 ### Win
 
