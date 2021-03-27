@@ -14,6 +14,38 @@ Les objectif sont :
     -> Mise en place de plugin commande/Endpoint
     -> Mise en place de configuration
 
+## Installation
+
+Deux choix s'offre a vous :
+
+- Build les source via
+
+```shell
+
+  $yarn       // Install les dépendance
+  $yarn build // Permet de build le serveur et le client
+  $yarn dist  //  Permet de build les source dans un exécutable
+
+```
+
+- Télécharger une release
+
+=> [Github](https://github.com/batleforc/UnlabeledProject/releases)
+### Linux
+
+```shell
+
+  $snap install ${filename} --dangerous --classic
+
+```
+
+Le param dangerous permet d'installer le fichier snap qui n'est pas encore signer.
+Le param classic permet d'installer le fichier snap en lui laissant l'accès aux fichier du pc (cella permet entre autre d'installer les fichier ffmpeg)
+
+### Win
+
+Installer le fichier .exe
+
 ### SoundBoard ?
 
 Une sound board c'est quoi ? Une Sound board est une table non pas de mixage mais d'effet sonore.
