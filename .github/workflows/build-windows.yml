@@ -18,8 +18,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name: patch node gyp on windows to support Visual Studio 2019
+        shell: powershell
+        run: |
+          npm install --global node-gyp@latest
+          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
       - name : set vs version
-        run : npm config set msvs_version 2015
+        run : npm config set msvs_version 2019
       - name: Visual Studio shell
         uses: egor-tensin/vs-shell@v2
 
