@@ -1,4 +1,5 @@
 # Bot Discord ? (OLD SOUNDBOARD)
+
 [![Linux:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-linux.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-linux.yml)
 [![Win:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-windows.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-windows.yml)
 [![Mac:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-mac.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-mac.yml)
@@ -24,23 +25,26 @@ Deux choix s'offre a vous :
 - Build les source via
 
 ```shell
-
-  $yarn       // Install les dépendance
-  $yarn build // Permet de build le serveur et le client
-  $yarn dist  //  Permet de build les source dans un exécutable
-
+  $ yarn
+    Install les dépendance
+  $ yarn build
+    Permet de build le serveur et le client
+  $ yarn dist
+    Permet de build les source dans un exécutable
 ```
 
 - Télécharger une release
 
 => [Github](https://github.com/batleforc/UnlabeledProject/releases)
+
 ### Linux
 
-```shell
+  ```shell
 
-  $snap install ${filename} --dangerous --classic
+    $  snap install ${filename} --dangerous --classic
+    Install the snap application
 
-```
+  ```
 
 Le param dangerous permet d'installer le fichier snap qui n'est pas encore signer.
 Le param classic permet d'installer le fichier snap en lui laissant l'accès aux fichier du pc (cella permet entre autre d'installer les fichier ffmpeg)
@@ -132,20 +136,20 @@ L'objectif serais d'émettre des sons sur un input audio que discord ou un autre
 
 ### Useful Link
 
-  https://discordjs.guide/creating-your-bot/#creating-the-bot-file
+  <https://discordjs.guide/creating-your-bot/#creating-the-bot-file>
 
-  https://discord.com/developers/
+  <https://discord.com/developers/>
 
-  https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md
+  <https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md>
 
-  https://animejs.com/documentation/#gridAxisStaggering
+  <https://animejs.com/documentation/#gridAxisStaggering>
 
-  https://tailwindcss.com/
+  <https://tailwindcss.com/>
 
   Voice :
 
-  https://discordjs.guide/voice/the-basics.html#joining-voice-channels
+  <https://discordjs.guide/voice/the-basics.html#joining-voice-channels>
 
-  https://discordjs.guide/voice/understanding-voice.html#understanding-voice
+  <https://discordjs.guide/voice/understanding-voice.html#understanding-voice>
 
-  https://jsonlogic.com/
+  <https://jsonlogic.com/>
