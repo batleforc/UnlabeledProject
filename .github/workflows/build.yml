@@ -21,7 +21,7 @@ jobs:
       - name : set vs version
         run : npm config set msvs_version 2015
       - name : installl libsodium
-        run : sudo apt install libsodium
+        run : sudo apt-get install -y libsodium-dev
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
