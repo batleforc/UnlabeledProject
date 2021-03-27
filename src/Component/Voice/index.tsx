@@ -42,7 +42,7 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
       </div>
       <div>
         <nav className="flex flex-col sm:flex-row">
-          {sBoard.Board.map((value:any,index:number)=>
+          {Array.isArray(sBoard.Board)&&sBoard.Board.map((value:any,index:number)=>
           <button
             className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${sBoard.ActiveBoard===index?"border-b-2 font-medium border-blue-500":""}`}
             onClick={()=>dispatch(setActiveBoard(index))}
