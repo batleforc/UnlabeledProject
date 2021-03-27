@@ -54,7 +54,11 @@ Le param classic permet d'installer le fichier snap en lui laissant l'accès aux
 
 Installer le fichier .exe
 
-### SoundBoard ?
+### Mac
+
+Alors la....
+
+## SoundBoard ?
 
 Une sound board c'est quoi ? Une Sound board est une table non pas de mixage mais d'effet sonore.
 
