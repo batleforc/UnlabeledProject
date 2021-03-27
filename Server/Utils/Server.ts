@@ -4,6 +4,7 @@ import {Server,Socket} from 'socket.io'
 import {ModuleLog} from '../Utils/Log'
 import serve from "koa-static"
 import path from 'path'
+import fs from "fs"
 
 var Koa = require('koa')
 var KoaBody = require('koa-body')
@@ -44,9 +45,10 @@ class WebServer{
   ListenServer = ( callback : Function ) => {
     this.app.use(async (ctx : any,next:any)=>{
       if(ctx.body===undefined){
-        ctx.redirect("/")
+        ctx.type='html'
+        ctx.body=fs.readFileSync(path.resolve('./build/index.html'))
       }
-      return await next()
+      await next()
     })
     this.server.listen(this.Port,callback)
   }
