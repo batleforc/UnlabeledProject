@@ -33,12 +33,12 @@ class DataBase{
   )
 
   InsertToken = (label : string , token : string) => this.db?.run(`INSERT INTO ${this.Table.token} (label,token) VALUES (?,?)`,[label,token])
-  GetAllToken = async () => await this.db?.all(`select * from ${this.Table.token} `)
-  GetToken = async (id : string) => await this.db?.get(`Select * from ${this.Table.token} where id = ?`,id)
+  GetAllToken = async () => this.db?.all(`select * from ${this.Table.token} `)
+  GetToken = async (id : string) => this.db?.get(`Select * from ${this.Table.token} where id = ?`,id)
   DeleteToken = (idToken : number) => this.db?.exec(`Delete from ${this.Table.token} where id=${idToken}`)
   EditToken = (idToken : number, label : string , token : string) => this.db?.run(`Update ${this.Table.token} set label = '${label}', token = '${token}' where id=${idToken}`)
 
-  GetAllTab = async () => await this.db?.all(`select * from ${this.Table.tab}`)
+  GetAllTab = async () => this.db?.all(`select * from ${this.Table.tab}`)
   DeleteTab = (TabId : number) =>{
     this.db?.exec(`Delete from ${this.Table.tab} where id=${TabId}`)
   }
