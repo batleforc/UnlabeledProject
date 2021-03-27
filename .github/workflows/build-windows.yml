@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name : set vs version
+        run : npm config set msvs_version 2019
       - name: patch node gyp on windows to support Visual Studio 2019
         shell: powershell
         run: |
@@ -27,6 +29,8 @@ jobs:
         run : npm config set msvs_version 2019
       - name: Visual Studio shell
         uses: egor-tensin/vs-shell@v2
+      - name : set vs version
+        run : npm config set msvs_version 2019
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
