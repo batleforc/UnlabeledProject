@@ -19,9 +19,9 @@ jobs:
         with:
           node-version: 14
       - name : set vs version
-        run : npm config set msvs_version 2019
+        run : npm config set msvs_version 2015
       - name : set vs version
-        run : npm i -g windows-build-tools
+        run : npm i -g windows-build-tools --vs2015
       - name: patch node gyp on windows to support Visual Studio 2019
         shell: powershell
         run: |
