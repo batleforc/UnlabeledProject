@@ -21,7 +21,7 @@ Bot
       ctx.body={
         message:"Bot not started yet or not ready"
       }
-      return await next()
+      await next()
   })
   .get("/chan/:id", async (ctx : any, next : any) => {
     var params = ctx.params.id;
@@ -30,26 +30,27 @@ Bot
     }
     else
       ctx.body=[]
-    return await next()
+    await next()
   })
   .post("/start", async (ctx : any, next :any) => {
     if(ctx.request.body.id===undefined){
       ctx.body={message:"id manquant"}
-      return await next()
-    }
-    if(ctx.discord.Ready)
-      (ctx.discord as Discord).DisconnectClient(ctx.io);
+      await next()
+    }else{
+      if(ctx.discord.Ready)
+        (ctx.discord as Discord).DisconnectClient(ctx.io);
       (ctx.Db as DataBase).GetToken(ctx.request.body.id)
         .then((value)=>{
           (ctx.discord).LoginClient(value.token);
         });
-    ctx.body={message:"all Is Green"}
-    return await next()
+      ctx.body={message:"all Is Green"}
+    }
+    await next()
   })
   .post("/stop", async (ctx : any, next :any) => {
     (ctx.discord as Discord).DisconnectClient(ctx.io);
     ctx.body={message:"all Is Green"}
-    return await next()
+    await next()
   })
 
 export default Bot;

@@ -11,11 +11,11 @@ var router = new Router({
 router
   .get("/",async (ctx : any,next : any)=>{
     ctx.body = "Hello World"
-    return await next()
+    await next()
   })
   .post("/", async (ctx : any,next : any)=>{
     ctx.body=ctx.request.body
-    return await next()
+    await next()
   })
   .get("/canPlay", async (ctx : any, next:any)=>{
     ctx.body={
@@ -36,7 +36,7 @@ router
       ctx.body.canPlay = false
       ctx.body.message=error
     }
-    return await next()
+    await next()
   })
   .get("/me",async (ctx:any,next:any)=>{
     if(ctx.discord.Ready)
@@ -51,7 +51,7 @@ router
         message:"Bot not started yet or not ready",
         link:""
       }
-      return await next()
+      await next()
   })
 
 router.use('/token', Token.routes(), Token.allowedMethods());
