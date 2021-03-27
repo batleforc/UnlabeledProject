@@ -1,4 +1,7 @@
 # Bot Discord ? (OLD SOUNDBOARD)
+[![Linux:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-linux.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-linux.yml)
+[![Win:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-windows.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-windows.yml)
+[![Mac:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-mac.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-mac.yml)
 
 Projet d'une soundboard vers une toolbox afin de me familiariser avec certain package :
 
