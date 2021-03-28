@@ -46,7 +46,7 @@ class WebServer{
     this.app.use(async (ctx : any,next:any)=>{
       if(ctx.body===undefined){
         ctx.type='html'
-        ctx.body=fs.readFileSync(path.resolve('./build/index.html'))
+        ctx.body=fs.readFileSync(path.resolve(__dirname,"..","..",'build/index.html'))
       }
       await next()
     })
