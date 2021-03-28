@@ -1,4 +1,4 @@
-import Discordjs, { ActivityType, Guild, Presence, PresenceData, StreamOptions, VoiceChannel } from 'discord.js'
+import Discordjs, { ActivityType, PresenceData, StreamOptions, VoiceChannel } from 'discord.js'
 import { Server } from 'socket.io';
 import {Log, ModuleLog} from '../Utils/Log'
 
@@ -6,6 +6,7 @@ class Discord{
   client : Discordjs.Client
   Ready : Boolean
   Voice! : Discordjs.VoiceConnection
+  
   constructor() {
     this.client = new Discordjs.Client();
     this.Ready = false;
