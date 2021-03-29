@@ -45,7 +45,14 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
           {Array.isArray(sBoard.Board)&&sBoard.Board.map((value:any,index:number)=>
           <button
             className={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${sBoard.ActiveBoard===index?"border-b-2 font-medium border-blue-500":""}`}
-            onClick={()=>dispatch(setActiveBoard(index))}
+            onClick={()=>{
+              if(sBoard.ActiveBoard!==-1&&sBoard.BoardAsChanged)
+                dispatch(UpdateBoard({
+                  tabId:sBoard.Board[sBoard.ActiveBoard].id,
+                  content:sBoard.ActiveLayout
+                }))
+              dispatch(setActiveBoard(index))
+            }}
             key={value.id} value={value.id}>
             {value.label}
           </button>)}
