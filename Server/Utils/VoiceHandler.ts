@@ -56,6 +56,7 @@ class VoiceHandler{
   Leave = ( io : Server) =>{
     this.songQueue.connection?.disconnect()
     this.songQueue.canPlay = false;
+    this.songQueue.voiceChannel= null
     io.emit("VoiceLeave")
   }
 
@@ -64,6 +65,7 @@ class VoiceHandler{
       voiceChan
         .join()
         .then(value=>{
+          this.songQueue.voiceChannel = voiceChan
           this.songQueue.connection = value
           this.songQueue.canPlay = true
           io.emit("VoiceJoin")
