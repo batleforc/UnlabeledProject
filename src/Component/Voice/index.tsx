@@ -56,7 +56,14 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
           <div
           key={value.i}
           className="bg-red-500 border-black border-2 cursor-pointer select-none overflow-hidden text-center"
-          onClick={()=>{if(value.static)dispatch(startVoice(value.url))}} >
+          onClick={()=>{if(value.static)dispatch(startVoice({
+            song:{
+              title:value.i,
+              url: value.url,
+              type : value.type
+            },
+            now: true
+          }))}} >
             {value.text}
             {!value.static&&
             <div>

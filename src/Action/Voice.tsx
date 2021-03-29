@@ -28,9 +28,10 @@ export const stopVoice = createAsyncThunk(
 )
 export const startVoice = createAsyncThunk(
   "voice/startVoice",
-  async (something: string,{dispatch}) => {
+  async ({song, now}: {song : object, now : boolean},{dispatch}) => {
     return axios.post(ApiVoice+"play",{
-      toPlay : something
+      toPlay : song,
+      now : now
     })
     .then(value=>value.data)
   }
