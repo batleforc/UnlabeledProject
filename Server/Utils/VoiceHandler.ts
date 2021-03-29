@@ -74,18 +74,18 @@ class VoiceHandler{
   }
 
   Pause = (io : Server) => {
-    this.songQueue.connection?.dispatcher.pause()
+    this.songQueue.connection?.dispatcher?.pause()
     io.emit("VoiceChange")
   }
 
   Resume = (io : Server) =>{
-    this.songQueue.connection?.dispatcher.resume()
+    this.songQueue.connection?.dispatcher?.resume()
     io.emit("VoiceChange")
   }
 
   Stop = ( io : Server) =>{
     this.songQueue.queue= [];
-    this.songQueue.connection?.dispatcher.end();
+    this.songQueue.connection?.dispatcher?.end();
     io.emit("VoiceChange")
     return {stopped : true}
   }
@@ -93,7 +93,7 @@ class VoiceHandler{
   Skip = ( io : Server) =>{
     if(this.songQueue.queue.length===0)
       return {message:"no queue",playing: false}
-    this.songQueue.connection?.dispatcher.end();
+    this.songQueue.connection?.dispatcher?.end();
     io.emit("VoiceChange")
     return {message:"All is good", playing : true}
   }
@@ -149,7 +149,7 @@ class VoiceHandler{
 
   SetVolume = ( io : Server, volume : number) => {
     this.songQueue.volume = volume
-    this.songQueue.connection?.dispatcher.setVolumeLogarithmic(volume/5)
+    this.songQueue.connection?.dispatcher?.setVolumeLogarithmic(volume/5)
     io.emit("VoiceChange")
   }
 }
