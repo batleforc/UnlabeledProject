@@ -42,6 +42,8 @@ class VoiceHandler{
   getVolume = () => this.songQueue.volume
   getServer = () => this.songQueue.voiceChannel.guild
   getChannel = () => this.songQueue.voiceChannel
+  getIsPaused = () => this.songQueue.connection.dispatcher.paused
+  getStatus = () => this.songQueue.connection
 
   Leave = ( io : Server) =>{
     this.songQueue.connection.disconnect()
@@ -91,11 +93,17 @@ class VoiceHandler{
       return
     if(now){
       this.songQueue
-        .queue.unshift(song)
+        .queue.splice(1,0,song)
+      this.songQueue.connection.dispatcher.end()
     }else
       this.songQueue
         .queue.push(song)
-
+    io.emit("VoiceQueue")
+    if(this.songQueue.queue.length===1){
+      this.Player(io);
+    }
+  }
+  Player = (io : Server) => {
     if(this.songQueue.canPlay){
       var dispatch = this.songQueue.connection
         .play((
@@ -125,12 +133,11 @@ class VoiceHandler{
     }
   }
 
-  SetVolume = ( volume : number) => {
+  SetVolume = ( io : Server, volume : number) => {
     this.songQueue.volume = volume
     this.songQueue.connection?.dispatcher.setVolumeLogarithmic(volume/5)
+    io.emit("VoiceChange")
   }
-
-
 }
 
 
