@@ -12,10 +12,11 @@ import {
   EventInit,
   setResetBot,
   setUpdateBot,
+  setVoiceChange,
   setVoiceJoin,
   setVoicePlaying
 } from '../Action/Event'
-import {getVolume, getPause, getStatus} from '../Action/Voice'
+import {getVolume, getPause, getStatus, getVoice} from '../Action/Voice'
 import Voice from './Voice';
 var socket = io((process.env.REACT_APP_SERVER as string),{})
 export const App = ({dispatch,Token,Event,Bot}:any) => {
@@ -40,6 +41,9 @@ export const App = ({dispatch,Token,Event,Bot}:any) => {
     if(Event.Voice.Join)
       dispatch(getStatus())
         .then(()=>dispatch(setVoiceJoin(false)))
+    if(Event.Voice.Change)
+      dispatch(getVoice())
+        .then(()=>dispatch(setVoiceChange(false)))
     // eslint-disable-next-line
   },[Event])
 

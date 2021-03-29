@@ -57,6 +57,15 @@ export const getStatus = createAsyncThunk(
       .then(value=>value.data===0) //if 0 = good sinon pas good
   }
 )
+
+export const getVoice = createAsyncThunk(
+  "voice/getVoice",
+  async (something : void,{dispatch}) => {
+    return axios.get(ApiVoice)
+      .then(value=>value.data) //if 0 = good sinon pas good
+  }
+)
+
 export const getPause = createAsyncThunk(
   "voice/getStatus",
   async (something : void,{dispatch}) => {
@@ -103,6 +112,12 @@ const VoiceSlicer = createSlice({
       .addCase(getVolume.pending,(state,payload)=>{state.Pending=true})
       .addCase(getVolume.rejected,(state,payload)=>{state.Pending=false})
       .addCase(getVolume.fulfilled,(state,{payload})=>{state.Pending=false;state.Volume=payload})
+      .addCase(getVoice.pending,(state,payload)=>{state.Pending=true})
+      .addCase(getVoice.rejected,(state,payload)=>{state.Pending=false})
+      .addCase(getVoice.fulfilled,(state,{payload})=>{
+        state.Pending=false;
+        console.log(payload)
+      })
   }
 })
 
