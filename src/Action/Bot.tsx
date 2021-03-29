@@ -1,4 +1,5 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
+import {getVoice} from './Voice'
 import axios from 'axios';
 var ApiBot = process.env.REACT_APP_SERVER+"/api/bot/"
 interface User{
@@ -109,7 +110,12 @@ const BotSlicer = createSlice({
         state.Pending=false
         state.canPlay=payload
       })
+      .addCase(getVoice.fulfilled,(state,{payload})=>{
+        if(payload.Server)
+          state.ActiveServeur=payload.Server.id
 
+      })
+      
   }
 })
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import {TokenGetter} from '../Action/Token'
-import {BotGetter, BotServerGetter, reset,CanPlay} from '../Action/Bot'
+import {BotGetter, BotServerGetter, reset,CanPlay, BotServeurChanGetter} from '../Action/Bot'
 import { Route, Link} from 'react-router-dom'
 import TokenComponent from './Token'
 import NavBar from './navbar'
@@ -24,6 +24,12 @@ export const App = ({dispatch,Token,Event,Bot}:any) => {
     dispatch(CanPlay())
     dispatch(BotGetter({}))
       .then(()=>dispatch(BotServerGetter()))
+    dispatch(getVoice())
+      .then(({payload}:any)=>{
+        if(payload.Chan&&payload.Server){
+          dispatch(BotServeurChanGetter(payload.Server.id))
+        }
+      })
     dispatch(EventInit({socket}))
     if(process.env.REACT_APP_NAME!==undefined)
       document.title=process.env.REACT_APP_NAME

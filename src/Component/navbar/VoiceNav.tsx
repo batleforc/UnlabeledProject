@@ -11,7 +11,7 @@ export const VoiceNav = ({Voice,Bot,dispatch} : any) => {
         value={Voice.ChanId}
         onChange={(event)=>dispatch(setChanId(event.currentTarget.value))}>
           <option className="text-black" value={-1} key="none" disabled>Select a VoiceChannel</option>
-          {Bot.ActiveServeur!==-1&&Bot.ServeurChan.filter((value : any)=>value.type==="voice").map((value:any)=>
+          {Bot.ActiveServeur!==-1&&Bot.ServeurChan?.filter((value : any)=>value.type==="voice").map((value:any)=>
             <option key={value.id} value={value.id}>{value.name}</option>)}
         </select>
         <button
