@@ -53,7 +53,7 @@ export const setVolume = createAsyncThunk(
 export const getStatus = createAsyncThunk(
   "voice/getStatus",
   async (something : void,{dispatch}) => {
-    return axios.get(ApiVoice+"status")
+    return axios.get(ApiVoice)
       .then(value=>value.data===0) //if 0 = good sinon pas good
   }
 )

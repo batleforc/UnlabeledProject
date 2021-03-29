@@ -10,11 +10,8 @@ import BotCanPlay from './Bot/modal'
 import io from 'socket.io-client'
 import {
   EventInit,
-  resetResetBot,
-  resetUpdateBot,
-  resetVoiceSpeaking,
-  resetVoiceStart,
-  resetVoiceVolume,
+  setResetBot,
+  setUpdateBot
 } from '../Action/Event'
 import {getVolume, getPause, getStatus} from '../Action/Voice'
 import Voice from './Voice';
@@ -33,20 +30,11 @@ export const App = ({dispatch,Token,Event,Bot}:any) => {
   useEffect(()=>{
     if(Event.ReloadBot)
       dispatch(BotGetter({force:true}))
-        .then(()=>dispatch(resetUpdateBot()))
+        .then(()=>dispatch(setUpdateBot(false)))
         .then(()=>dispatch(BotServerGetter()))
     if(Event.ResetBot)
       dispatch(reset())
-        .then(()=>dispatch(resetResetBot()))
-    if(Event.Voice.Start)
-      dispatch(getStatus())
-        .then(()=>dispatch(resetVoiceStart()))
-    if(Event.Voice.Volume)
-      dispatch(getVolume())
-        .then(()=>dispatch(resetVoiceVolume()))
-    if(Event.Voice.Speaking)
-      dispatch(getPause())
-        .then(()=>dispatch(resetVoiceSpeaking()))
+        .then(()=>dispatch(setResetBot(false)))
     // eslint-disable-next-line
   },[Event])
 
