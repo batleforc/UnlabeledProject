@@ -43,7 +43,7 @@ class VoiceHandler{
   getServer = () => this.songQueue.voiceChannel?.guild
   getChannel = () => this.songQueue.voiceChannel
   getIsPaused = () => this.songQueue.connection?.dispatcher?.paused
-  getStatus = () => this.songQueue.connection.status
+  getStatus = () => this.songQueue.connection?.status
 
   getVoiceStatus = () => ({
     Queue   : this.getQueue(),
@@ -51,6 +51,7 @@ class VoiceHandler{
     Server  : this.getServer(),
     Chan    : this.getChannel(),
     Paused  : this.getIsPaused(),
+    Status  : this.getStatus()
   })
 
   Leave = ( io : Server) =>{
