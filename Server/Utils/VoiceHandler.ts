@@ -43,6 +43,12 @@ class VoiceHandler{
   getServer = () => this.songQueue.voiceChannel.guild
   getChannel = () => this.songQueue.voiceChannel
 
+  Leave = ( io : Server) =>{
+    this.songQueue.connection.disconnect()
+    this.songQueue.canPlay = false;
+    io.emit("VoiceLeave")
+  }
+
   Join = ( voiceChan : VoiceChannel , io : Server ) => {
     if(canJoin(voiceChan)){
       voiceChan
@@ -50,8 +56,34 @@ class VoiceHandler{
         .then(value=>{
           this.songQueue.connection = value
           this.songQueue.canPlay = true
+          io.emit("VoiceJoin")
         })
     }
+  }
+
+  Pause = (io : Server) => {
+    this.songQueue.connection?.dispatcher.pause()
+    io.emit("VoiceChange")
+  }
+
+  Resume = (io : Server) =>{
+    this.songQueue.connection?.dispatcher.resume()
+    io.emit("VoiceChange")
+  }
+
+  Stop = ( io : Server) =>{
+    this.songQueue.queue= [];
+    this.songQueue.connection.dispatcher.end();
+    io.emit("VoiceChange")
+    return {stopped : true}
+  }
+
+  Skip = ( io : Server) =>{
+    if(this.songQueue.queue.length===0)
+      return {message:"no queue",playing: false}
+    this.songQueue.connection.dispatcher.end();
+    io.emit("VoiceChange")
+    return {message:"All is good", playing : true}
   }
 
   Play = ( io : Server, song? : Song, now? : boolean  ) =>{
@@ -80,12 +112,17 @@ class VoiceHandler{
         })
         .on("error",error=>{
           io.emit("VoiceError")
+          this.songQueue.playing=false;
           ErrorLog("VoiceHandler",error.message);
         })
-        io.emit("VoicePlaying")
+        this.songQueue.playing=true;
+        io.emit("VoiceChange")
         dispatch.setVolumeLogarithmic(this.songQueue.volume/5)
-    }else
+      return {message:"Sound started",playing:true}
+    }else{
+      this.songQueue.playing=false;
       return {message:"Isn't Connected",playing: false}
+    }
   }
 
   SetVolume = ( volume : number) => {
@@ -95,3 +132,6 @@ class VoiceHandler{
 
 
 }
+
+
+export default VoiceHandler;
