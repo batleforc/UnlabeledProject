@@ -60,7 +60,7 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
         {sBoard.ActiveLayout.map((value:any, index:number)=>
           <div
           key={value.i}
-          className="bg-red-500 border-black border-2 cursor-pointer select-none overflow-hidden text-center"
+          className="rounded-md bg-gradient-to-r from-indigo-200 to-blue-200 border-black border-2 cursor-pointer select-none overflow-hidden text-center"
           onClick={()=>{if(value.static)dispatch(startVoice({
             song:{
               title:value.i,
