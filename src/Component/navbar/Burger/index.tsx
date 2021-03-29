@@ -11,6 +11,7 @@ export const index = ({ShowModal,dispatch, ...props} : any) =>{
       customBurgerIcon={false}
       customCrossIcon={false}
       right
+      className="bg-grey"
       >
         <h1> test </h1>
     </Menu>
