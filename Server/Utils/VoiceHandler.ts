@@ -1,6 +1,8 @@
 import { VoiceChannel, VoiceConnection } from 'discord.js'
 import {canJoin} from './Permissions'
 import { Server } from 'socket.io';
+import {ErrorLog} from './Log'
+import ytdl from 'ytdl-core'
 enum SongType{
   link = 0,
   YouTube = 1,
@@ -52,9 +54,36 @@ class VoiceHandler{
     }
   }
 
-  Play = ( song : Song, now? : boolean ) =>{
-    if(this.songQueue.canPlay){
+  Play = ( io : Server, song? : Song, now? : boolean  ) =>{
+    if(!song)
+      return
+    if(now){
+      this.songQueue
+        .queue.unshift(song)
+    }else
+      this.songQueue
+        .queue.push(song)
 
+    if(this.songQueue.canPlay){
+      var dispatch = this.songQueue.connection
+        .play((
+          this.songQueue.queue[0].type===SongType.link?
+          this.songQueue.queue[0].url:
+          this.songQueue.queue[0].type===SongType.YouTube?
+          ytdl(this.songQueue.queue[0].url):
+          this.songQueue.queue[0].url
+          ))
+        .on("finish",()=>{
+          this.songQueue.queue.shift();
+          this.Play(io,this.songQueue.queue[0])
+          io.emit("VoiceChange")
+        })
+        .on("error",error=>{
+          io.emit("VoiceError")
+          ErrorLog("VoiceHandler",error.message);
+        })
+        io.emit("VoicePlaying")
+        dispatch.setVolumeLogarithmic(this.songQueue.volume/5)
     }else
       return {message:"Isn't Connected",playing: false}
   }
