@@ -42,7 +42,7 @@ export const VoiceNav = ({Voice,Bot,dispatch} : any) => {
         </svg>
         <div className="hover:bg-gray-900">
           <label htmlFor="volume">Volume:</label>
-          <input className="bg-grey" type="number"name="volume" min="0" max="10" onChange={(event)=>dispatch(setVolume(Number(event.target.value)/10))} value={Voice.Volume} />
+          <input className="bg-grey" type="number"name="volume" min="0" max="10" onChange={(event)=>dispatch(setVolume(Number(event.target.value)))} value={Voice.Volume} />
         </div>
       </div>
     </nav>

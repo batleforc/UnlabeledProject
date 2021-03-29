@@ -116,6 +116,7 @@ const VoiceSlicer = createSlice({
       .addCase(getVoice.rejected,(state,payload)=>{state.Pending=false})
       .addCase(getVoice.fulfilled,(state,{payload})=>{
         state.Pending=false;
+        state.Volume = payload.Volume
         console.log(payload)
       })
   }
