@@ -45,7 +45,8 @@ interface Board{
   ActiveLayout    : [any] |[] | any,
   sound           : String,
   url             : String,
-  button          : String
+  button          : String,
+  BoardAsChanged  : boolean
 }
 const initialState = {
   Pending         : false,
@@ -55,6 +56,7 @@ const initialState = {
   sound           : "",
   url             : "",
   button          : "",
+  BoardAsChanged  : false
 
 } as Board
 const parse= (state:any,{payload}:any)=>{
@@ -73,6 +75,7 @@ const SBoardSlicer = createSlice({
     setSound : (state,{payload}) => ({...state,sound:payload}),
     setHandlerLayout : (state,{payload})=>{
       state.ActiveLayout=payload.map((value : any,index : any)=>({...state.ActiveLayout[index],...value}))
+      state.BoardAsChanged=true
     },
     lock : (state) => {state.ActiveLayout=state.ActiveLayout.map((value:any)=>({...value,static:true}))},
     unLock : (state) => {state.ActiveLayout=state.ActiveLayout.map((value:any)=>({...value,static:false}))},
@@ -80,9 +83,11 @@ const SBoardSlicer = createSlice({
       state.ActiveLayout=state.ActiveLayout.concat([ {i:String(state.ActiveLayout.length+1), x: 0, y: 0, w: 1, h: 2,text:state.button,url:state.url,type:1,static:state.ActiveLayout[0]?.static||false}])
       state.url=""
       state.button=""
+      state.BoardAsChanged=true
     },
     removeButton : (state,{payload})=>{
       state.ActiveLayout.splice(payload,1)
+      state.BoardAsChanged=true
     },
     setUrl : (state,{payload})=>({...state,url:payload}),
     setButton : (state,{payload})=>({...state,button:payload})
@@ -97,7 +102,10 @@ const SBoardSlicer = createSlice({
       .addCase(DeleteBoard.fulfilled,parse)
       .addCase(UpdateBoard.pending,(state)=>{state.Pending=true})
       .addCase(UpdateBoard.rejected,(state)=>{state.Pending=false})
-      .addCase(UpdateBoard.fulfilled,parse)
+      .addCase(UpdateBoard.fulfilled,(state,action)=>{
+        state.BoardAsChanged = false;
+        parse(state,action);
+      })
       .addCase(CreateBoard.pending,(state)=>{state.Pending=true})
       .addCase(CreateBoard.rejected,(state)=>{state.Pending=false})
       .addCase(CreateBoard.fulfilled,parse)
