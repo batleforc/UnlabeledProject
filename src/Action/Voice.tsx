@@ -120,7 +120,6 @@ const VoiceSlicer = createSlice({
         state.ChanId = payload.Chan!==null?payload.Chan.id:"-1"
         state.GuildId = payload.Server?.id
         state.Status = payload.Status===0
-        console.log(payload)
       })
   }
 })

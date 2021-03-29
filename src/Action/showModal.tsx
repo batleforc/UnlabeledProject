@@ -3,13 +3,15 @@ import {createSlice} from '@reduxjs/toolkit'
 interface Modal{
   TokenForm     : Boolean,
   CreateTab     : Boolean,
-  CreateButton  : Boolean
+  CreateButton  : Boolean,
+  Burger        : Boolean
 }
 
 const initialState ={
   TokenForm     : false,
   CreateTab     : false,
-  CreateButton  : false
+  CreateButton  : false,
+  Burger        : false
 } as Modal
 
 const ShowModalSlicer = createSlice({
@@ -22,6 +24,7 @@ const ShowModalSlicer = createSlice({
     hideCreateTab : (state) => {state.CreateTab=false},
     showCreateButton : (state) => {state.CreateButton=true},
     hideCreateButton : (state) => {state.CreateButton=false},
+    setBurger : (state,{payload})=>{state.Burger=payload}
   }
 })
 
@@ -31,6 +34,7 @@ export const {
   showCreateTab,
   hideCreateTab,
   showCreateButton,
-  hideCreateButton
+  hideCreateButton,
+  setBurger
 } = ShowModalSlicer.actions
 export default ShowModalSlicer.reducer
