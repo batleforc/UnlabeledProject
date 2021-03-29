@@ -1,123 +1,140 @@
-import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
-import {getVoice} from './Voice'
-import axios from 'axios';
-var ApiBot = process.env.REACT_APP_SERVER+"/api/bot/"
-interface User{
-  img : any,
-  user : any,
-  link: string,
-  Pending:Boolean,
-  Serveur: [any] | [],
-  ActiveServeur : String,
-  ServeurChan : [any] |[],
-  canPlay : any
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getVoice } from "./Voice";
+import axios from "axios";
+var ApiBot = process.env.REACT_APP_SERVER + "/api/bot/";
+interface User {
+  img: any;
+  user: any;
+  link: string;
+  Pending: Boolean;
+  Serveur: [any] | [];
+  ActiveServeur: String;
+  ServeurChan: [any] | [];
+  canPlay: any;
 }
 
 export const BotGetter = createAsyncThunk(
   "Bot/get",
-  async ({force}:{force?: boolean |undefined},{dispatch}) => {
-    return axios.get(process.env.REACT_APP_SERVER+"/api/me")
-      .then((value)=>value.data)
-  },{
-    condition:({force}:{force?: boolean |undefined},{getState}) : boolean => {
-      var test = getState()
-      if((test as any).Bot.user!==null&&force!==true)
-        return false
-      return true
-    }
+  async ({ force }: { force?: boolean | undefined }, { dispatch }) => {
+    return axios
+      .get(process.env.REACT_APP_SERVER + "/api/me")
+      .then((value) => value.data);
+  },
+  {
+    condition: (
+      { force }: { force?: boolean | undefined },
+      { getState }
+    ): boolean => {
+      var test = getState();
+      if ((test as any).Bot.user !== null && force !== true) return false;
+      return true;
+    },
   }
-)
+);
 
 export const CanPlay = createAsyncThunk(
   "Bot/CanPlay",
-  async (nothing,{dispatch}) => {
-    return axios.get(process.env.REACT_APP_SERVER+"/api/canplay")
-      .then((value)=>value.data)
+  async (nothing, { dispatch }) => {
+    return axios
+      .get(process.env.REACT_APP_SERVER + "/api/canplay")
+      .then((value) => value.data);
   }
-)
-
+);
 
 export const BotServerGetter = createAsyncThunk(
   "Bot/serveur/get",
-  async (value,{dispatch}) => {
-    return axios.get(ApiBot+"serveur")
-      .then((value)=>value.data)
-  },{
-    condition:(force : boolean |void,{getState}) : boolean => {
-      var test = getState()
-      if((test as any).Bot.user===null)
-        return false
-      return true
-    }
+  async (value, { dispatch }) => {
+    return axios.get(ApiBot + "serveur").then((value) => value.data);
+  },
+  {
+    condition: (force: boolean | void, { getState }): boolean => {
+      var test = getState();
+      if ((test as any).Bot.user === null) return false;
+      return true;
+    },
   }
-)
+);
 
 export const BotServeurChanGetter = createAsyncThunk(
   "Bot/Serveur/chan/get",
-  async(value : string,{dispatch}) => {
-    return axios.get(`${ApiBot}chan/${value}`)
-      .then((res)=>({id:value,res:res.data}))
+  async (value: string, { dispatch }) => {
+    return axios
+      .get(`${ApiBot}chan/${value}`)
+      .then((res) => ({ id: value, res: res.data }));
   }
-)
+);
 
 const initialState = {
-  img:null,
-  user:null,
-  Pending:false,
-  link:"",
-  Serveur:[],
-  ActiveServeur:"-1",
-  ServeurChan:[],
-  canPlay:{
-    canPlay:true,
-  }
-} as User
+  img: null,
+  user: null,
+  Pending: false,
+  link: "",
+  Serveur: [],
+  ActiveServeur: "-1",
+  ServeurChan: [],
+  canPlay: {
+    canPlay: true,
+  },
+} as User;
 
 const BotSlicer = createSlice({
-  name : "Bot",
+  name: "Bot",
   initialState,
-  reducers : {
-    reset : (state) => {state=initialState}
+  reducers: {
+    reset: (state) => {
+      state = initialState;
+    },
   },
-  extraReducers:builder =>{
+  extraReducers: (builder) => {
     builder
-      .addCase(BotGetter.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.img=payload.img
-        state.user=payload.user
-        state.link=payload.link
+      .addCase(BotGetter.fulfilled, (state, { payload }) => {
+        state.Pending = false;
+        state.img = payload.img;
+        state.user = payload.user;
+        state.link = payload.link;
       })
-      .addCase(BotGetter.rejected,(state,action)=>{
-        state.Pending=false
+      .addCase(BotGetter.rejected, (state, action) => {
+        state.Pending = false;
       })
-      .addCase(BotGetter.pending,(state,Action)=>{state.Pending=true})
-      .addCase(BotServerGetter.pending,(state)=>{state.Pending=true})
-      .addCase(BotServerGetter.rejected,(state)=>{state.Pending=false})
-      .addCase(BotServerGetter.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.Serveur=payload
+      .addCase(BotGetter.pending, (state, Action) => {
+        state.Pending = true;
       })
-      .addCase(BotServeurChanGetter.pending,(state)=>{state.Pending=true})
-      .addCase(BotServeurChanGetter.rejected,(state)=>{state.Pending=false})
-      .addCase(BotServeurChanGetter.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.ActiveServeur=payload.id
-        state.ServeurChan=payload.res
+      .addCase(BotServerGetter.pending, (state) => {
+        state.Pending = true;
       })
-      .addCase(CanPlay.pending,(state)=>{state.Pending=true})
-      .addCase(CanPlay.rejected,(state)=>{state.Pending=false})
-      .addCase(CanPlay.fulfilled,(state,{payload})=>{
-        state.Pending=false
-        state.canPlay=payload
+      .addCase(BotServerGetter.rejected, (state) => {
+        state.Pending = false;
       })
-      .addCase(getVoice.fulfilled,(state,{payload})=>{
-        if(payload.Server)
-          state.ActiveServeur=payload.Server.id
+      .addCase(BotServerGetter.fulfilled, (state, { payload }) => {
+        state.Pending = false;
+        state.Serveur = payload;
+      })
+      .addCase(BotServeurChanGetter.pending, (state) => {
+        state.Pending = true;
+      })
+      .addCase(BotServeurChanGetter.rejected, (state) => {
+        state.Pending = false;
+      })
+      .addCase(BotServeurChanGetter.fulfilled, (state, { payload }) => {
+        state.Pending = false;
+        state.ActiveServeur = payload.id;
+        state.ServeurChan = payload.res;
+      })
+      .addCase(CanPlay.pending, (state) => {
+        state.Pending = true;
+      })
+      .addCase(CanPlay.rejected, (state) => {
+        state.Pending = false;
+      })
+      .addCase(CanPlay.fulfilled, (state, { payload }) => {
+        state.Pending = false;
+        state.canPlay = payload;
+      })
+      .addCase(getVoice.fulfilled, (state, { payload }) => {
+        if (payload.Server) state.ActiveServeur = payload.Server.id;
+      });
+  },
+});
 
-      })
-      
-  }
-})
-
-export const {reset} = BotSlicer.actions
-export default BotSlicer.reducer
+export const { reset } = BotSlicer.actions;
+export default BotSlicer.reducer;
