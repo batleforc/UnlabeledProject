@@ -13,10 +13,9 @@ import {
   setResetBot,
   setUpdateBot,
   setVoiceChange,
-  setVoiceJoin,
-  setVoicePlaying
+  setVoiceJoin
 } from '../Action/Event'
-import {getVolume, getPause, getStatus, getVoice} from '../Action/Voice'
+import {getStatus, getVoice} from '../Action/Voice'
 import Voice from './Voice';
 var socket = io((process.env.REACT_APP_SERVER as string),{})
 export const App = ({dispatch,Token,Event,Bot}:any) => {
