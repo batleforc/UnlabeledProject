@@ -5,9 +5,12 @@ interface Event {
   Pending : Boolean,
   ResetBot : Boolean,
   Voice  : {
-    Start : Boolean,
-    Volume : Boolean,
-    Speaking : Boolean
+    Change    : Boolean,
+    Queue     : Boolean,
+    Error     : Boolean,
+    Playing   : Boolean,
+    Join      : Boolean,
+    Leave     : Boolean,
   }
 }
 const initialState = {
@@ -16,9 +19,12 @@ const initialState = {
   Pending:false,
   ResetBot:false,
   Voice : {
-    Start : false,
-    Volume : false,
-    Speaking : false
+      Change    : false,
+      Queue     : false,
+      Error     : false,
+      Playing   : false,
+      Join      : false,
+      Leave     : false,
   }
 } as Event
 
@@ -26,16 +32,28 @@ export const EventInit = createAsyncThunk(
   "Event/init",
   async ({socket}:any,{dispatch}) =>{
     socket.on("botUpdate",()=>{
-      dispatch(setUpdateBot())
+      dispatch(setUpdateBot(true))
     })
     socket.on("botReset",()=>{
-      dispatch(setResetBot())
+      dispatch(setResetBot(true))
     })
-    socket.on("VoiceStart",()=>{
-      dispatch(setVoiceStart())
+    socket.on("VoiceChange",()=>{
+      dispatch(setVoiceChange(true))
     })
-    socket.on("VoiceVolume",()=>{
-      dispatch(setVoiceVolume())
+    socket.on("VoiceQueue",()=>{
+      dispatch(setVoiceQueue(true))
+    })
+    socket.on("VoiceError",()=>{
+      dispatch(setVoiceError(true))
+    })
+    socket.on("VoicePlaying",()=>{
+      dispatch(setVoicePlaying(true))
+    })
+    socket.on("VoiceJoin",()=>{
+      dispatch(setVoiceJoin(true))
+    })
+    socket.on("VoiceLeave",()=>{
+      dispatch(setVoiceLeave(true))
     })
 
   },{
@@ -48,22 +66,19 @@ export const EventInit = createAsyncThunk(
   }
 )
 
-
-
 const EventSlicer = createSlice({
   name:"Event",
   initialState,
   reducers:{
-    setUpdateBot : (state) => {state.ReloadBot = true;},
-    resetUpdateBot : (state) => {state.ReloadBot = false},
-    setResetBot : (state) => {state.ResetBot=true},
-    resetResetBot : (state) => {state.ResetBot=false},
-    setVoiceStart : (state) => {state.Voice.Start=true},
-    resetVoiceStart : (state) => {state.Voice.Start=false},
-    setVoiceVolume : (state) => {state.Voice.Volume=true},
-    resetVoiceVolume : (state) => {state.Voice.Volume=false},
-    setVoiceSpeaking : (state) => {state.Voice.Speaking=true},
-    resetVoiceSpeaking : (state) => {state.Voice.Speaking=false},
+    setUpdateBot : (state,{payload}) => {state.ReloadBot = payload;},
+    setResetBot : (state,{payload}) => {state.ResetBot=payload},
+    setVoiceChange : (state,{payload}) => {state.Voice.Change=payload},
+    setVoiceQueue : (state,{payload}) => {state.Voice.Change=payload},
+    setVoiceError : (state,{payload}) => {state.Voice.Change=payload},
+    setVoicePlaying : (state,{payload}) => {state.Voice.Change=payload},
+    setVoiceJoin : (state,{payload}) => {state.Voice.Change=payload},
+    setVoiceLeave : (state,{payload}) => {state.Voice.Change=payload},
+
   },
   extraReducers : builder => {
     builder
@@ -79,14 +94,12 @@ const EventSlicer = createSlice({
 
 export const {
   setUpdateBot,
-  resetUpdateBot,
   setResetBot,
-  resetResetBot,
-  setVoiceSpeaking,
-  setVoiceStart,
-  setVoiceVolume,
-  resetVoiceSpeaking,
-  resetVoiceStart,
-  resetVoiceVolume
+  setVoiceChange,
+  setVoiceError,
+  setVoiceJoin,
+  setVoiceLeave,
+  setVoicePlaying,
+  setVoiceQueue
 } = EventSlicer.actions
 export default EventSlicer.reducer
