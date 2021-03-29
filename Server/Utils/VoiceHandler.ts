@@ -96,10 +96,12 @@ class VoiceHandler{
     return {message:"All is good", playing : true}
   }
 
-  Play = ( io : Server, song? : Song, now? : boolean  ) =>{
+  Play = async ( io : Server, song? : Song, now? : boolean  ) =>{
     if(!this.songQueue.canPlay) return
     if(!song)
       return
+    if(song.type===2)
+      song.title=(await ytdl.getInfo(song.url)).videoDetails.title;
     if(now){
       this.songQueue
         .queue.splice(1,0,song)
@@ -120,7 +122,7 @@ class VoiceHandler{
           this.songQueue.queue[0].type===SongType.link?
           this.songQueue.queue[0].url:
           this.songQueue.queue[0].type===SongType.YouTube?
-          ytdl(this.songQueue.queue[0].url):
+          ytdl(this.songQueue.queue[0].url,{filter:'audioonly'}):
           this.songQueue.queue[0].url
           ))
         .on("finish",()=>{
