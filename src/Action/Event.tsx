@@ -73,11 +73,11 @@ const EventSlicer = createSlice({
     setUpdateBot : (state,{payload}) => {state.ReloadBot = payload;},
     setResetBot : (state,{payload}) => {state.ResetBot=payload},
     setVoiceChange : (state,{payload}) => {state.Voice.Change=payload},
-    setVoiceQueue : (state,{payload}) => {state.Voice.Change=payload},
-    setVoiceError : (state,{payload}) => {state.Voice.Change=payload},
-    setVoicePlaying : (state,{payload}) => {state.Voice.Change=payload},
-    setVoiceJoin : (state,{payload}) => {state.Voice.Change=payload},
-    setVoiceLeave : (state,{payload}) => {state.Voice.Change=payload},
+    setVoiceQueue : (state,{payload}) => {state.Voice.Queue=payload},
+    setVoiceError : (state,{payload}) => {state.Voice.Error=payload},
+    setVoicePlaying : (state,{payload}) => {state.Voice.Playing=payload},
+    setVoiceJoin : (state,{payload}) => {state.Voice.Join=payload},
+    setVoiceLeave : (state,{payload}) => {state.Voice.Leave=payload},
 
   },
   extraReducers : builder => {

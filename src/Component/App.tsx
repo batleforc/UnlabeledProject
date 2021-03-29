@@ -11,7 +11,9 @@ import io from 'socket.io-client'
 import {
   EventInit,
   setResetBot,
-  setUpdateBot
+  setUpdateBot,
+  setVoiceJoin,
+  setVoicePlaying
 } from '../Action/Event'
 import {getVolume, getPause, getStatus} from '../Action/Voice'
 import Voice from './Voice';
@@ -35,6 +37,9 @@ export const App = ({dispatch,Token,Event,Bot}:any) => {
     if(Event.ResetBot)
       dispatch(reset())
         .then(()=>dispatch(setResetBot(false)))
+    if(Event.Voice.Join)
+      dispatch(getStatus())
+        .then(()=>dispatch(setVoiceJoin(false)))
     // eslint-disable-next-line
   },[Event])
 

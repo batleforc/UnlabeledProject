@@ -14,9 +14,8 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
   useEffect(()=>dispatch(GetBoard()),[])
   return(
     <div className=" w-full">
-      <div className="bg-gray-500 flex">
         {sBoard.ActiveBoard!==-1&&
-          <div>
+          <div className="bg-gray-500 flex">
             <button className="mx-2" onClick={()=>dispatch(DeleteBoard({tabId:sBoard.Board[sBoard.ActiveBoard].id}))} >
               Delete Board
             </button>
@@ -39,7 +38,6 @@ export const Index = ({sBoard,Voice,Bot,dispatch} : any) => {
               CreateButton
             </button>
           </div>}
-      </div>
       <div>
         <nav className="flex flex-col sm:flex-row">
           {Array.isArray(sBoard.Board)&&sBoard.Board.map((value:any,index:number)=>
