@@ -1,22 +1,23 @@
 import Router from '@koa/router'
 import Discord from '../../Utils/Discord';
+import {Song} from '../../Utils/VoiceHandler'
 var Voice = new Router();
 
 Voice
   .get("/volume", async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceGetVolume()||5
+    ctx.body=(ctx.discord as Discord).getVoice().getVolume()
     await next()
   })
   .get("/pause",async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceGetIsPaused()
+    ctx.body=(ctx.discord as Discord).getVoice().getIsPaused()
     await next()
   })
   .get("/status",async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceGetStatus()
+    ctx.body=(ctx.discord as Discord).getVoice().getStatus()
     await next()
   })
   .get("/",async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceGetChan()
+    ctx.body=(ctx.discord as Discord).getVoice().getVoiceStatus()
     await next()
   })
   .post("/join",async (ctx : any, next : any)=>{
@@ -32,7 +33,7 @@ Voice
     await next()
   })
   .post("/leave",async (ctx : any, next : any)=>{
-    (ctx.discord as Discord).VoiceLeave()
+    (ctx.discord as Discord).VoiceLeave(ctx.io)
     ctx.body={launched:true}
     await next()
   })
@@ -41,31 +42,42 @@ Voice
     if(vol===undefined){
       ctx.body={message:"Param manquant",vol:vol===undefined}
     }else{
-      (ctx.discord as Discord).VoiceVolume(vol);
+      (ctx.discord as Discord).getVoice().SetVolume(ctx.io,vol)
       ctx.body={launched:true}
     }
     await next()
   })
   .post("/play",async (ctx : any, next : any)=>{
-    var {toPlay,option} = ctx.request.body
+    var {toPlay,now} = ctx.request.body
     if(toPlay===undefined){
       ctx.body={message:"Param manquant ",toPlay:toPlay===undefined}
     }else{
-      (ctx.discord as Discord).VoicePlay(toPlay,option)
+      (ctx.discord as Discord).getVoice().Play(ctx.io,(toPlay as Song),now)
       ctx.body={launched:true}
     }
     await next()
   })
   .post("/pause",async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceStop()
+    ctx.body=(ctx.discord as Discord).getVoice().Pause(ctx.io)
     ctx.body={launched:true}
     await next()
   })
   .post("/resume",async (ctx : any, next : any)=>{
-    ctx.body=(ctx.discord as Discord).VoiceResume()
+    ctx.body=(ctx.discord as Discord).getVoice().Resume(ctx.io)
     ctx.body={launched:true}
     await next()
   })
+  .post("/stop",async (ctx : any, next : any)=>{
+    ctx.body=(ctx.discord as Discord).getVoice().Stop(ctx.io)
+    ctx.body={launched:true}
+    await next()
+  })
+  .post("/skip",async (ctx : any, next : any)=>{
+    ctx.body=(ctx.discord as Discord).getVoice().Skip(ctx.io)
+    ctx.body={launched:true}
+    await next()
+  })
+
 
 
 export default Voice;

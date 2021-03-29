@@ -3,19 +3,19 @@ import {canJoin} from './Permissions'
 import { Server } from 'socket.io';
 import {ErrorLog} from './Log'
 import ytdl from 'ytdl-core'
-enum SongType{
-  link = 0,
-  YouTube = 1,
-  Spotify = 2
+export enum SongType{
+  link = 1,
+  YouTube = 2,
+  Spotify = 3
 }
 
-interface Song{
+export interface Song{
   title : string
   url   : string,
   type  : SongType
 }
 
-interface SongQueue{
+export interface SongQueue{
   voiceChannel  : VoiceChannel | null
   connection    : VoiceConnection | null
   volume        : number
@@ -40,13 +40,21 @@ class VoiceHandler{
 
   getQueue = () => this.songQueue.queue
   getVolume = () => this.songQueue.volume
-  getServer = () => this.songQueue.voiceChannel.guild
+  getServer = () => this.songQueue.voiceChannel?.guild
   getChannel = () => this.songQueue.voiceChannel
-  getIsPaused = () => this.songQueue.connection.dispatcher.paused
+  getIsPaused = () => this.songQueue.connection?.dispatcher?.paused
   getStatus = () => this.songQueue.connection
 
+  getVoiceStatus = () => ({
+    Queue   : this.getQueue(),
+    Volume  : this.getVolume(),
+    Server  : this.getServer(),
+    Chan    : this.getChannel(),
+    Paused  : this.getIsPaused(),
+  })
+
   Leave = ( io : Server) =>{
-    this.songQueue.connection.disconnect()
+    this.songQueue.connection?.disconnect()
     this.songQueue.canPlay = false;
     io.emit("VoiceLeave")
   }
@@ -75,7 +83,7 @@ class VoiceHandler{
 
   Stop = ( io : Server) =>{
     this.songQueue.queue= [];
-    this.songQueue.connection.dispatcher.end();
+    this.songQueue.connection?.dispatcher.end();
     io.emit("VoiceChange")
     return {stopped : true}
   }
@@ -83,18 +91,19 @@ class VoiceHandler{
   Skip = ( io : Server) =>{
     if(this.songQueue.queue.length===0)
       return {message:"no queue",playing: false}
-    this.songQueue.connection.dispatcher.end();
+    this.songQueue.connection?.dispatcher.end();
     io.emit("VoiceChange")
     return {message:"All is good", playing : true}
   }
 
   Play = ( io : Server, song? : Song, now? : boolean  ) =>{
+    if(!this.songQueue.canPlay) return
     if(!song)
       return
     if(now){
       this.songQueue
         .queue.splice(1,0,song)
-      this.songQueue.connection.dispatcher.end()
+      this.songQueue.connection?.dispatcher?.end()
     }else
       this.songQueue
         .queue.push(song)
@@ -104,9 +113,10 @@ class VoiceHandler{
     }
   }
   Player = (io : Server) => {
+    if(this.songQueue.queue.length===0) return
     if(this.songQueue.canPlay){
       var dispatch = this.songQueue.connection
-        .play((
+        ?.play((
           this.songQueue.queue[0].type===SongType.link?
           this.songQueue.queue[0].url:
           this.songQueue.queue[0].type===SongType.YouTube?
@@ -115,7 +125,7 @@ class VoiceHandler{
           ))
         .on("finish",()=>{
           this.songQueue.queue.shift();
-          this.Play(io,this.songQueue.queue[0])
+          this.Player(io)
           io.emit("VoiceChange")
         })
         .on("error",error=>{
@@ -125,7 +135,7 @@ class VoiceHandler{
         })
         this.songQueue.playing=true;
         io.emit("VoiceChange")
-        dispatch.setVolumeLogarithmic(this.songQueue.volume/5)
+        dispatch?.setVolumeLogarithmic(this.songQueue.volume/5)
       return {message:"Sound started",playing:true}
     }else{
       this.songQueue.playing=false;
