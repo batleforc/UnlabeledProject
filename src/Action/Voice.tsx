@@ -117,6 +117,9 @@ const VoiceSlicer = createSlice({
       .addCase(getVoice.fulfilled,(state,{payload})=>{
         state.Pending=false;
         state.Volume = payload.Volume
+        state.ChanId = payload.Chan?.id
+        state.GuildId = payload.Server?.id
+        state.Status = payload.Status===0
         console.log(payload)
       })
   }
