@@ -20,6 +20,7 @@ import {
   setUpdateBot,
   setVoiceChange,
   setVoiceJoin,
+  setVoiceQueue
 } from "../Action/Event";
 import { getStatus, getVoice } from "../Action/Voice";
 import Voice from "./Voice";
@@ -48,8 +49,8 @@ export const App = ({ dispatch, Token, Event, Bot }: any) => {
       dispatch(reset()).then(() => dispatch(setResetBot(false)));
     if (Event.Voice.Join)
       dispatch(getStatus()).then(() => dispatch(setVoiceJoin(false)));
-    if (Event.Voice.Change)
-      dispatch(getVoice()).then(() => dispatch(setVoiceChange(false)));
+    if (Event.Voice.Change||Event.Voice.Queue)
+      dispatch(getVoice()).then(() => dispatch(setVoiceChange(false))&&dispatch(setVoiceQueue(false)));
     // eslint-disable-next-line
   }, [Event]);
 
