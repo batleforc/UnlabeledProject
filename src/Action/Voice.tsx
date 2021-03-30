@@ -25,6 +25,12 @@ export const stopVoice = createAsyncThunk(
     return axios.post(ApiVoice + "pause").then((value) => value.data);
   }
 );
+export const skipVoice = createAsyncThunk(
+  "voice/stopVoice",
+  async (something: void, { dispatch }) => {
+    return axios.post(ApiVoice + "skip").then((value) => value.data);
+  }
+);
 export const startVoice = createAsyncThunk(
   "voice/startVoice",
   async ({ song, now }: { song: object; now: boolean }, { dispatch }) => {
@@ -84,6 +90,7 @@ interface Voice {
   ChanId: string;
   GuildId: string;
   Status: Boolean;
+  Asap: Boolean;
 }
 const initialState = {
   Pending: false,
@@ -92,6 +99,7 @@ const initialState = {
   ChanId: "-1",
   GuildId: "",
   Status: false,
+  Asap: false,
 } as Voice;
 
 const VoiceSlicer = createSlice({
@@ -100,6 +108,9 @@ const VoiceSlicer = createSlice({
   reducers: {
     setChanId: (state, { payload }) => {
       state.ChanId = payload;
+    },
+    setAsap: (state, { payload }) => {
+      state.Asap = payload;
     },
   },
   extraReducers: (builder) => {
@@ -136,9 +147,10 @@ const VoiceSlicer = createSlice({
         state.ChanId = payload.Chan !== null ? payload.Chan.id : "-1";
         state.GuildId = payload.Server?.id;
         state.Status = payload.Status === 0;
+        console.log(payload)
       });
   },
 });
 
-export const { setChanId } = VoiceSlicer.actions;
+export const { setChanId, setAsap } = VoiceSlicer.actions;
 export default VoiceSlicer.reducer;

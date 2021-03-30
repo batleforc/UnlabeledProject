@@ -110,7 +110,7 @@ export const Index = ({ sBoard, Voice, Bot, dispatch }: any) => {
                       url: value.url,
                       type: value.type,
                     },
-                    now: true,
+                    now: Voice.Asap,
                   })
                 );
             }}
