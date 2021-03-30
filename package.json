@@ -91,6 +91,7 @@
     "electron-is-dev": "^2.0.0",
     "electron-log": "^4.3.2",
     "ffmpeg-static": "^4.2.7",
+    "icomoon-react": "^2.0.19",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
     "koa-mount": "^4.0.0",
