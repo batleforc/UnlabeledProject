@@ -101,7 +101,7 @@ const initialState = {
   GuildId: "",
   Status: false,
   Asap: false,
-  Paused:false
+  Paused: false,
 } as Voice;
 
 const VoiceSlicer = createSlice({
@@ -149,8 +149,8 @@ const VoiceSlicer = createSlice({
         state.ChanId = payload.Chan !== null ? payload.Chan.id : "-1";
         state.GuildId = payload.Server?.id;
         state.Status = payload.Status === 0;
-        state.Paused = payload.Paused||false
-        console.log(payload)
+        state.Paused = payload.Paused || false;
+        console.log(payload);
       });
   },
 });

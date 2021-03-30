@@ -99,7 +99,7 @@ const SBoardSlicer = createSlice({
     addButton: (state) => {
       state.ActiveLayout = state.ActiveLayout.concat([
         {
-          i: String(state.ActiveLayout.length + 1),
+          i: String(Number(state.ActiveLayout[state.ActiveLayout.length-1].i)+1),
           x: 0,
           y: 0,
           w: 1,
