@@ -59,8 +59,8 @@ export default function Home() {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Home ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={`${siteConfig.title}/Home`}
+      description="Page d'accueille de la documentation UnlabeledDoc"
     >
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">

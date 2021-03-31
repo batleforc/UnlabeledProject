@@ -27,6 +27,7 @@ module.exports = {
           position: "left",
         },
         { to: "blog", label: "Blog", position: "left" },
+        { to: "release", label: "Release", position: "right" },
         {
           href: "https://github.com/batleforc/UnlabeledProject",
           label: "GitHub",
