@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "My Site",
-  tagline: "The tagline of my site",
+  title: "UnlabeledDoc",
+  tagline: "Une documentation sans titre, pour un projet sans Titre",
   url: "https://batleforc.github.io",
   baseUrl: "/UnlabeledProject/",
   onBrokenLinks: "throw",
@@ -10,11 +10,14 @@ module.exports = {
   organizationName: "batleforc", // Usually your GitHub org/user name.
   projectName: "UnlabeledProject", // Usually your repo name.
   themeConfig: {
+    colorMode: {
+      defaultMode: "dark",
+    },
     navbar: {
-      title: "My Site",
+      title: "UnlabeledProject",
       logo: {
-        alt: "My Site Logo",
-        src: "img/logo.svg",
+        alt: "toolbox",
+        src: "img/toolbox.png",
       },
       items: [
         {
@@ -25,7 +28,7 @@ module.exports = {
         },
         { to: "blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/facebook/docusaurus",
+          href: "https://github.com/batleforc/UnlabeledProject",
           label: "GitHub",
           position: "right",
         },
@@ -41,22 +44,13 @@ module.exports = {
               label: "Getting Started",
               to: "docs/",
             },
-          ],
-        },
-        {
-          title: "Community",
-          items: [
             {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
+              label: "Kanban",
+              href: "https://github.com/batleforc/UnlabeledProject/projects/1",
             },
             {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
+              label: "Miro",
+              href: "https://miro.com/app/board/o9J_lM04aYE=/",
             },
           ],
         },
@@ -68,13 +62,17 @@ module.exports = {
               to: "blog",
             },
             {
+              label: "WebSite",
+              href: "https://maxleriche.tech",
+            },
+            {
               label: "GitHub",
-              href: "https://github.com/facebook/docusaurus",
+              href: "https://github.com/batleforc/UnlabeledProject",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} UnlabeledProject, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -84,14 +82,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl:
-            "https://github.com/facebook/docusaurus/edit/master/website/",
+          editUrl: "https://github.com/batleforc/UnlabeledProject/edit/doc/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            "https://github.com/facebook/docusaurus/edit/master/website/blog/",
+          editUrl: "https://github.com/batleforc/UnlabeledProject/edit/doc/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
