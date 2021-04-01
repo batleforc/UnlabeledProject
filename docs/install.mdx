@@ -1,0 +1,257 @@
+---
+title: Installation
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Afin d'entrer dans le vif du sujet je vous invite a faire un choix.
+
+Utiliser le code source ou le code PréCompiler :
+
+<Tabs
+  groupId="from"
+  defaultValue="compiled"
+  values={[
+    {label: 'Source', value: 'Source'},
+    {label: 'PréCompiler', value: 'compiled'}
+  ]}>
+  <TabItem value="Source">
+
+### Vous avez choisi d'utiliser le code source de l'application
+
+  <p>Un choix honorable mais risquer.</p>
+  Avant de continuer veillez à remplir ces prérequis :
+  <ul>
+    <li> Avoir <a href="https://git-scm.com/">git</a> sur son ordinateur </li>
+    <li> Avoir une installation de <a href="https://nodejs.dev/">node</a> v14 ou plus</li>
+    <li> Avoir <a href="https://yarnpkg.com/">Yarn</a> ou <a href="https://www.npmjs.com/get-npm">Npm</a> (de préférence Yarn)</li>
+  </ul>
+  <p>Prêt à commencer ?</p>
+
+#### 1. Récupération du code source
+
+  ```shell
+    git clone https://github.com/batleforc/UnlabeledProject.git
+    cd UnlabeledProject
+  ```
+
+:::info
+
+Première étape, vous venez de récupérer le code source de cette solution sans titre et de vous déplacer dans le dossier les contenant
+
+:::
+
+#### 2. Installation des dépendance
+
+  <Tabs
+  groupId="pmanager"
+  defaultValue="yarn"
+  values={[
+    {label:"Yarn", value : "yarn" },
+    {label:"Npm", value:"npm" },
+  ]}>
+  <TabItem
+  value="yarn">
+
+  ```shell
+    yarn
+  ```
+
+  </TabItem>
+  <TabItem
+  value="npm">
+
+  ```shell
+    npm install
+  ```
+
+  </TabItem>
+  </Tabs>
+
+:::info
+
+Seconde étape, un peu plus longue cette fois si, vous venez d'installer les "outils" nécessaire a l'utilisation de la solution
+
+:::
+
+#### 3. Compilation du code
+
+  <Tabs
+  groupId="pmanager"
+  defaultValue="yarn"
+  values={[
+    {label:"Yarn", value : "yarn" },
+    {label:"Npm", value:"npm" },
+  ]}>
+  <TabItem
+  value="yarn">
+
+  ```shell
+    yarn build
+  ```
+
+  </TabItem>
+  <TabItem
+  value="npm">
+
+  ```shell
+    npm run build
+  ```
+
+  </TabItem>
+  </Tabs>
+
+:::info
+
+Troisième étape, Vous venez de préparer le code a être exécuter
+
+:::
+
+#### 4. Et si on lançais le code ?
+
+  <Tabs
+  groupId="pmanager"
+  defaultValue="yarn"
+  values={[
+    {label:"Yarn", value : "yarn" },
+    {label:"Npm", value:"npm" },
+  ]}>
+  <TabItem
+  value="yarn">
+
+  ```shell
+    yarn S:DevWatch
+  ```
+
+  </TabItem>
+  <TabItem
+  value="npm">
+
+  ```shell
+    npm run S:DevWatch
+  ```
+
+  </TabItem>
+  </Tabs>
+
+:::info
+
+Le code fonctionne quand vous vous rendez sur <http://localhost:5002> ? Alors vous pouvez passer a l'étape suivante !
+
+:::
+
+#### 5. Création des exécutable
+
+  <Tabs
+  groupId="pmanager"
+  defaultValue="yarn"
+  values={[
+    {label:"Yarn", value : "yarn" },
+    {label:"Npm", value:"npm" },
+  ]}>
+  <TabItem
+  value="yarn">
+
+  ```shell
+    yarn dist
+  ```
+
+  </TabItem>
+  <TabItem
+  value="npm">
+
+  ```shell
+    npm run dist
+  ```
+
+  </TabItem>
+  </Tabs>
+
+:::info
+
+Une fois cette commande finis vous retrouverez les exécutable/installer dans le dossier dist. Pour la suite de la marche a suivre je vous invite a retourner tout en haut et cliquer sur PréCompiler
+
+:::
+
+  </TabItem>
+  <TabItem
+  value="compiled">
+
+### Vous avez choisis d'utiliser les source pré-compiler
+
+:::info
+
+Vous retrouverez les fichier compiler dans l'onglet [Release](/release)
+
+:::
+
+  <Tabs
+    groupId="os"
+    defaultValue="linux"
+    values={[
+      {label:"Linux", value : "linux" },
+      {label:"Windows", value:"win" },
+      {label:"Mac", value:"mac" }
+    ]}>
+  <TabItem
+  value="linux">
+  Deux type de fichier sont disponible
+    <Tabs
+    defaultValue="snap"
+    values={[
+      {label:".snap", value:"snap" },
+      {label:".appImage", value:"appImage" }
+    ]} >
+  <TabItem
+  value="snap">
+
+```shell
+  snap install {Le fichier en .snap} --dangerous --classic
+```
+
+  Le param dangerous permet d'installer le fichier snap qui n'est pas encore signer. Le param classic permet d'installer le fichier snap en lui laissant l'accès aux fichier du pc (cella permet entre autre d'installer les fichier ffmpeg)
+  </TabItem>
+  <TabItem
+  value="appImage">
+
+```shell
+  chmod a+x {Le fichier en .appImage}
+
+  ./{Le fichier en .appImage}
+```
+
+  La premiére commande indique que le fichier est exécutable, la seconde permet de l'exécuter
+  </TabItem>
+  </Tabs>
+  </TabItem>
+  <TabItem
+  value="win">
+  Deux type de fichier sont disponible
+  <Tabs
+    defaultValue="exe"
+    values={[
+      {label:"Setup.{version}.exe", value:"exe" },
+      {label:"portable.{version}.exe", value:"portable" }
+    ]} >
+    <TabItem
+    value="exe">
+    Le fichier que vous souhaiter est un installable
+    <p>Afin de l'utiliser veuillez double cliquer sur celui ci.</p>
+    Une fois l'installation finis, il ne vous reste plus qu'a lancer l'exécutable présent sur votre bureau
+    </TabItem>
+    <TabItem
+    value="portable">
+    Le fichier que vous avez choisis contient la version portable de l'application
+    <p> Afin d'utiliser cette version il suffit uniquement de la lancer.</p>
+    </TabItem>
+    </Tabs>
+  </TabItem>
+  <TabItem
+  value="mac">
+  Malheureusement pour vous, Mac n'est pas encore complètement supporter, celui-ci nécessite la possession d'un mac pour compiler l'application.
+  <h4>Heureusement pour vous (et moi), vous pouvez toujours utiliser ce projet à partir des sources !!</h4>
+  </TabItem>
+  </Tabs>
+  </TabItem>
+</Tabs>
