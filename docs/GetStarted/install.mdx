@@ -11,7 +11,6 @@ Utiliser le code source ou le code PréCompilé :
 
 <Tabs
   groupId="from"
-  defaultValue="compiled"
   values={[
     {label: 'Source', value: 'Source'},
     {label: 'PréCompiler', value: 'compiled'}
@@ -255,6 +254,24 @@ Vous retrouverez les fichier compiler dans l'onglet [Release](/release)
   </Tabs>
   </TabItem>
 </Tabs>
+
+### Possible erreur
+
+#### FFMPEG unavailable
+
+![Ffmpeg](/img/ffmpeg.png)
+
+Le message que vous venez de voir est commun aux démarage et contient une bonne partie des information nécessaire a sa résolution.
+
+Pas de panique je suis la pour vous aider dans sa résolution.
+
+Peux importe votre Systéme d'exploitation le processus est le même:
+
+1. Allez sur <https://ffmpeg.org/download.html> (vous pouvez aussis cliquer directement sur le lien dans la modal, celui ci vous dirigera vers la page de téléchargement)
+2. Télécharger l'archive contenant le build correspondant a votre systéme.
+3. Ensuite veuillez placer le fichier ffmpeg contenue dans l'archive dans le dossier indiquer en derniére ligne de la modal
+4. Cliquer sur try again, si la modal disparais vous être prêt a passer a l'étape suivante
+
 
 ### Que c'est t'il passer ?
 
