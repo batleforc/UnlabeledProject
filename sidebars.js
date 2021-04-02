@@ -7,7 +7,6 @@ module.exports = {
         "GetStarted/getStarted",
         "GetStarted/install",
         "GetStarted/creerBot",
-        "GetStarted/connect",
         "GetStarted/Invite",
         "GetStarted/joinYou",
       ],
