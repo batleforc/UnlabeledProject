@@ -3,7 +3,19 @@ module.exports = {
     {
       type: "category",
       label: "Get Started",
-      items: ["getStarted", "install"],
+      items: [
+        "GetStarted/getStarted",
+        "GetStarted/install",
+        "GetStarted/creerBot",
+        "GetStarted/connect",
+        "GetStarted/Invite",
+        "GetStarted/joinYou",
+      ],
+    },
+    {
+      type: "category",
+      label: "SoundBoard",
+      items: [],
     },
   ],
 };
