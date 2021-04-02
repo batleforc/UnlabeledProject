@@ -13,7 +13,7 @@ module.exports = {
     {
       type: "category",
       label: "SoundBoard",
-      items: [],
+      items: ["SoundBoard/createBoard", "SoundBoard/createButton"],
     },
   ],
 };
