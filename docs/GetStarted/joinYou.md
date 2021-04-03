@@ -2,9 +2,9 @@
 title: Convoquer le bot dans un channel
 ---
 
-Bonjours vous 😃
+Hello you 😜
 
-Si vous êtes la c'est que vous venez de connecter votre bot via le client. Si ce n'est pas le cas je vous invite a rejoindre la catégorie "Creer/Choisir un bot".
+Si vous êtes la c'est que vous venez de connecter votre bot via le client. Si ce n'est pas le cas je vous invite a rejoindre la catégorie "Créer/Choisir un bot".
 
 ## Invitation du bot dans une Guild
 
@@ -25,7 +25,7 @@ Dans le cas ou vous n'avez pas ces droit veuillez demander a un administrateur d
 
 Un channel Vocal est un endroit ou vous et vos amis(ou ennemi/neutre) peuvent se connecter.
 
-Afin d'invoquer votre bot dans le un channel vocal veuillez cliquer sur Voice dans la bar supérieur.
+Afin d'invoquer votre bot dans le un channel vocal veuillez cliquer sur Voice dans la barre supérieur.
 
 ![voice](/img/voice.png)
 
