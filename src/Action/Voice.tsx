@@ -92,6 +92,7 @@ interface Voice {
   Status: Boolean;
   Asap: Boolean;
   Paused: Boolean;
+  Queue: any;
 }
 const initialState = {
   Pending: false,
@@ -102,6 +103,7 @@ const initialState = {
   Status: false,
   Asap: true,
   Paused: false,
+  Queue: []
 } as Voice;
 
 const VoiceSlicer = createSlice({
@@ -150,6 +152,7 @@ const VoiceSlicer = createSlice({
         state.GuildId = payload.Server?.id;
         state.Status = payload.Status === 0;
         state.Paused = payload.Paused || false;
+        state.Queue = payload.Queue
         console.log(payload);
       });
   },
