@@ -10,14 +10,12 @@ class Store{
     this.nconf
       .argv()
       .env()
+    this.CreateFolderIfNotExist(this.soundBoardRoot)
+    this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"Store"))
+    this.AddFileConfig(path.join(this.soundBoardRoot,"Store","config.json"))
     this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"ffmpeg"))
     this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"command"))
     process.env.FFMPEG_BIN=path.join(this.soundBoardRoot,"ffmpeg","ffmpeg")
-    if(this.CreateFolderIfNotExist(this.soundBoardRoot)){
-      this.CreateFolderIfNotExist(path.join(this.soundBoardRoot,"Store"))
-      this.AddFileConfig(path.join(this.soundBoardRoot,"Store","config.json"))
-      ModuleLog("Store",undefined,true)
-    }
     this.nconf.defaults({
       "db": path.join(this.soundBoardRoot,"soundboard.db"),
       "ffmpeg": path.join(this.soundBoardRoot,"ffmpeg"),
@@ -29,7 +27,7 @@ class Store{
         "tabItem":"TabItemTable"
       }
     })
-
+    ModuleLog("Store",undefined,true)
   }
   CreateFolderIfNotExist = (pathDir:string)=>!fs.existsSync(pathDir)?fs.mkdirSync(pathDir):true
   AddFileConfig = (pathDir:string) => this.nconf.file({file:pathDir})

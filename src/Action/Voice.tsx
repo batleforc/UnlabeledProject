@@ -100,7 +100,7 @@ const initialState = {
   ChanId: "-1",
   GuildId: "",
   Status: false,
-  Asap: false,
+  Asap: true,
   Paused: false,
 } as Voice;
 
