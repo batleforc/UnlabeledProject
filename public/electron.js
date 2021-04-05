@@ -1,51 +1,45 @@
-const electron = require('electron');
-const { app, BrowserWindow } = require('electron');
-const isDev = require('electron-is-dev');
-const { fork } = require('child_process')
-const path = require('path');
-const url = require('url');
-const Server = require('../BuildServer/index')
-const log = require('electron-log')
+const electron = require("electron");
+const { app, BrowserWindow } = require("electron");
+const isDev = require("electron-is-dev");
+const { fork } = require("child_process");
+const path = require("path");
+const url = require("url");
+const Server = require("../BuildServer/index");
+const { startServeur } = require("./elec/server");
+console.log(serverPath);
 let mainWindow;
 
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
-    autoHideMenuBar:true
+    autoHideMenuBar: true,
   });
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : "http://localhost:5000/" ); //`file://${path.join(__dirname, '../build/index.html')}`
-  mainWindow.on('closed', () => mainWindow = null);
-  mainWindow.once('ready-to-show', () => {
+  mainWindow.loadURL(
+    isDev ? "http://localhost:3000" : "http://localhost:5000/"
+  ); //`file://${path.join(__dirname, '../build/index.html')}`
+  mainWindow.on("closed", () => (mainWindow = null));
+  mainWindow.once("ready-to-show", () => {
     mainWindow.show();
-    mainWindow.webContents.openDevTools()
   });
-}
+};
 
 const init = () => {
-  app.on("window-all-closed", (e)=> e.preventDefault())
-}
+  app.on("window-all-closed", (e) => e.preventDefault());
+};
 
-const onQuit = () =>{
-  
-}
-
+const onQuit = () => {};
 
 app.requestSingleInstanceLock() ? init() : app.quit();
 app.on("second-instance", () => mainWindow.show());
 
-
-app.on('ready', ()=>{
-  createWindow()
+app.on("ready", () => {
+  createWindow();
 });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
+app.on("window-all-closed", () => {});
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
