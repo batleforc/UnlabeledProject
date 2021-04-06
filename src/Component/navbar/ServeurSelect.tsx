@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { BotServeurChanGetter } from "../../Action/Bot";
+import { setChanId } from "../../Action/Voice";
 
 export const ServeurSelect = ({ Bot, dispatch }: any) => {
   if (Bot.Serveur.message !== undefined) return <div></div>;
@@ -24,6 +25,7 @@ export const ServeurSelect = ({ Bot, dispatch }: any) => {
       <select
         onChange={(event) =>
           dispatch(BotServeurChanGetter(event.currentTarget.value))
+            .then(()=>dispatch(setChanId("-1")))
         }
         value={Bot.ActiveServeur}
         className="bg-secondary focus:outline-none"

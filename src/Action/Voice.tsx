@@ -154,7 +154,7 @@ const VoiceSlicer = createSlice({
         state.Paused = payload.Paused || false;
         state.Queue = payload.Queue
         console.log(payload);
-      });
+      })
   },
 });
 
