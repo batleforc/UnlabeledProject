@@ -147,6 +147,7 @@
     "watch": "cross-env NODE_ENV=development concurrently --names \"S:Build,S:Watch,C:Watch\" -c \"grey.bold,blue.bold,white.bold\" \"yarn:S:Build\" \"yarn:S:Watch\" \"yarn:start\"",
     "ebuild": "yarn run build && node_modules/.bin/build",
     "electronDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electronAlone":"electron .",
     "allInDev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\" \"yarn S:DevWatch\"",
     "preelectron-pack": "yarn c:build && yarn S:ProdBuild",
     "postinstall": "electron-builder install-app-deps",
