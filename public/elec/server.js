@@ -16,7 +16,7 @@ function output(buffer) {
 
 function startServeur() {
   if (server) return server;
-  server = fork(serverJs);
+  server = fork(serverJs, { stdio: ["pipe", "pipe", "pipe", "ipc"] });
   server.stdout.on("data", output);
   server.stderr.on("data", output);
 

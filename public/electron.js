@@ -1,12 +1,8 @@
 const electron = require("electron");
 const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
-const { fork } = require("child_process");
-const path = require("path");
-const url = require("url");
-const Server = require("../BuildServer/index");
 const { startServeur } = require("./elec/server");
-console.log(serverPath);
+
 let mainWindow;
 
 const createWindow = () => {
@@ -19,9 +15,11 @@ const createWindow = () => {
     isDev ? "http://localhost:3000" : "http://localhost:5000/"
   ); //`file://${path.join(__dirname, '../build/index.html')}`
   mainWindow.on("closed", () => (mainWindow = null));
+  startServeur();
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
   });
+  mainWindow.removeMenu();
 };
 
 const init = () => {
