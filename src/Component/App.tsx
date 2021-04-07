@@ -58,9 +58,9 @@ export const App = ({ dispatch, Token, Event, Bot }: any) => {
     <div className="App">
       <NavBar />
       {!Token.Pending && Token.AllToken.length === 0 && (
-        <Link to="/token">Est mec ta pas de token ! clic moi dessus</Link>
+        <Link to="/token">Est mec ta pas de Bot ! clic moi dessus</Link>
       )}
-      <Route path="/token" component={TokenComponent} />
+      <Route path={["/","/token"]} exact component={TokenComponent} />
       <Route path="/voice" component={Voice} />
       <TokenModalForm />
       <BotCanPlay />
