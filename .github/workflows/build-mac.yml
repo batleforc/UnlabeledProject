@@ -1,6 +1,6 @@
 name: Mac:Build/release
 
-on: gollum
+on: push
 
 jobs:
   release:
@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name: Install libmpeg
+        uses: brew install libtool
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
