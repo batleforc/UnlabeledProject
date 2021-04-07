@@ -87,9 +87,10 @@ export const setChanIdAction = createAsyncThunk(
   "Voice/setChanIdAction",
   async (id: string, { dispatch, getState }) => {
     var { Bot }: any = getState();
-    dispatch(setChanId(id));
-    if(id==="-2")
+    if(id==="-2"){
       dispatch(leaveChan())
+      id="-1"
+    }
     if (Number(id) > -1)
       dispatch(
         joinChan({
@@ -97,6 +98,7 @@ export const setChanIdAction = createAsyncThunk(
           ChanId: id,
         })
       );
+    dispatch(setChanId(id));
   }
 );
 
