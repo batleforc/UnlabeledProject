@@ -56,8 +56,13 @@ class VoiceHandler {
 
   Leave = (io: Server) => {
     this.songQueue.connection?.disconnect();
-    this.songQueue.canPlay = false;
-    this.songQueue.voiceChannel = null;
+    this.songQueue = {
+      ...this.songQueue,
+      canPlay: false,
+      voiceChannel: null,
+      queue: [],
+      playing: false,
+    };
     io.emit("VoiceLeave");
   };
 

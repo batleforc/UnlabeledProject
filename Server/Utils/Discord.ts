@@ -14,7 +14,7 @@ class Discord {
   VoiceHandler: VoiceHandler;
   BotId: number;
   constructor() {
-    this.BotId=-1
+    this.BotId = -1;
     this.client = new Discordjs.Client();
     this.VoiceHandler = new VoiceHandler();
     this.Ready = false;
@@ -22,15 +22,17 @@ class Discord {
   }
 
   //#region Auth
-  LoginClient = (token: string,botId : number) => {
+  LoginClient = (token: string, botId: number) => {
     this.client.login(token);
-    this.BotId=botId
-  }
+    this.BotId = botId;
+  };
   DisconnectClient = (io: Server) => {
     this.client = new Discordjs.Client();
     this.DefaultFire(io);
-    this.BotId=-1
+    this.BotId = -1;
     this.Ready = false;
+    this.VoiceHandler.Leave(io);
+    io.emit("botUpdate");
   };
   //#endregion
 
