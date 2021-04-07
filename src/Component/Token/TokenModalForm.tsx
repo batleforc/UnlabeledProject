@@ -10,7 +10,7 @@ const TokenModalForm = ({ ShowModal, dispatch }: any) => {
       warn={false}
       on={ShowModal.TokenForm}
       exitOnEscape={true}
-      title="Create Token : "
+      title="Create Bot : "
       activate={() => {
         dispatch(hideTokenForm());
       }}

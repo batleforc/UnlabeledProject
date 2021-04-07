@@ -10,7 +10,7 @@ const TokenModalForm = ({ShowModal,dispatch}:any) =>{
       warn={false}
       on={ShowModal.CreateButton}
       exitOnEscape={true}
-      title="Create Button : "
+      title="Create Sound : "
       activate={()=>dispatch(hideCreateButton())}
       activateText="Exit"
       Content={ButtonForm} />
