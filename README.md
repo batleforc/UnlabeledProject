@@ -4,6 +4,8 @@
 [![Win:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-windows.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-windows.yml)
 [![Mac:Build/release](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-mac.yml/badge.svg)](https://github.com/batleforc/UnlabeledProject/actions/workflows/build-mac.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/batleforc/unlabeledproject/badge)](https://www.codefactor.io/repository/github/batleforc/unlabeledproject)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/batleforc/UnlabeledProject)
+
 
 Projet d'une soundboard vers une toolbox afin de me familiariser avec certain package :
 
