@@ -9,6 +9,7 @@ interface User {
   Pending: Boolean;
   Serveur: [any] | [];
   ActiveServeur: String;
+  ActiveBot: number;
   ServeurChan: [any] | [];
   canPlay: any;
 }
@@ -71,6 +72,7 @@ const initialState = {
   link: "",
   Serveur: [],
   ActiveServeur: "-1",
+  ActiveBot: -1,
   ServeurChan: [],
   canPlay: {
     canPlay: true,
@@ -92,6 +94,7 @@ const BotSlicer = createSlice({
         state.img = payload.img;
         state.user = payload.user;
         state.link = payload.link;
+        state.ActiveBot = payload.botId;
       })
       .addCase(BotGetter.rejected, (state, action) => {
         state.Pending = false;
