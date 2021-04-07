@@ -7,7 +7,7 @@ import VoicePlayer from '../../Voice/VoicePlayer'
 var link = [
   {
     to: "/token",
-    label: "Token",
+    label: "Bot",
     Icon: ({ className }: any) => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
