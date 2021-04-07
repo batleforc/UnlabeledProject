@@ -33,15 +33,16 @@ Bot
     await next()
   })
   .post("/start", async (ctx : any, next :any) => {
-    if(ctx.request.body.id===undefined){
+    var {id} = ctx.request.body
+    if(id===undefined){
       ctx.body={message:"id manquant"}
       await next()
     }else{
       if(ctx.discord.Ready)
         (ctx.discord as Discord).DisconnectClient(ctx.io);
-      (ctx.Db as DataBase).GetToken(ctx.request.body.id)
+      (ctx.Db as DataBase).GetToken(id)
         .then((value)=>{
-          (ctx.discord).LoginClient(value.token);
+          (ctx.discord).LoginClient(value.token,id);
         });
       ctx.body={message:"all Is Green"}
     }

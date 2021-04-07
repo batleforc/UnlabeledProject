@@ -43,13 +43,15 @@ router
       ctx.body={
         img:ctx.discord.GetUser()?ctx.discord.GetUser().displayAvatarURL():"https://cdn.discordapp.com/embed/avatars/0.png",
         user:ctx.discord.GetUser(),
-        link:`https://discord.com/oauth2/authorize?client_id=${ctx.discord.GetUser().id}&scope=bot&permissions=343273214`
+        link:`https://discord.com/oauth2/authorize?client_id=${ctx.discord.GetUser().id}&scope=bot&permissions=343273214`,
+        botId:ctx.discord.GetBotId()
       }
     else
       ctx.body={
         img:"https://cdn.discordapp.com/embed/avatars/0.png",
         message:"Bot not started yet or not ready",
-        link:""
+        link:"",
+        botId: -1
       }
       await next()
   })
