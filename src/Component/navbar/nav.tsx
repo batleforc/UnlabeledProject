@@ -10,7 +10,7 @@ export const NavButton = ({ Bot }: any) => {
         Bot.user !== undefined ? "" : "hidden"
       }`}
     >
-      <Link to="/voice">Voice</Link>
+      <Link to="/voice">SoundBoard</Link>
     </div>
   );
 };
