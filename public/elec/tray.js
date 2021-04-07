@@ -32,7 +32,7 @@ function createMenu(quit, openInClient) {
 async function createTray(icon, mainWindow, openInClient, quit) {
   tray = new Tray(icon);
   tray.setToolTip(`${pack.name} ${pack.version}`);
-  tray.setContextMenu(createMenu(quit, openInClient));
+  tray.setContextMenu(createMenu(quit, async () => await mainWindow()));
   tray.setIgnoreDoubleClickEvents(true);
   tray.on("click", async () => await mainWindow());
 
