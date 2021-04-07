@@ -37,8 +37,8 @@ export const index = ({ Token, dispatch, Bot, ...props }: any) => {
               src={Bot.user.avatarURL}
             />
             <div className="p-2 flex-1">
-              <p>usename : {Bot.user.username}</p>
-              <p>tag : {Bot.user.tag} </p>
+              <p>Username : {Bot.user.username}</p>
+              <p>Tag : {Bot.user.tag} </p>
             </div>
             <div className="justify-self-end flex-2">
               <h2>Guild disponible:</h2>
