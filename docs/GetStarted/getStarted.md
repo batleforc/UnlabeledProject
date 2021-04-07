@@ -11,7 +11,7 @@ slug: /
 
 ## Bienvenue
 
-Si vous êtes ici cella ne peux être que pour trois raisons :
+Si vous êtes ici, cela ne peux être que pour trois raisons :
 
 - Vous souhaitez utiliser la solution sans titre.
 - Vous êtes un de mes profs.
@@ -24,7 +24,7 @@ Dans tout les cas je vous souhaite la bienvenue sur ce projet.
 Ce projet possède deux objectifs :
 
 - un à court terme qui consiste à créer une SoundBoard.
-- un a plus long terme qui vise à faire de ce projet une solution boite a outils beaucoup plus complète.
+- un à plus long terme qui vise à faire de ce projet une solution boite à outils beaucoup plus complète.
 
 ## Contexte
 
@@ -37,4 +37,4 @@ Il y a quelque temps deux événement sont arriver:
 
 ### Ensuite ?
 
-Je vous invite a lire la partie Installation qui vous permettra d'installer la solution en local.
+Je vous invite à lire la partie Installation qui vous permettra d'installer la solution en local.
