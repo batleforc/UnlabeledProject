@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { GetBoard, setActiveBoard, UpdateBoard } from "../../Action/sBoard";
+import { GetBoard, setActiveBoard } from "../../Action/sBoard";
 import AddButtonModal from "./AddButtonModal";
 import AddTabModal from "./AddTabModal";
 import BoardLayout from "./BoardLayout";
@@ -22,13 +22,6 @@ export const Index = ({ sBoard, ShowModal, dispatch }: any) => {
                     : ""
                 }`}
                 onClick={() => {
-                  if (sBoard.ActiveBoard !== -1 && sBoard.BoardAsChanged)
-                    dispatch(
-                      UpdateBoard({
-                        tabId: sBoard.Board[sBoard.ActiveBoard].id,
-                        content: sBoard.ActiveLayout,
-                      })
-                    );
                   dispatch(setActiveBoard(index));
                 }}
                 key={value.id}

@@ -70,7 +70,7 @@ const SBoardSlicer = createSlice({
   initialState,
   reducers: {
     setActiveBoard: (state, { payload }) => {
-      state.ActiveBoard = payload;
+      state.ActiveBoard = state.ActiveBoard === payload ? -1 : payload;
       state.ActiveLayout =
         state.Board[Number(state.ActiveBoard)] !== undefined
           ? JSON.parse(state.Board[payload].content)
@@ -99,7 +99,13 @@ const SBoardSlicer = createSlice({
     addButton: (state) => {
       state.ActiveLayout = state.ActiveLayout.concat([
         {
-          i: state.ActiveLayout.length>0? String(Number(state.ActiveLayout[state.ActiveLayout.length-1].i)+1):"0",
+          i:
+            state.ActiveLayout.length > 0
+              ? String(
+                  Number(state.ActiveLayout[state.ActiveLayout.length - 1].i) +
+                    1
+                )
+              : "0",
           x: 0,
           y: 0,
           w: 1,
