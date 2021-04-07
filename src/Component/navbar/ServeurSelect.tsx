@@ -8,7 +8,7 @@ export const ServeurSelect = ({ Bot, dispatch }: any) => {
   return (
     <div
       id="Nav"
-      className={`flex justify-center place-items-center ${
+      className={`flex justify-center place-items-center select-none ${
         Bot.user !== undefined ? "" : "hidden"
       }`}
     >
