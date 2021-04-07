@@ -1,6 +1,6 @@
 name: Linux:Build/release
 
-on: push
+on: gollum
 
 jobs:
   release:

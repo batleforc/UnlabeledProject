@@ -1,6 +1,6 @@
 name: Win:Build/release
 
-on: push
+on: gollum
 
 jobs:
   release:
