@@ -8,7 +8,7 @@ export const ServeurSelect = ({ Bot, dispatch }: any) => {
   return (
     <div
       id="Nav"
-      className={`flex-1 flex justify-center place-items-center ${
+      className={`flex justify-center place-items-center ${
         Bot.user !== undefined ? "" : "hidden"
       }`}
     >
@@ -28,14 +28,15 @@ export const ServeurSelect = ({ Bot, dispatch }: any) => {
             .then(()=>dispatch(setChanId("-1")))
         }
         value={Bot.ActiveServeur}
-        className="bg-secondary focus:outline-none"
+        className="bg-grey focus:outline-none select-none"
       >
-        <option value={-1} key="none" disabled>
+        <option className="text-black" value={-1} key="none" disabled>
           Selection d'une guild
         </option>
+        {Bot.Serveur.length===0&&<option className="text-black" disabled value={-3} key="nope">Invite ton bot dans une guild</option>}
         {Bot.Serveur.message === undefined &&
           Bot.Serveur.map((serveur: any, index: number) => (
-            <option value={serveur.id} key={serveur.id}>
+            <option className="text-black" value={serveur.id} key={serveur.id}>
               {serveur.ServeurName}
             </option>
           ))}

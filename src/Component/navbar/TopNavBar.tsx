@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setBurger } from "../../Action/showModal";
-import ServeurSelect from "./ServeurSelect";
 import Nav from "./nav";
 
 export const TopNavBar = ({ Bot, dispatch, ShowModal, ...props }: any) => {
@@ -13,7 +12,6 @@ export const TopNavBar = ({ Bot, dispatch, ShowModal, ...props }: any) => {
           <p className="text-lg">{process.env.REACT_APP_NAME}</p>
         </Link>
       </div>
-      {Bot.user !== undefined && <ServeurSelect />}
       <Nav />
       <div
         id="BotLogo"

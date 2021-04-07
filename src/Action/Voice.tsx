@@ -83,6 +83,23 @@ export const getVolume = createAsyncThunk(
   }
 );
 
+export const setChanIdAction = createAsyncThunk(
+  "Voice/setChanIdAction",
+  async (id: string, { dispatch, getState }) => {
+    var { Bot }: any = getState();
+    dispatch(setChanId(id));
+    if(id==="-2")
+      dispatch(leaveChan())
+    if (Number(id) > -1)
+      dispatch(
+        joinChan({
+          guildId: Bot.ActiveServeur,
+          ChanId: id,
+        })
+      );
+  }
+);
+
 interface Voice {
   Pending: boolean;
   Playing: boolean;
@@ -103,7 +120,7 @@ const initialState = {
   Status: false,
   Asap: true,
   Paused: false,
-  Queue: []
+  Queue: [],
 } as Voice;
 
 const VoiceSlicer = createSlice({
@@ -152,9 +169,9 @@ const VoiceSlicer = createSlice({
         state.GuildId = payload.Server?.id;
         state.Status = payload.Status === 0;
         state.Paused = payload.Paused || false;
-        state.Queue = payload.Queue
+        state.Queue = payload.Queue;
         console.log(payload);
-      })
+      });
   },
 });
 

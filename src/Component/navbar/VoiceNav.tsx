@@ -1,21 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import VoicePlayer from '../Voice/VoicePlayer'
-import {
-  joinChan,
-  leaveChan,
-  setChanId,
-} from "../../Action/Voice";
-import { showCreateTab } from "../../Action/showModal";
-export const VoiceNav = ({ Voice, Bot, dispatch }: any) => {
+import { setBoardParam } from "../../Action/showModal";
+import ChanSelect from "./ChanSelect";
+import ServeurSelect from "./ServeurSelect";
+export const VoiceNav = ({ Voice, Bot, dispatch, ShowModal }: any) => {
   return (
     <nav className="bg-grey text-white flex">
-      <div className={`${Bot.user !== undefined ? "" : "hidden"} flex`}>
-        <select
-          className="bg-grey focus:outline-none"
-          value={Voice.ChanId}
-          onChange={(event) => dispatch(setChanId(event.currentTarget.value))}
-        >
+      <div className={`${Bot.user !== undefined ? "" : "hidden"} flex flex-1`}>
+        {Bot.user !== undefined && <ServeurSelect />}
+        {Bot.user !== undefined && <ChanSelect />}
+      </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
           <option className="text-black" value={-1} key="none" disabled>
             Select a VoiceChannel
           </option>
