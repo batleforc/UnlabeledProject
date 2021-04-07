@@ -20,6 +20,8 @@ jobs:
           node-version: 14
       - name: Install libmpeg
         run : brew install libtool
+      - name: Install autoMake pour Libsodium
+        run : brew install automake
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
