@@ -1,4 +1,5 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
+const simplePlantUml = require("@akebifiky/remark-simple-plantuml");
 module.exports = {
   title: "UnlabeledDoc",
   tagline: "Une documentation sans titre, pour un projet sans Titre",
@@ -84,6 +85,7 @@ module.exports = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl: "https://github.com/batleforc/UnlabeledProject/edit/doc/",
+          remarkPlugins: [simplePlantUml],
         },
         blog: {
           showReadingTime: true,
