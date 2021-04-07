@@ -9,7 +9,7 @@ import {
 export const TokenItem = ({
   Token,
   dispatch,
-  value = { label: "Unlabeled Token" },
+  value = { label: "Unlabeled Bot" },
   load = false,
   ...props
 }: any) => {

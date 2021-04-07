@@ -31,7 +31,7 @@ export const ServeurSelect = ({ Bot, dispatch }: any) => {
         className="bg-secondary focus:outline-none"
       >
         <option value={-1} key="none" disabled>
-          Select a serveur
+          Selection d'une guild
         </option>
         {Bot.Serveur.message === undefined &&
           Bot.Serveur.map((serveur: any, index: number) => (

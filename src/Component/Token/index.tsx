@@ -7,7 +7,7 @@ export const index = ({ Token, dispatch, ...props }: any) => {
   return (
     <div className="px-2">
       {Token.Pending && <div></div>}
-      <p>Liste des token:</p>
+      <p>Liste des Bot:</p>
       <div className="flex my-2">
         {!Token.Pending && Token.AllToken.length === 0 && (
           <div>
@@ -23,7 +23,7 @@ export const index = ({ Token, dispatch, ...props }: any) => {
       <input
         className="bg-grey text-white rounded-md px-1"
         type="button"
-        value="Add Token"
+        value="Add Bot"
         onClick={() => dispatch(showTokenForm())}
       />
     </div>
