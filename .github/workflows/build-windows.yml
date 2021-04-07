@@ -19,16 +19,7 @@ jobs:
         with:
           node-version: 14
       - name : set vs version
-        run : npm config set msvs_version 2015
-      - name : set vs version
-        run : npm i -g windows-build-tools --vs2015
-      - name: patch node gyp on windows to support Visual Studio 2019
-        shell: powershell
-        run: |
-          npm install --global node-gyp@latest
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
-      - name: Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
+        run : npm config set msvs_version 2017
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
