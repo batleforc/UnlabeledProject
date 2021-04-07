@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import TokenItem from "./TokenItem";
 import { showTokenForm } from "../../Action/showModal";
 import { Link } from "react-router-dom";
+import TokenModalForm from "./TokenModalForm";
 
 export const index = ({ Token, dispatch, Bot, ...props }: any) => {
   return (
@@ -55,6 +56,7 @@ export const index = ({ Token, dispatch, Bot, ...props }: any) => {
           </Link>
         </div>
       )}
+      <TokenModalForm />
     </div>
   );
 };

@@ -14,14 +14,15 @@ export const Modal = ({
 }: any) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const onEscape = ({ key }: any) => {
-    if (key === "Escape") {
+    if (key === "Escape"&&on===true) {
       activate();
       window.removeEventListener("keydown", onEscape);
     }
   };
   const onOutside = (event: any) => {
-    if (!modalRef.current?.contains(event.target)) {
+    if (!modalRef.current?.contains(event.target)&&on===true) {
       activate();
+      window.removeEventListener("keydown", onOutside);
     }
   };
   useEffect(() => {

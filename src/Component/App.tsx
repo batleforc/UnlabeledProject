@@ -11,7 +11,6 @@ import {
 import { Route, Link } from "react-router-dom";
 import TokenComponent from "./Token";
 import NavBar from "./navbar";
-import TokenModalForm from "./Token/TokenModalForm";
 import BotCanPlay from "./Bot/modal";
 import io from "socket.io-client";
 import {
@@ -62,7 +61,6 @@ export const App = ({ dispatch, Token, Event, Bot }: any) => {
       )}
       <Route path={["/","/token"]} exact component={TokenComponent} />
       <Route path="/voice" component={Voice} />
-      <TokenModalForm />
       <BotCanPlay />
     </div>
   );
