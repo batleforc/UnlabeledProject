@@ -42,7 +42,7 @@ export const index = ({ Token, dispatch, Bot, ...props }: any) => {
             </div>
             <div className="justify-self-end flex-2">
               <h2>Guild disponible:</h2>
-              {Bot.Serveur.map((value: any) => (
+              {Array.isArray(Bot.Serveur)&&Bot.Serveur.map((value: any) => (
                 <div key={value.id}> =&gt;{value.ServeurName}</div>
               ))}
             </div>
