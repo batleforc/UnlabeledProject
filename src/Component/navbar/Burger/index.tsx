@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { slide as Menu } from "react-burger-menu";
 import { setBurger } from "../../../Action/showModal";
-import { BurgerItem } from "./BurgerItem";
+import BurgerItem from "./BurgerItem";
 import VoicePlayer from '../../Voice/VoicePlayer'
 var link = [
   {
@@ -28,6 +28,7 @@ var link = [
   {
     to: "/voice",
     label: "SoundBoard",
+    disabled:({Bot}:any={})=>Bot?.user===undefined,
     Icon: ({ className }: any) => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +62,7 @@ export const index = ({ ShowModal, dispatch, ...props }: any) => {
       <div>
         <VoicePlayer />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col select-none focus:outline-none">
         {link.map((value: any, index: number) => (
           <BurgerItem key={index} {...value} />
         ))}

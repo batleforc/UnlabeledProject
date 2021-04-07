@@ -45,6 +45,7 @@ export const TokenForm = ({ dispatch, Token, ...props }: any) => {
           value="Send"
           onClick={send}
         />
+        <a href="https://batleforc.github.io/UnlabeledProject/docs/GetStarted/creerBot" rel="noreferrer" target="_blank">{">"}comment créer un bot ?{"<"}</a>
       </div>
     </div>
   );

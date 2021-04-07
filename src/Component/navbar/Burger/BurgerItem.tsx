@@ -1,10 +1,30 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export const BurgerItem =({Icon = ()=><div></div>,label,to}:any)=>{
-  return(
-  <Link to={to} className="flex flex-row place-items-center justify-center m-2 rounded-md hover:bg-gray-200 mx-0.5">
-    <Icon className="z-10 w-9 mx-0.5" />
-    <p>{label}</p>
-  </Link>)
-}
+const BurgerItem = ({
+  Icon = () => <div></div>,
+  label,
+  to,
+  Bot,
+  disabled = () => false,
+}: any) => {
+  if (disabled(Bot))
+    return (
+      <span className="select-none flex flex-row place-items-center justify-center m-2 rounded-md hover:bg-gray-200 mx-0.5">
+        <Icon className="z-10 w-9 mx-0.5" />
+        <p>{label}</p>
+      </span>
+    );
+  return (
+    <Link
+      to={to}
+      className="flex flex-row place-items-center justify-center m-2 rounded-md mx-0.5"
+    >
+      <Icon className="z-10 w-9 mx-0.5" />
+      <p>{label}</p>
+    </Link>
+  );
+};
+
+export default connect((state) => state)(BurgerItem);

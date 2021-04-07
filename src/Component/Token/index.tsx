@@ -13,7 +13,7 @@ export const index = ({ Token, dispatch, Bot, ...props }: any) => {
       <div className="flex my-2">
         {!Token.Pending && Token.AllToken.length === 0 && (
           <div>
-            <p>Aucun Token disponible</p>
+            <p>Aucun Bot disponible</p>
             <p>Veuillez en créer un</p>
             <TokenItem load={true} />
           </div>
