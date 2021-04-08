@@ -94,6 +94,27 @@ Ce fichier est la configuration typescript appliquer a votre serveur.
 
 => S:DevWatch : Exécution en parallèle du build server ainsi que de l'exécuteur serveur.
 
+#### 2.3 Les autre paquet
+
+D'autre packet sont utiliser pour la partie serveur t'elle que :
+
+- Discordjs : Interface avec discord. Facilite fortement le développement de bot.
+- sqlite && sqlite3 : Framework permettant l'utilisation d'une base de donnée.
+- nconf : Permet l'utilisation de configuration .json, les chemin vers les base de donnée ou autre sont sauvegarder de cette manière.
+- chalk : Permet la coloration du terminal.
+
+Certain paquet sont utiliser la partie vocal de DiscordJs:
+
+- Sodium
+- utf-8-validate
+- opusscript
+- ffmpeg-static
+- bufferutil
+
+Tout ces paquet sont utiliser afin de fluidifier les flux audio ainsi que permettre leur lecture.
+
+Un autre paquet est utiliser pour la lecture de vidéo youtube : ytdl-code
+
 ### 3. Mise en place de Craco et TailwindCSS
 
 Create React App Configuration Override (Craco) est un package qui permet de modifié le package react-script.
@@ -120,6 +141,7 @@ module.exports = {
 Pour appliquer la configuration de craco penser a modifier votre package.json et remplacer les "react-scripts" par craco.
 
 La prochaine étape consiste a générer puis modifier la configuration de Tailwind, Tailwind est un framework Css complet (et non pas une bibliothèque de composant).
+
 ```shell
   npx tailwindcss init
 ```
@@ -139,3 +161,25 @@ module.exports ={
 
 ... Vos style css
 ```
+
+### Pourquoi ?
+
+#### Tailwind
+
+J'ai choisis Tailwind pour le faite qu'il diffère des librairie que j'utilisais avant (et je ne retournerais plus en arrière). Par le passer j'utilisais [Material-ui](https://material-ui.com/), qui en plus d'être lourd possède beaucoup de fonctionnalité caché. Oui j'ai choisis de réinventer la roue pour pas mal de fonctionnalité mais connaître les tenant et les aboutissant de celle ci ma été extrêmement bénéfique.
+
+#### Koa
+
+Ancien utilisateur d'Express je souhaitait apprendre a utiliser de nouveaux framework/packet pour la gestion web.
+
+Koa est plus long a mettre en place mais me parais plus robuste sur le long terme.
+
+#### Socket.io
+
+Avec un système comme Discordjs qui est utiliser beaucoup d'event et d'action asynchrone sont effectuer. Une mise a jour de l'interface en temps réel est donc devenue obligatoire et un fonctionnement ou socket.io ainsi que Redux sont harmonie est devenue tres agréable a utiliser.
+
+#### TypeScript
+
+TypeScript, Ni plus ni moins qu'un javascript typer, de la rigueur dans le respect des type, des interface. Je n'ai pas été jusqu'au bout de ce qu'est capable de m'offrir le typescript, cette premiére expérience avec me rend confiant vis a vis du faite que malgré la mauvais image que les gens ont du Js celui ci peux tres bien la dépasser.
+
+Un point important et qui ma beaucoup fait rire (car oui passer 3h a faire du bug fix et réaliser que le type utiliser pour une variable n'est pas la bonne mais arriver.) est qu'il est nécessaire d'installer les packet en "@types" mais il faut faire attention, certain packet fournisse ces type directement.
