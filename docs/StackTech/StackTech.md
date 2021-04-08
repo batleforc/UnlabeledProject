@@ -83,4 +83,9 @@ BackEnd --> Client : Socket.io
 Un tout petit changement de stack me direz vous ? Et bien non un énorme en réalité.
 
 Prêt pour la suite ?
-=> [Electron](/docs/electron)
+
+=> [Mise en place Electron](/docs/electron)
+
+=> [Mise en place de l'environnement de base](/docs/setup)
+
+=> [Mise en place d'une pipeline](/docs/pipeline)

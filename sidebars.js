@@ -22,6 +22,8 @@ module.exports = {
       items: [
         "StackTech/StackTech",
         "StackTech/electron",
+        "StackTech/Setup",
+        "StackTech/pipeline",
       ],
     },
   ],
