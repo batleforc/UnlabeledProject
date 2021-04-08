@@ -39,6 +39,9 @@ const BotCanPlay = ({ Bot, dispatch }: any) => {
                 dans :
               </p>
               <code>{Bot.canPlay.where}\</code>
+              <a href="https://batleforc.github.io/UnlabeledProject/">
+                La documentation
+              </a>
             </div>
           )}
         </div>

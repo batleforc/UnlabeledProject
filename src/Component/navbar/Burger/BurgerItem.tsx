@@ -7,6 +7,7 @@ const BurgerItem = ({
   label,
   to,
   Bot,
+  href=false,
   disabled = () => false,
 }: any) => {
   if (disabled(Bot))
@@ -15,6 +16,13 @@ const BurgerItem = ({
         <Icon className="z-10 w-9 mx-0.5" />
         <p>{label}</p>
       </span>
+    );
+  if (href)
+    return (
+      <a rel="noreferrer" target="_blank" href={to} className="flex flex-row place-items-center justify-center m-2 rounded-md mx-0.5" >
+        <Icon className="z-10 w-9 mx-0.5" />
+      <p>{label}</p>
+      </a>
     );
   return (
     <Link
