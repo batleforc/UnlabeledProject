@@ -23,7 +23,7 @@ Dans le cas où vous n'avez pas ces droits veuillez demander à un administrateu
 
 ## Rejoindre un channel Vocal
 
-Un channel Vocal est un endroit où vous et vos amis(ou ennemi/neutre) peuvent se connecter.
+Un channel Vocal est un endroit où vous et vos amis(ou ennemi/neutre) pouvez vous connecter.
 
 Afin d'invoquer votre bot dans le un channel vocal, veuillez cliquer sur Voice dans la barre supérieur.
 
