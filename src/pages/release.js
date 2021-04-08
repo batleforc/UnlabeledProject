@@ -14,7 +14,10 @@ export default function Release() {
     axios
       .get(test)
       .then((value) => value.data)
-      .then((value) => setRelease(value));
+      .then((value) => {
+        setRelease(value);
+        console.log(value);
+      });
   }, []);
   return (
     <Layout
@@ -28,15 +31,25 @@ export default function Release() {
         </div>
       </header>
       <main>
-        {release &&
-          release.length > 0 &&
-          release.map((value) => (
-            <section>
-              <Link to={value.html_url}>
-                <h1>{value.name}</h1>
-              </Link>
-            </section>
-          ))}
+        <section className={styles.features}>
+          <div className="container">
+            <div className="row">
+              {release &&
+                release.length > 0 &&
+                release.map((value) => (
+                  <div
+                    key={value.name}
+                    className={clsx("col col--4", styles.feature)}
+                  >
+                    <Link to={value.html_url}>
+                      <h3>{value.name}</h3>
+                    </Link>
+                    <p>by {value.author.login}</p>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </section>
       </main>
     </Layout>
   );
