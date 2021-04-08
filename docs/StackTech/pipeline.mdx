@@ -1,0 +1,245 @@
+---
+title: Pipeline
+slug : /pipeline
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Deux pipeline on été mise en place pour répondre a trois objectif :
+
+- La pipeline principale :
+  - S'assurer que la solution sois capable de compiler en cas de push.
+  - Compiler la solution sur plusieurs plateforme en cas de Tag.
+- La pipeline secondaire :
+  - Déployer la documentation
+
+A terme une troisième Pipeline seras mise en place, Celle ci aura pour but de déployer en cas de tag une nouvelle version du serveur en production.
+
+Chaque Pipeline est mise en place via le système Github Action.
+
+### Pipeline Principale => Release
+
+```plantuml pipelinePrincipal
+  actor You
+  node GithubAction
+  node Github
+  You--> Github : Effectue un commit
+  Github --> GithubAction : Demande l'exécution de la pipeline
+  GithubAction --> GithubAction : Compile la solution pour Linux, Windows et peu être mac (si les Action ne sont pas en surcharge)
+  GithubAction --> Github : Retourne les résultat de compilation en cas de Tag et créer un brouillon de release
+```
+
+<Tabs
+  values={[
+    {label: "Windows", value : 'win'},
+    {label: "Linux", value : 'linux'},
+    {label: "Mac", value : 'mac'}
+  ]}
+>
+  <TabItem value="win">
+
+```yaml
+name: Win:Build/release
+
+on: push
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name : set vs version
+        run : npm config set msvs_version 2015
+          # Choix de la version 2015 pour être compatible avec le package sodium
+      - name : install dépendances
+        run : npm install --global windows-build-tools@4.0.0 --vs2015
+          # Installation des package nécessaires a la compilation
+
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          args: -c.snap.publish=github
+          # GitHub token, automatically provided to the action
+          # (No need to define this secret in the repo settings)
+          github_token: ${{ secrets.github_token }}
+
+          # If the commit is tagged with a version (e.g. "v1.0.0"),
+          # release the app after building
+          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+```
+
+  </TabItem>
+  <TabItem value="linux">
+
+```yaml
+name: Linux:Build/release
+
+on: push
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          args: -c.snap.publish=github
+          # GitHub token, automatically provided to the action
+          # (No need to define this secret in the repo settings)
+          github_token: ${{ secrets.github_token }}
+
+          # If the commit is tagged with a version (e.g. "v1.0.0"),
+          # release the app after building
+          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+```
+
+  </TabItem>
+  <TabItem value="mac">
+
+```yaml
+name: Mac:Build/release
+
+on: push
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install libmpeg
+        run : brew install libtool
+        # Installation de la librarie libtool nécessaires a l'uttilisation de ffmpeg (SoundBoard)
+      - name: Install autoMake pour Libsodium
+        run : brew install automake
+        # Installation de la librarie automake, nécessaire a la compilation des package electron
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          args: -c.snap.publish=github
+          # GitHub token, automatically provided to the action
+          # (No need to define this secret in the repo settings)
+          github_token: ${{ secrets.github_token }}
+
+          # If the commit is tagged with a version (e.g. "v1.0.0"),
+          # release the app after building
+          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+```
+
+  </TabItem>
+</Tabs>
+
+L'action Github *samuelmeuli/action-electron-builder@v1*, permet de compiler une solution electron
+
+### Pipeline Secondaire => Documentation
+
+```plantuml doc
+  actor You
+  node GithubAction
+  node Github
+  You--> Github : Effectue un commit sur la branch doc
+  Github --> GithubAction : Demande l'exécution de la pipeline
+  GithubAction --> GithubAction : Build de la solution docusaurus
+  GithubAction --> Github : Push du build sur la branch gh-pages
+```
+<Tabs
+  values={[
+    {label:"Doc", value : "doc" }
+  ]}>
+  <TabItem value="doc">
+
+  ```yaml
+name: documentation
+
+on:
+  pull_request:
+    branches: [doc]
+  push:
+    branches: [doc]
+
+jobs:
+  checks:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Test Build
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          npm run build
+  gh-release:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
+      - name: Release to GitHub Pages
+        env:
+          USE_SSH: true
+          GIT_USER: git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "gh-actions"
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          npm run deploy
+  ```
+
+  </TabItem>
+  </Tabs>
+
+Cette pipeline permet la compilation de la doc docusaurus et son déploiement automatique sur github Pages (Ceux sur quoi vous êtes actuellement).
