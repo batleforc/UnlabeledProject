@@ -82,8 +82,5 @@ BackEnd --> Client : Socket.io
 
 Un tout petit changement de stack me direz vous ? Et bien non un énorme en réalité.
 
-Il est nécessaire que je vous parle d'électron plus en profondeur:
-
-ELECTRON KEZAKO ?
-
-Cette partie d'atome est un framework permettant de développer des application desktop multi-plateformes a partir de JavaScript
+Prêt pour la suite ?
+=> [Electron](/docs/electron)

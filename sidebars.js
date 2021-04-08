@@ -19,7 +19,10 @@ module.exports = {
     {
       type: "category",
       label: "Stack Technique",
-      items: ["StackTech/StackTech"],
+      items: [
+        "StackTech/StackTech",
+        "StackTech/electron",
+      ],
     },
   ],
 };
