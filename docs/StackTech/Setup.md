@@ -3,7 +3,7 @@ title: Mise en place de l'environnement
 slug : /setup
 ---
 
-Prêt a mettre en place l'environnement Create React App (Appeler CRA dans la suite) TypeScript (Appeler Ts dans la suite) + Serveur TypeScript ?
+Prêt à mettre en place l'environnement Create React App (Appeler CRA dans la suite) TypeScript (Appeler Ts dans la suite) + Serveur TypeScript ?
 
 :::info
   Vous souhaitez retrouver la stack que je vous fait installer ici ? [elle est disponible dans la page StackTech](/docs/stacktechnique)
@@ -17,7 +17,7 @@ Prêt a mettre en place l'environnement Create React App (Appeler CRA dans la su
   yarn create react-app ${Le nom de votre projet} --template typescript
 ```
 
-Cette commande vous permettras d'initialiser votre projet Create-React-App.
+Cette commande vous permettra d'initialiser votre projet Create-React-App.
 
 #### 1.2. Mise en place des Packages
 
@@ -26,17 +26,17 @@ Cette commande vous permettras d'initialiser votre projet Create-React-App.
   yarn add @types/redux @types/react-redux @types/react-router-dom -d
 ```
 
-Ici vous avez ajouter les package nécessaire a la création de l'application:
+Ici vous avez ajouté les packages nécessaires à la création de l'application:
 
 - redux : Vous permet de gérer l'état global de l'application.
-- axios : Vous permet de faire des requête web.
+- axios : Vous permet de faire des requêtes web.
 - react-router-dom : Permet de gérer un système de chemin.
 
-D'autre package sont utiliser :
+D'autres packages sont utilisés :
 
 - react-grid-layout : Permet la gestion de tableau dynamique (Utiliser dans l'interface de la soundboard)
 - socket.io-client : Permet d'écouter et lancer des event en temps réel.
-- D'autre package dont l'installation est plus compliquer sont expliquer plus bas
+- D'autres packages, dont l'installation est plus compliquée, sont expliqués plus bas.
 
 ### 2. Mise en place serveur (Koa + Socket.io)
 
@@ -47,32 +47,32 @@ D'autre package sont utiliser :
   yarn add @types/koa @types/koa-bodyparser @types/koa-cors @types/koa-json @types/koa-router @types/koa-static @types/node @types/socket.io -d
 ```
 
-Les package nécessaire aux développement sont ajouter ainsi que leur type.
+Les packages nécessaires aux développement sont ajoutés ainsi que leur type.
 
 #### 2.2 Configuration
 
-Afin de créer une configuration compléte il est nécessaire de créer quelque fichier et dossier.
+Afin de créer une configuration compléte il est nécessaire de créer quelques fichiers et dossiers.
 
-Commencer par créer a la racine un dossier Server puis place a la configuration Ts.
+Commencer par créer à la racine un dossier Server puis place à la configuration Ts.
 
 ```json title="/serveur.tsconfig.json"
   {
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "outDir": "BuildServer", // Fichier de destination du code compiler
-    "target": "es6", // La version de JavaScript viser
-    "strict": true, // Activation de toute les verification strict lier aux Ts
+    "outDir": "BuildServer", // Fichier de destination du code compilé.
+    "target": "es6", // La version de JavaScript visée.
+    "strict": true, // Activation de toutes les verifications strictes liées aux Ts.
     "allowJs":true,
-    "skipLibCheck":true // Permet de résoudre les cas ou deux Lib ont le même type
+    "skipLibCheck":true // Permet de résoudre les cas où deux Lib ont le même type.
   },
   "include": [
-    "Server/**/*" // Le dossier contenant le code source du serveur
+    "Server/**/*" // Le dossier contenant le code source du serveur.
   ]
 }
 ```
 
-Ce fichier est la configuration typescript appliquer a votre serveur.
+Ce fichier est la configuration typescript appliquée à votre serveur.
 
 ```json
 {
@@ -86,7 +86,7 @@ Ce fichier est la configuration typescript appliquer a votre serveur.
 }
 ```
 
-=> S:Build : Intérprétation du code en TypeScript vers JavaScript en temps réel (Le code interpréter a nouveaux a chaque sauvegarde).
+=> S:Build : Intérprétation du code en TypeScript vers JavaScript en temps réel (Le code interprété à nouveau à chaques sauvegardes).
 
 => S:ProdBuild : Interprétation du code pour la production.
 
@@ -94,16 +94,16 @@ Ce fichier est la configuration typescript appliquer a votre serveur.
 
 => S:DevWatch : Exécution en parallèle du build server ainsi que de l'exécuteur serveur.
 
-#### 2.3 Les autre paquet
+#### 2.3 Les autres paquets
 
-D'autre packet sont utiliser pour la partie serveur t'elle que :
+D'autres packets sont utilisés pour la partie serveur telle que :
 
 - Discordjs : Interface avec discord. Facilite fortement le développement de bot.
 - sqlite && sqlite3 : Framework permettant l'utilisation d'une base de donnée.
-- nconf : Permet l'utilisation de configuration .json, les chemin vers les base de donnée ou autre sont sauvegarder de cette manière.
+- nconf : Permet l'utilisation de configuration .json, les chemins vers les bases de donnée ou autre sont sauvegardée de cette manière.
 - chalk : Permet la coloration du terminal.
 
-Certain paquet sont utiliser la partie vocal de DiscordJs:
+Certains paquets sont utilisés pour la partie vocal de DiscordJs:
 
 - Sodium
 - utf-8-validate
@@ -111,19 +111,19 @@ Certain paquet sont utiliser la partie vocal de DiscordJs:
 - ffmpeg-static
 - bufferutil
 
-Tout ces paquet sont utiliser afin de fluidifier les flux audio ainsi que permettre leur lecture.
+Tous ces paquets sont utilisés afin de fluidifier les flux audios ainsi que permettre leur lecture.
 
-Un autre paquet est utiliser pour la lecture de vidéo youtube : ytdl-code
+Un autre paquet est utilisé pour la lecture de vidéo youtube : ytdl-code
 
 ### 3. Mise en place de Craco et TailwindCSS
 
-Create React App Configuration Override (Craco) est un package qui permet de modifié le package react-script.
+Create React App Configuration Override (Craco) est un package qui permet de modifier le package react-script.
 
 ```shell
   yarn add @craco/craco
 ```
 
-Puis créer un fichier correspondant a la configuration de craco:
+Puis créer un fichier correspondant à la configuration de craco:
 
 ```js title="/craco.config.js"
 module.exports = {
@@ -138,15 +138,15 @@ module.exports = {
 }
 ```
 
-Pour appliquer la configuration de craco penser a modifier votre package.json et remplacer les "react-scripts" par craco.
+Pour appliquer la configuration de craco, penser à modifier votre package.json et remplacer les "react-scripts" par craco.
 
-La prochaine étape consiste a générer puis modifier la configuration de Tailwind, Tailwind est un framework Css complet (et non pas une bibliothèque de composant).
+La prochaine étape consiste à générer puis modifier la configuration de Tailwind, Tailwind est un framework Css complet (et non pas une bibliothèque de composant).
 
 ```shell
   npx tailwindcss init
 ```
 
-Cette commande vous permettra d'installer tailwindcss, il ne vous reste plus qu'a modifier la configuration pour lui indiquer ou ce situe le code source et ajouter les mot clef pour intégrer le css dans un de vos fichier .css :
+Cette commande vous permettra d'installer tailwindcss. Il ne vous reste plus qu'à modifier la configuration pour lui indiquer où se situe le code source, puis d'ajouter les mots clefs pour intégrer le css dans un de vos fichiers .css :
 
 ```js title="/tailwind.config.js"
 module.exports ={
@@ -166,20 +166,20 @@ module.exports ={
 
 #### Tailwind
 
-J'ai choisis Tailwind pour le faite qu'il diffère des librairie que j'utilisais avant (et je ne retournerais plus en arrière). Par le passer j'utilisais [Material-ui](https://material-ui.com/), qui en plus d'être lourd possède beaucoup de fonctionnalité caché. Oui j'ai choisis de réinventer la roue pour pas mal de fonctionnalité mais connaître les tenant et les aboutissant de celle ci ma été extrêmement bénéfique.
+J'ai choisis Tailwind en raison des différences entre les librairies que j'utilisais avant (et je ne retournerais plus en arrière). Par le passée j'utilisais [Material-ui](https://material-ui.com/), qui en plus d'être lourd possède un grand nombre de fonctionnalité cachées. Oui j'ai choisis de réinventer la roue pour pas mal de fonctionnalités mais connaître les tenants et les aboutissants de celle-ci m'a été extrêmement bénéfique.
 
 #### Koa
 
-Ancien utilisateur d'Express je souhaitait apprendre a utiliser de nouveaux framework/packet pour la gestion web.
+Ancien utilisateur d'Express, je souhaitais apprendre à utiliser de nouveaux frameworks/packets pour la gestion web.
 
-Koa est plus long a mettre en place mais me parais plus robuste sur le long terme.
+Koa est plus long à mettre en place mais me parais plus robuste sur le long terme.
 
 #### Socket.io
 
-Avec un système comme Discordjs qui est utiliser beaucoup d'event et d'action asynchrone sont effectuer. Une mise a jour de l'interface en temps réel est donc devenue obligatoire et un fonctionnement ou socket.io ainsi que Redux sont harmonie est devenue tres agréable a utiliser.
+Avec un système comme Discordjs qui est utilisée beaucoup d'event et d'action asynchrone sont effectuées. Une mise à jour de l'interface en temps réel est donc devenue obligatoire et un fonctionnement ou socket.io ainsi que Redux sont en harmonie et devenue très agréable à utiliser.
 
 #### TypeScript
 
-TypeScript, Ni plus ni moins qu'un javascript typer, de la rigueur dans le respect des type, des interface. Je n'ai pas été jusqu'au bout de ce qu'est capable de m'offrir le typescript, cette premiére expérience avec me rend confiant vis a vis du faite que malgré la mauvais image que les gens ont du Js celui ci peux tres bien la dépasser.
+TypeScript, ni plus ni moins qu'un javascript typer, de la rigueur dans le respect des types, des interfaces. Je n'ai pas été jusqu'au bout de ce qu'est capable de m'offrir le typescript. Cependant cette premiére expérience me rend confiant, malgré la mauvaise image que les untilisateurs ont du Js, celle-ci peut très bien dépasser Javascript.
 
-Un point important et qui ma beaucoup fait rire (car oui passer 3h a faire du bug fix et réaliser que le type utiliser pour une variable n'est pas la bonne mais arriver.) est qu'il est nécessaire d'installer les packet en "@types" mais il faut faire attention, certain packet fournisse ces type directement.
+Un point important et qui m'a beaucoup fait rire (car oui, passer 3h à faire du bug fix et réaliser que le type utilisé pour une variable n'est pas la bonne m'est arrivé.) est qu'il est nécessaire d'installer les packest en "@types" mais il faut faire attention, certains packets fournissent ces types directement.
