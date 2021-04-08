@@ -39,9 +39,15 @@ Il y a quelque temps trois événements sont arrivés :
 À la suite de ces trois événements une liste de compétences a été dressée :
 
 - Approfondissement et découverte de nouveaux frameworks et outils.
+  - [Découverte d'électron](/docs/electron)
+  - [Mise en place de l'environnement d'origine](/docs/setup)
 - Passage d'un client Web à un client "Tout en un"
-- Mise en place d'un processus de version applicative
+  - [Mise en place d'un environnement electron](/docs/electron)
 - Mise en place d'un pipeline Cross-Plateforme (Linux, Windows, Mac)
+  - [Mise en place d'une pipeline](/docs/pipeline)
+- Mise en place d'un processus de version applicative
+  - [Mise en place d'une release](/docs/pipeline)
+
 
 Je vais donc tenter de vous expliquer le processus que j'ai utilisé pour acquérir ces compétences aux cours de cette doc.
 
