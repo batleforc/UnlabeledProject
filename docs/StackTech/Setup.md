@@ -35,7 +35,7 @@ Ici vous avez ajouté les packages nécessaires à la création de l'application
 D'autres packages sont utilisés :
 
 - react-grid-layout : Permet la gestion de tableau dynamique (Utiliser dans l'interface de la soundboard)
-- socket.io-client : Permet d'écouter et lancer des event en temps réel.
+- socket.io-client : Permet d'écouter et lancer des events en temps réel.
 - D'autres packages, dont l'installation est plus compliquée, sont expliqués plus bas.
 
 ### 2. Mise en place serveur (Koa + Socket.io)
@@ -96,7 +96,7 @@ Ce fichier est la configuration typescript appliquée à votre serveur.
 
 #### 2.3 Les autres paquets
 
-D'autres packets sont utilisés pour la partie serveur telle que :
+D'autres packets sont utilisés pour la partie serveur tel que :
 
 - Discordjs : Interface avec discord. Facilite fortement le développement de bot.
 - sqlite && sqlite3 : Framework permettant l'utilisation d'une base de donnée.
@@ -138,7 +138,7 @@ module.exports = {
 }
 ```
 
-Pour appliquer la configuration de craco, penser à modifier votre package.json et remplacer les "react-scripts" par craco.
+Pour appliquer la configuration de craco : penser à modifier votre package.json et remplacer les "react-scripts" par craco.
 
 La prochaine étape consiste à générer puis modifier la configuration de Tailwind, Tailwind est un framework Css complet (et non pas une bibliothèque de composant).
 
@@ -176,10 +176,10 @@ Koa est plus long à mettre en place mais me parais plus robuste sur le long ter
 
 #### Socket.io
 
-Avec un système comme Discordjs qui est utilisée beaucoup d'event et d'action asynchrone sont effectuées. Une mise à jour de l'interface en temps réel est donc devenue obligatoire et un fonctionnement ou socket.io ainsi que Redux sont en harmonie et devenue très agréable à utiliser.
+Avec un système comme Discordjs qui est utilisé beaucoup d'event et d'action asynchrone sont effectuées. Une mise à jour de l'interface en temps réel est donc devenue obligatoire et un fonctionnement ou socket.io ainsi que Redux sont en harmonie et devenue très agréable à utiliser.
 
 #### TypeScript
 
-TypeScript, ni plus ni moins qu'un javascript typer, de la rigueur dans le respect des types, des interfaces. Je n'ai pas été jusqu'au bout de ce qu'est capable de m'offrir le typescript. Cependant cette premiére expérience me rend confiant, malgré la mauvaise image que les untilisateurs ont du Js, celle-ci peut très bien dépasser Javascript.
+TypeScript, ni plus ni moins qu'un javascript typer, de la rigueur dans le respect des types, des interfaces. Je n'ai pas été jusqu'au bout de ce qu'est capable de m'offrir le typescript. Cependant cette premiére expérience me rend confiant, malgré la mauvaise image que les untilisateurs ont du Js, celle-ci peut très bien dépasser cette dernière.
 
 Un point important et qui m'a beaucoup fait rire (car oui, passer 3h à faire du bug fix et réaliser que le type utilisé pour une variable n'est pas la bonne m'est arrivé.) est qu'il est nécessaire d'installer les packest en "@types" mais il faut faire attention, certains packets fournissent ces types directement.
