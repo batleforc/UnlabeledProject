@@ -8,12 +8,18 @@ module.exports = {
         "GetStarted/install",
         "GetStarted/creerBot",
         "GetStarted/joinYou",
+        "StackTech/StackTech",
       ],
     },
     {
       type: "category",
       label: "SoundBoard",
       items: ["SoundBoard/createBoard", "SoundBoard/createButton"],
+    },
+    {
+      type: "category",
+      label: "Stack Technique",
+      items: ["StackTech/StackTech"],
     },
   ],
 };

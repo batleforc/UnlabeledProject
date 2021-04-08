@@ -17,24 +17,37 @@ Si vous êtes ici, cela ne peux être que pour trois raisons :
 - Vous êtes un de mes profs.
 - Vous êtes curieux.
 
-Dans tout les cas je vous souhaite la bienvenue sur ce projet.
+Dans tout les cas, je vous souhaite la bienvenue sur ce projet.
 
 ## Objectif
 
 Ce projet possède deux objectifs :
 
-- un à court terme qui consiste à créer une SoundBoard.
-- un à plus long terme qui vise à faire de ce projet une solution boite à outils beaucoup plus complète.
+- Un à court terme qui consiste à créer une SoundBoard.
+- Un à plus long terme qui vise à faire de ce projet une solution boite à outils beaucoup plus complète.
 
 ## Contexte
 
 Pourquoi ce projet ?
 
-Il y a quelque temps deux événement sont arriver:
+Il y a quelque temps trois événements sont arrivé :
 
-- Un amis ma demander le nom d'un software de SoundBoard facile a utiliser et gratuit
+- Un ami a demandé le nom d'un software de SoundBoard facile a utilisé et gratuit
 - J'ai eu cruellement besoin et envie de maîtriser de nouvelle tech/Framework
+- On nous a demandés de mener un projet tuteuré
+
+À la suite de ces trois événements une liste de compétences a été dresser :
+
+- Approfondissement et découverte de nouveaux framework et outils.
+- Passage d'un client Web a un client Tout en un
+- Mise en place d'un processus de version applicative
+- Mise en place d'un pipeline Cross-Plateforme (Linux, Windows, Mac)
+
+Je vais donc tenter de vous expliquer le processus que j'ai utilisé pour acquérir ces compétences aux cours de cette doc.
 
 ### Ensuite ?
 
-Je vous invite à lire la partie Installation qui vous permettra d'installer la solution en local.
+Tout dépend de pourquoi vous êtes la :
+
+- Pour l'installation de la solution => [Installation de la solution en local et processus d'utilisation](/docs/install)
+- Pour consulté de détaille de la stack technique => [Stack technique](/docs/stacktechnique)
