@@ -5,15 +5,15 @@ slug : /electron
 
 KEZAKO ?
 
-Cette partie d'atome est un framework permettant de développer des application desktop multi-plateformes a partir de JavaScript/Html/CSS.
+Cette partie d'atome est un framework permettant de développer des applications desktop multi-plateformes à partir de JavaScript/Html/CSS.
 
 Le processus de développement est "Simple".
 
 ## Mise en place d'un environnement de dev
 
-:::info
+:::Info
 
-Pour la suite de cette page je part du principe qu'on ajoute la stack electron sur un projét déja existant, dans une autre doc j'explique la mise en place de mon environnement post electron.
+Pour la suite de cette page je pars du principe qu'on ajoute la stack electron sur un projet déjà existant, dans une autre doc j'explique la mise en place de mon environnement post electron.
 
 L'environnement [pré-electron est disponible ici](/docs/setup)
 
@@ -25,13 +25,13 @@ L'environnement [pré-electron est disponible ici](/docs/setup)
   yarn add electron electron-builder wait-on concurrently electron-is-dev
 ```
 
-Electron permet de lancer la solution sans build la solution compléte.
+Electron permet de lancer la solution sans construire (build) la solution complète.
 
 Electron-Builder permet de compiler la solution.
 
-Wait-On permet d'attendre une réponse d'une url spécifique pour ici continuer le processus.
+"Wait-On" permet d'attendre une réponse d'une url spécifique pour ici continuer le processus.
 
-Concurrently permet de lancer plusieurs commande aux même moment.
+"Concurrently" permet de lancer plusieures commandes aux même moment.
 
 ### 2. Un peu de configuration
 
@@ -54,20 +54,20 @@ Concurrently permet de lancer plusieurs commande aux même moment.
 }
 ```
 
-Toute ces ligne sont vraiment nécessaire ?
+Toutes ces lignes sont-elles vraiment nécessaires ?
 
-Dans notre cas oui mais je suis la pour vous les expliquer:
+Dans notre cas oui, mais je suis là pour vous les expliquer:
 
-- main : L'emplacement de votre fichier electron.js, celui ci est le point d'entrer de votre application (imaginer cliquer sur ce fichier quand vous lancer la solution finale ou uniquement en dev)
+- main : L'emplacement de votre fichier electron.js, celui-ci est le point d'entrée de votre application (imaginez cliquer sur ce fichier quand vous lancer la solution finale ou uniquement en dev)
 - build:
-  - productName : Le nom de votre produit (sera utiliser pour la compilation de votre exécutable)
+  - productName : Le nom de votre produit (sera utilisé pour la compilation de votre exécutable)
   - appId : Id Linux/Apple, cette id permet de reconnaître le package.
-  - icon : L'icon utiliser pour vos exécutable (penser a bien importer le dossier ou il est dans les fichier)
-  - asar : Si vous utiliser le format asar pour vos fichier compresser. théoriquement il accéléré les require.
-  - files: Tout les fichier/dossier inclut dans le package finale, penser a include le node_modules, vos ou votre dossier de source ainsi que votre icon (ici build contient le client ainsi que l'icon)
+  - icon : L'icon utiliser pour vos exécutables (penser à bien importer le dossier où il est dans les fichiers)
+  - asar : Si vous utilisez le format asar pour vos fichiers compressés. Théoriquement il accélère les requires.
+  - files: Tous les fichiers/dossiers incluent dans le package finale, penser à include le node_modules, vos ou votre dossier(s) de source ainsi que votre icon (ici, build contient le client ainsi que l'icon)
 
 
-### 3. Ajout des script
+### 3. Ajout des scripts
 
 ```json title="package.json"
 {
@@ -87,20 +87,20 @@ Dans notre cas oui mais je suis la pour vous les expliquer:
 }
 ```
 
-Pour le bon fonctionnement de la solution TOUT ces script sont nécessaire:
+Pour le bon fonctionnement de la solution TOUS ces scripts sont nécessaires:
 
-- postinstall : Est exécuter apres l'installation d'un package, il permet de re-construire les extension dans un format propice a l'utilisation electron.
-- electronDev : Permet de lancer votre environnement de dev via start puis d'attendre que celui ci sois lancer pour lancer le client electron.
-- electronAlone : Dans beaucoup de cas j'ai eu a modifier uniquement la partie electron, afin d'accélérer les start/restart je lançais une fois unique start puis relançais uniquement la partie electron.
-- pack : Permet d'obtenir uniquement le dossier contenant la solution compiler.
-- dist : Permet via la configuration de l'étape 2 de compiler vos fichier (par défault .snap pour linux, .exe pour windows et .appImage pour mac)
-- distStartup : Permet en une commande de build les composant ainsi que le client electron.
+- postinstall : Est exécuté après l'installation d'un package, il permet de reconstruire les extensions dans un format propice à l'utilisation electron.
+- electronDev : Permet de lancer votre environnement de dev via start puis d'attendre que celui-ci soit lancé pour lancer le client electron.
+- electronAlone : Dans beaucoup de cas j'ai eu à modifier uniquement la partie electron, afin d'accélérer les starts/restarts je lançais une fois unique start puis relançais uniquement la partie electron.
+- pack : Permet d'obtenir uniquement le dossier contenant la solution compilée.
+- dist : Permet via la configuration de l'étape 2 de compiler vos fichiers (par défault .snap pour linux, .exe pour windows et .appImage pour mac)
+- distStartup : Permet en une commande de build les composants ainsi que le client electron.
 
 ### 4. electron.js
 
-Je vous fournis une version simplifier de mon fichier electronJs les commentaire sont intégrer dans le code fournis, si vous souhaitez mettre en place un système plus complet avec un icon tray, veuillez a vous référer a mon code.
+Je vous fournis une version simplifiée de mon fichier electronJs les commentaires sont intégrés dans le code fournis, si vous souhaitez mettre en place un système plus complet avec un icon tray, veuillez vous en référer à mon code.
 
-Le code electron.js est placer dans mon dossier public afin d'éviter que celui ci sois modifier, ne compter pas sur du TypeScript pour celui ci.
+Le code electron.js est placé dans mon dossier public afin d'éviter que celui ci sois modifié, ne comptez pas sur du TypeScript pour celui ci.
 
 ```js title="/public/electron.js"
   const electron = require("electron");
