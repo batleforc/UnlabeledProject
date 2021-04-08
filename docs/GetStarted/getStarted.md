@@ -30,16 +30,16 @@ Ce projet possède deux objectifs :
 
 Pourquoi ce projet ?
 
-Il y a quelque temps trois événements sont arrivé :
+Il y a quelque temps trois événements sont arrivés :
 
-- Un ami a demandé le nom d'un software de SoundBoard facile a utilisé et gratuit
+- Un ami à demandé le nom d'un software de SoundBoard facile à utiliser et gratuit
 - J'ai eu cruellement besoin et envie de maîtriser de nouvelle tech/Framework
-- On nous a demandés de mener un projet tuteuré
+- Il nous a été demandé de mener un projet tutoré
 
-À la suite de ces trois événements une liste de compétences a été dresser :
+À la suite de ces trois événements une liste de compétences a été dressée :
 
-- Approfondissement et découverte de nouveaux framework et outils.
-- Passage d'un client Web a un client Tout en un
+- Approfondissement et découverte de nouveaux frameworks et outils.
+- Passage d'un client Web à un client "Tout en un"
 - Mise en place d'un processus de version applicative
 - Mise en place d'un pipeline Cross-Plateforme (Linux, Windows, Mac)
 
@@ -47,7 +47,7 @@ Je vais donc tenter de vous expliquer le processus que j'ai utilisé pour acqué
 
 ### Ensuite ?
 
-Tout dépend de pourquoi vous êtes la :
+Tout dépend de pourquoi vous êtes là :
 
 - Pour l'installation de la solution => [Installation de la solution en local et processus d'utilisation](/docs/install)
-- Pour consulté de détaille de la stack technique => [Stack technique](/docs/stacktechnique)
+- Pour la consultation de détail de la stack technique => [Stack technique](/docs/stacktechnique)
