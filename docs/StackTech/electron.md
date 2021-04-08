@@ -11,7 +11,7 @@ Le processus de développement est "Simple".
 
 ## Mise en place d'un environnement de dev
 
-:::Info
+:::info
 
 Pour la suite de cette page je pars du principe qu'on ajoute la stack electron sur un projet déjà existant, dans une autre doc j'explique la mise en place de mon environnement post electron.
 
