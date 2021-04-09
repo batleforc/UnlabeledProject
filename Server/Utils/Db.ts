@@ -32,21 +32,25 @@ class DataBase{
     )`
   )
 
-  InsertToken = (label : string , token : string) => this.db?.run(`INSERT INTO ${this.Table.token} (label,token) VALUES (?,?)`,[label,token])
+  FormatString = (stringContent: string) => {
+    return stringContent.split("'").join("''")
+  }
+
+  InsertToken = (label : string , token : string) => this.db?.run(`INSERT INTO ${this.Table.token} (label,token) VALUES (?,?)`,[this.FormatString(label),token])
   GetAllToken = async () => this.db?.all(`select * from ${this.Table.token} `)
   GetToken = async (id : string) => this.db?.get(`Select * from ${this.Table.token} where id = ?`,id)
   DeleteToken = (idToken : number) => this.db?.exec(`Delete from ${this.Table.token} where id=${idToken}`)
-  EditToken = (idToken : number, label : string , token : string) => this.db?.run(`Update ${this.Table.token} set label = '${label}', token = '${token}' where id=${idToken}`)
+  EditToken = (idToken : number, label : string , token : string) => this.db?.run(`Update ${this.Table.token} set label = '${this.FormatString(label)}', token = '${token}' where id=${idToken}`)
 
   GetAllTab = async () => this.db?.all(`select * from ${this.Table.tab}`)
   DeleteTab = (TabId : number) =>{
     this.db?.exec(`Delete from ${this.Table.tab} where id=${TabId}`)
   }
-  InsertTab = (label : string) =>this.db?.run(`INSERT INTO ${this.Table.tab} (label,content) VALUES (?,?)`,[label,"[]"])
+  InsertTab = (label : string) =>this.db?.run(`INSERT INTO ${this.Table.tab} (label,content) VALUES (?,?)`,[this.FormatString(label),"[]"])
   EditTabLabel = (TabId : number, label : string) =>
-    this.db?.run(`Update ${this.Table.tab} set label = '${label}' where id=${TabId}`)
+    this.db?.run(`Update ${this.Table.tab} set label = '${this.FormatString(label)}' where id=${TabId}`)
   EditTabContent = (TabId : number, content : string) =>
-    this.db?.run(`Update ${this.Table.tab} set content = '${content}' where id=${TabId}`)
+    this.db?.run(`Update ${this.Table.tab} set content = '${this.FormatString(content)}' where id=${TabId}`)
 }
 
 export default DataBase;
