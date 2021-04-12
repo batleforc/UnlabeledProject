@@ -38,7 +38,7 @@ const BotCanPlay = ({ Bot, dispatch }: any) => {
                 Une fois l'archive télécharger veuillez placer sont contenue
                 dans :
               </p>
-              <code>{Bot.canPlay.where}\</code>
+              <code>{Bot.canPlay.where}\</code> <br />
               <a href="https://batleforc.github.io/UnlabeledProject/">
                 La documentation
               </a>

@@ -29,21 +29,21 @@ const BoardParam = ({ dispatch, sBoard }: any) => {
             disabled={Number(sBoard.ActiveBoard) <= -1}
             onClick={() => dispatch(showCreateButton())}
           >
-            Créer un bouton
+            Créer un Son
           </button>
           <button
             className={`px-1 mx-4 my-1 text-white bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
             disabled={Number(sBoard.ActiveBoard) <= -1}
             onClick={() => dispatch(lock())}
           >
-            Verrouiller les bouton
+            Verrouiller les Sons
           </button>
           <button
             className={`px-1 mx-4 my-1 text-white bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
             disabled={Number(sBoard.ActiveBoard) <= -1}
             onClick={() => dispatch(unLock())}
           >
-            Déverrouiller les bouton
+            Déverrouiller les Sons
           </button>
           <button
             className={`px-1 mx-4 my-1 text-white bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
@@ -57,7 +57,7 @@ const BoardParam = ({ dispatch, sBoard }: any) => {
               )
             }
           >
-            Sauvegarder le tableau
+            Sauvegarder le Board
           </button>
         </div>
     </div>
