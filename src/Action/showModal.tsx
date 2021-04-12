@@ -6,6 +6,7 @@ interface Modal {
   CreateButton: Boolean;
   Burger: Boolean;
   boardParam: Boolean;
+  queueSlide: Boolean;
 }
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   CreateButton: false,
   Burger: false,
   boardParam: false,
+  queueSlide: false,
 } as Modal;
 
 const ShowModalSlicer = createSlice({
@@ -43,7 +45,14 @@ const ShowModalSlicer = createSlice({
     },
     setBoardParam: (state, { payload }) => {
       state.boardParam = payload;
+      if (payload === true)
+          state.queueSlide=false
     },
+    setQueueSlide: (state, { payload }) => {
+      state.queueSlide = payload
+      if (payload === true)
+          state.boardParam=false
+    }
   },
 });
 
@@ -55,6 +64,7 @@ export const {
   showCreateButton,
   hideCreateButton,
   setBurger,
-  setBoardParam
+  setBoardParam,
+  setQueueSlide
 } = ShowModalSlicer.actions;
 export default ShowModalSlicer.reducer;

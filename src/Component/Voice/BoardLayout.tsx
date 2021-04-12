@@ -27,7 +27,7 @@ const BoardLayout = ({sBoard,dispatch,Voice}: any) => {
               dispatch(
                 startVoice({
                   song: {
-                    title: value.i,
+                    title: value.text,
                     url: value.url,
                     type: value.type,
                   },

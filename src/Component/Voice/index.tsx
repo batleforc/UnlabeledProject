@@ -6,13 +6,13 @@ import AddTabModal from "./AddTabModal";
 import BoardLayout from "./BoardLayout";
 import BoardParam from "./BoardParam";
 
-export const Index = ({ sBoard, ShowModal, dispatch }: any) => {
+export const Index = ({ sBoard, ShowModal, Voice, dispatch }: any) => {
   // eslint-disable-next-line
   useEffect(() => dispatch(GetBoard()), []);
   return (
     <div className=" w-full flex flex-nowrap">
       <div className="flex-1">
-        <nav className="flex flex-col sm:flex-row">
+        <nav className="flex flex-row">
           {Array.isArray(sBoard.Board) &&
             sBoard.Board.map((value: any, index: number) => (
               <button
@@ -34,6 +34,14 @@ export const Index = ({ sBoard, ShowModal, dispatch }: any) => {
         <BoardLayout />
       </div>
       {ShowModal.boardParam && <BoardParam />}
+      {ShowModal.queueSlide && (
+        <div className="border flex-col">
+          <p>Fille d'attente :</p>
+          {Voice.Queue.map((value: any,index:number) => {
+            return <div key={index}>{value.title}</div>;
+          })}
+        </div>
+      )}
       <AddButtonModal />
       <AddTabModal />
     </div>

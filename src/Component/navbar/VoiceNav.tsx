@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setBoardParam } from "../../Action/showModal";
+import { setBoardParam, setQueueSlide } from "../../Action/showModal";
 import ChanSelect from "./ChanSelect";
 import ServeurSelect from "./ServeurSelect";
 export const VoiceNav = ({ Voice, Bot, dispatch, ShowModal }: any) => {
@@ -10,6 +10,21 @@ export const VoiceNav = ({ Voice, Bot, dispatch, ShowModal }: any) => {
         {Bot.user !== undefined && <ServeurSelect />}
         {Bot.user !== undefined && <ChanSelect />}
       </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="rounded-md z-10 w-9 hover:bg-gray-200 mx-0.5 flex-2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        onClick={()=>dispatch(setQueueSlide(!ShowModal.queueSlide))}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"
+        />
+      </svg>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="rounded-md z-10 w-9 hover:bg-gray-200 mx-0.5 flex-2"
