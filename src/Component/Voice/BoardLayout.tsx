@@ -41,7 +41,7 @@ const BoardLayout = ({ sBoard, dispatch, Voice }: any) => {
           {!value.static && (
             <div className="flex justify-center" >
               <svg
-                onClick={() => dispatch(removeButton(index))}
+                onDoubleClick={() => dispatch(removeButton(index))}
                 className="bg-gray-400 rounded-md hover:bg-gray-200 mx-0.5"
                 style={{ width: "24px", height: "24px" }}
                 xmlns="http://www.w3.org/2000/svg"
