@@ -2,6 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 var ApiSBoard = process.env.REACT_APP_SERVER + "/api/sboard/";
 
+export enum SongType {
+  link = 1,
+  YouTube = 2,
+  Spotify = 3,
+}
+
 export const GetBoard = createAsyncThunk(
   "sBoard/get",
   async (nothing, { dispatch }) => {
@@ -45,7 +51,10 @@ interface Board {
   sound: String;
   url: String;
   button: String;
+  type: SongType;
   BoardAsChanged: boolean;
+  editing: boolean;
+  id: number;
 }
 const initialState = {
   Pending: false,
@@ -55,7 +64,11 @@ const initialState = {
   sound: "",
   url: "",
   button: "",
+  type: SongType.link,
   BoardAsChanged: false,
+  editing: false,
+  id: -1,
+
 } as Board;
 const parse = (state: any, { payload }: any) => {
   state.Pending = false;
@@ -112,20 +125,50 @@ const SBoardSlicer = createSlice({
           h: 2,
           text: state.button,
           url: state.url,
-          type: 1,
+          type: state.type,
           static: state.ActiveLayout[0]?.static || false,
         },
       ]);
       state.url = "";
       state.button = "";
       state.BoardAsChanged = true;
+      state.type = 0;
+      state.editing = false;
+      state.id=-1
+    },
+    editButton: (state) => {
+      state.ActiveLayout[state.id].url = state.url;
+      state.ActiveLayout[state.id].text = state.button;
+      state.ActiveLayout[state.id].type = state.type;
+      state.url = "";
+      state.button = "";
+      state.BoardAsChanged = true;
+      state.type = 0;
+      state.editing = false;
+      state.id=-1
+    },
+    loadButton: (state, { payload }) => {
+      state.url = state.ActiveLayout[payload].url;
+      state.button = state.ActiveLayout[payload].text;
+      state.type = state.ActiveLayout[payload].type;
+      state.editing = true;
+      state.id=payload
     },
     removeButton: (state, { payload }) => {
       state.ActiveLayout.splice(payload, 1);
       state.BoardAsChanged = true;
     },
+    resetCreateButtonModal: (state) => {
+      state.url = "";
+      state.button = "";
+      state.BoardAsChanged = true;
+      state.type = 0;
+      state.editing = false;
+      state.id=-1
+    },
     setUrl: (state, { payload }) => ({ ...state, url: payload }),
     setButton: (state, { payload }) => ({ ...state, button: payload }),
+    setType: (state, { payload }) => ({ ...state, type: Number(payload) }),
   },
   extraReducers: (builder) => {
     builder
@@ -173,5 +216,9 @@ export const {
   setUrl,
   setButton,
   removeButton,
+  editButton,
+  loadButton,
+  setType,
+  resetCreateButtonModal,
 } = SBoardSlicer.actions;
 export default SBoardSlicer.reducer;
