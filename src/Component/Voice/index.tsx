@@ -36,7 +36,7 @@ export const Index = ({ sBoard, ShowModal, Voice, dispatch }: any) => {
       {ShowModal.boardParam && <BoardParam />}
       {ShowModal.queueSlide && (
         <div className="border flex-col">
-          <p>Fille d'attente :</p>
+          <p>File d'attente :</p>
           {Voice.Queue.map((value: any,index:number) => {
             return <div key={index}>{value.title}</div>;
           })}
