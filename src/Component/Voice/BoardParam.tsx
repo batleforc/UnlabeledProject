@@ -16,7 +16,7 @@ const BoardParam = ({ dispatch, sBoard }: any) => {
           <button
             className={`px-1 mx-4 my-1 text-white bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
             disabled={Number(sBoard.ActiveBoard) <= -1}
-            onClick={() =>
+            onDoubleClick={() =>
               dispatch(
                 DeleteBoard({ tabId: sBoard.Board[sBoard.ActiveBoard].id })
               )
