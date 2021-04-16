@@ -1,5 +1,6 @@
 import Router from '@koa/router'
 import DataBase from '../../Utils/Db';
+import {Log} from '../../Utils/Log'
 var sBoard = new Router();
 
 sBoard
@@ -14,6 +15,7 @@ sBoard
       ctx.body={message:"Error one argument missing"}
     }else{
       await (ctx.Db as DataBase).InsertTab(label);
+      Log("Board",`[${ctx.request.ip}] ajout d'un board nommer ${label}`)
       ctx.body= await ctx.Db.GetAllTab()
     }
     await next()
@@ -24,6 +26,7 @@ sBoard
       ctx.body={message:"Error one argument missing"}
     }else{
       await ctx.Db.DeleteTab(ctx.params.TabId)
+      Log("Board",`[${ctx.request.ip}] suppression d'un board a l'id ${ctx.params.TabId}`)
       ctx.body= await ctx.Db.GetAllTab()
     }
     await next()
@@ -41,6 +44,7 @@ sBoard
       if(content!==undefined){
         await (ctx.Db as DataBase).EditTabContent(TabId,JSON.stringify(content))
       }
+      Log("Board",`[${ctx.request.ip}] modification du board ${TabId} => {content:${JSON.stringify(content)},label:${label}}`)
       ctx.body= await ctx.Db.GetAllTab()
     }
     await next()
