@@ -10,16 +10,18 @@ const BurgerItem = ({
   href=false,
   disabled = () => false,
 }: any) => {
-  if (disabled(Bot))
+  var style = "flex flex-row place-items-center  m-2 rounded-md hover:bg-gray-200 mx-0.5"
+  if (disabled({Bot}))
     return (
-      <span className="select-none flex flex-row place-items-center justify-center m-2 rounded-md hover:bg-gray-200 mx-0.5">
+      <span className="select-none flex flex-row place-items-center  m-2 rounded-md hover:bg-gray-200 mx-0.5">
         <Icon className="z-10 w-9 mx-0.5" />
         <p>{label}</p>
+        <p>test</p>
       </span>
     );
   if (href)
     return (
-      <a rel="noreferrer" target="_blank" href={to} className="flex flex-row place-items-center justify-center m-2 rounded-md mx-0.5" >
+      <a rel="noreferrer" target="_blank" href={to} className={style} >
         <Icon className="z-10 w-9 mx-0.5" />
       <p>{label}</p>
       </a>
@@ -27,7 +29,7 @@ const BurgerItem = ({
   return (
     <Link
       to={to}
-      className="flex flex-row place-items-center justify-center m-2 rounded-md mx-0.5"
+      className={style}
     >
       <Icon className="z-10 w-9 mx-0.5" />
       <p>{label}</p>
