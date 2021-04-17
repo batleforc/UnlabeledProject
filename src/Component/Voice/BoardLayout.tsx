@@ -7,7 +7,7 @@ import { showCreateButton } from "../../Action/showModal";
 
 const BoardLayout = ({ sBoard, dispatch, Voice }: any) => {
   // eslint-disable-next-line
-  var enumMedia = { 0: "mp3", 1: "YouTube", 2: "spotify" };
+  var enumMedia = { 1: "mp3", 2: "YouTube", 3: "spotify" };
   return (
     <GridLayout
       onLayoutChange={(Layout: GridLayout.Layout[]) =>

@@ -1,11 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setButton, setUrl, addButton, setType, editButton } from "../../Action/sBoard";
+import {
+  setButton,
+  setUrl,
+  addButton,
+  setType,
+  editButton,
+} from "../../Action/sBoard";
+import { startVoice } from "../../Action/Voice";
 
 export const ButtonForm = ({ dispatch, Voice, sBoard, ...props }: any) => {
   var send = () => {
     if (sBoard.button.length >= 2 && sBoard.url.length >= 2) {
-      dispatch((sBoard.editing?editButton:addButton)());
+      dispatch((sBoard.editing ? editButton : addButton)());
     }
   };
   return (
@@ -51,6 +58,23 @@ export const ButtonForm = ({ dispatch, Voice, sBoard, ...props }: any) => {
             Spotify
           </option>
         </select>
+        <button
+          onClick={() =>
+            dispatch(
+              startVoice({
+                song: {
+                  title: sBoard.button,
+                  url: sBoard.url,
+                  type: sBoard.type,
+                },
+                now: true,
+              })
+            )
+          }
+          className=" text-xs text-center rounded-md border border-primary px-2"
+        >
+          Try It
+        </button>
         <input
           disabled={sBoard.Pending}
           className="py-1 my-3 text-center rounded-md border border-primary px-2"
