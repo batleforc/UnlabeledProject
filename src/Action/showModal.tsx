@@ -7,6 +7,7 @@ interface Modal {
   Burger: Boolean;
   boardParam: Boolean;
   queueSlide: Boolean;
+  importExport: Boolean;
 }
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   Burger: false,
   boardParam: false,
   queueSlide: false,
+  importExport: false,
 } as Modal;
 
 const ShowModalSlicer = createSlice({
@@ -45,14 +47,15 @@ const ShowModalSlicer = createSlice({
     },
     setBoardParam: (state, { payload }) => {
       state.boardParam = payload;
-      if (payload === true)
-          state.queueSlide=false
+      if (payload === true) state.queueSlide = false;
     },
     setQueueSlide: (state, { payload }) => {
-      state.queueSlide = payload
-      if (payload === true)
-          state.boardParam=false
-    }
+      state.queueSlide = payload;
+      if (payload === true) state.boardParam = false;
+    },
+    setImportExport: (state, { payload }) => {
+      state.importExport = payload;
+    },
   },
 });
 
@@ -65,6 +68,7 @@ export const {
   hideCreateButton,
   setBurger,
   setBoardParam,
-  setQueueSlide
+  setQueueSlide,
+  setImportExport,
 } = ShowModalSlicer.actions;
 export default ShowModalSlicer.reducer;

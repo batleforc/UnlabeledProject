@@ -68,7 +68,6 @@ const initialState = {
   BoardAsChanged: false,
   editing: false,
   id: -1,
-
 } as Board;
 const parse = (state: any, { payload }: any) => {
   state.Pending = false;
@@ -134,7 +133,7 @@ const SBoardSlicer = createSlice({
       state.BoardAsChanged = true;
       state.type = 0;
       state.editing = false;
-      state.id=-1
+      state.id = -1;
     },
     editButton: (state) => {
       state.ActiveLayout[state.id].url = state.url;
@@ -145,14 +144,14 @@ const SBoardSlicer = createSlice({
       state.BoardAsChanged = true;
       state.type = 0;
       state.editing = false;
-      state.id=-1
+      state.id = -1;
     },
     loadButton: (state, { payload }) => {
       state.url = state.ActiveLayout[payload].url;
       state.button = state.ActiveLayout[payload].text;
       state.type = state.ActiveLayout[payload].type;
       state.editing = true;
-      state.id=payload
+      state.id = payload;
     },
     removeButton: (state, { payload }) => {
       state.ActiveLayout.splice(payload, 1);
@@ -164,11 +163,14 @@ const SBoardSlicer = createSlice({
       state.BoardAsChanged = true;
       state.type = 0;
       state.editing = false;
-      state.id=-1
+      state.id = -1;
     },
     setUrl: (state, { payload }) => ({ ...state, url: payload }),
     setButton: (state, { payload }) => ({ ...state, button: payload }),
     setType: (state, { payload }) => ({ ...state, type: Number(payload) }),
+    updateBoard: (state, { payload }) => {
+      state.ActiveLayout = JSON.parse(payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -220,5 +222,6 @@ export const {
   loadButton,
   setType,
   resetCreateButtonModal,
+  updateBoard,
 } = SBoardSlicer.actions;
 export default SBoardSlicer.reducer;

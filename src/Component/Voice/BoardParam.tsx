@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { DeleteBoard, lock, unLock, UpdateBoard } from "../../Action/sBoard";
-import { showCreateButton, showCreateTab } from "../../Action/showModal";
+import { setImportExport, showCreateButton, showCreateTab } from "../../Action/showModal";
 
 const BoardParam = ({ dispatch, sBoard }: any) => {
   return (
@@ -37,6 +37,14 @@ const BoardParam = ({ dispatch, sBoard }: any) => {
             onClick={() => dispatch(lock())}
           >
             Verrouiller les Sons
+          </button>
+          <button
+            className={`px-1 mx-4 my-1 text-white bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}
+            disabled={Number(sBoard.ActiveBoard) <= -1}
+            onClick={() => dispatch(setImportExport(true))}
+          >
+            Import/Export <br/>
+            Dans le board actif
           </button>
           <button
             className={`px-1 mx-4 my-1 text-white bg-gray-600 border rounded-md border-gray-900 disabled:opacity-50`}

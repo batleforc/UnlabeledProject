@@ -5,6 +5,7 @@ import AddButtonModal from "./AddButtonModal";
 import AddTabModal from "./AddTabModal";
 import BoardLayout from "./BoardLayout";
 import BoardParam from "./BoardParam";
+import ImportExportModal from './impExport'
 
 export const Index = ({ sBoard, ShowModal, Voice, dispatch }: any) => {
   // eslint-disable-next-line
@@ -44,6 +45,7 @@ export const Index = ({ sBoard, ShowModal, Voice, dispatch }: any) => {
       )}
       <AddButtonModal />
       <AddTabModal />
+      <ImportExportModal />
     </div>
   );
 };
