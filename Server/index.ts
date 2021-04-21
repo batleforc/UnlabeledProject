@@ -1,6 +1,7 @@
-import {Log, ModuleLog} from './Utils/Log'
-ModuleLog("Serveur","Starting")
 require('dotenv-flow').config()
+import { Log, ModuleLog } from './Utils/Log'
+ModuleLog("Serveur","Starting")
+import ReduxStore from './Actions'
 import WebServer from './Utils/Server'
 import Store from './Utils/Store'
 import DataBase from './Utils/Db'
@@ -22,7 +23,7 @@ Serveur.AddListener("message",(socket : any,param : any)=>{
   socket.emit("test",param)
 })
 DiscordClient.DefaultFire(Serveur.GetSocket())
-
+console.log(ReduxStore)
 Serveur.ListenServer(()=>{
   ModuleLog("Serveur",`Le serveur est en écoute sur le port ${String(process.env.SERVER_PORT)} et fonctionne en ${String(process.env.NODE_ENV)}`)
 })
