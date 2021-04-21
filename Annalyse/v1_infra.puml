@@ -1,3 +1,4 @@
+@startuml v1 infra
 node client{
   component Redux
   component React
@@ -13,5 +14,12 @@ node serveur{
   component Db
 }
 
+koa <--> socket_io_serveur
+koa <--> DiscordJs
+koa <--> Store
+koa <--> Db
+
 client --> serveur : Axios
 serveur --> client : Socket.io
+
+@enduml

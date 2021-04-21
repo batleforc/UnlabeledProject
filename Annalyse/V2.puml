@@ -1,4 +1,4 @@
-@startuml
+@startuml v2
 package "Client React/Redux"{
   class Bot{
     img : any

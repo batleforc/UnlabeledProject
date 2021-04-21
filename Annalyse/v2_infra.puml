@@ -1,3 +1,4 @@
+@startuml v2 infra
 node node[
   Vert = dispatch + state
   Rouge =
@@ -43,3 +44,5 @@ socket_io_serveur --> Socket_io_client
 
 client --> serveur : Axios
 serveur --> client : Socket.io
+
+@enduml
