@@ -1,0 +1,45 @@
+node node[
+  Vert = dispatch + state
+  Rouge =
+  Black = Is part of
+]
+
+node client{
+  component Redux
+  component React
+  component Socket_io_client
+}
+
+node serveur{
+  component ReduxServeur as rs
+  component socket_io_serveur
+  component Store
+  component koa
+  agent koa_Api
+  component DiscordJs
+  agent DiscordBot
+  component DiscordJsVoiceHandler as dsv
+  component Koa_Static_client
+  component Db
+}
+
+rs <-[#Green]-> Db
+rs <-[#Green]-> Store
+rs <-[#Green]-> koa
+koa -[#Black]-> Koa_Static_client : Affiche l'interface
+Koa_Static_client --> client
+koa <-[#Black]-> koa_Api
+rs <-[#Green]-> dsv
+DiscordJs <-[#Black]-> DiscordBot
+DiscordJs <-[#Black]-> dsv
+rs --> socket_io_serveur : Emit des event
+
+React <--> Redux
+Socket_io_client <--> Redux
+Redux--> koa_Api : Appelle via Axios
+
+
+socket_io_serveur --> Socket_io_client
+
+client --> serveur : Axios
+serveur --> client : Socket.io

@@ -1,0 +1,17 @@
+node client{
+  component Redux
+  component React
+  component Socket_io_client
+}
+
+node serveur{
+  component socket_io_serveur
+  component koa
+  component DiscordJs
+  component Koa_Static_client
+  component Store
+  component Db
+}
+
+client --> serveur : Axios
+serveur --> client : Socket.io
