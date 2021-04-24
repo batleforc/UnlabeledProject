@@ -5,7 +5,7 @@ import {ModuleLog} from '../Utils/Log'
 class DataBase{
   db? : sqlite.Database
   Table : any
-  constructor(conf : Store){
+  constructor(conf : Store,onceReady?:Function){
     open({
       filename:conf.GetConf("db"),
       driver:sq.cached.Database
@@ -14,7 +14,9 @@ class DataBase{
       this.Table = conf.GetConf("table")
       this.CreateTokenTable(conf.GetConf("table").token)
       this.CreateTabTable(conf.GetConf("table").tab)
-      ModuleLog("DataBase",undefined,true)
+      if(onceReady!==undefined)
+        onceReady()
+      ModuleLog("DataBase", undefined, true)
     })
   }
   CreateTokenTable = (TokenTableName : string)=> this.db?.run(
