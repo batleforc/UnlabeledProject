@@ -27,6 +27,8 @@ node serveur{
 rs <-[#Green]-> Db
 rs <-[#Green]-> Store
 rs <-[#Green]-> koa
+rs <-[#Green]-> DiscordBot
+rs <-[#Green]-> DiscordJs
 koa -[#Black]-> Koa_Static_client : Affiche l'interface
 Koa_Static_client --> client
 koa <-[#Black]-> koa_Api
