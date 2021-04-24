@@ -7,10 +7,14 @@ import Store from './Utils/Store'
 import DataBase from './Utils/Db'
 import Discord from './Utils/Discord'
 import Api from './Router/Api'
-var store = new Store();
-var DiscordClient = new Discord();
-var Serveur = new WebServer(Number(process.env.SERVER_PORT)||5000)
-var Db = new DataBase(store);
+import {BoardGetter} from './Actions/Board'
+export var store = new Store();
+export var DiscordClient = new Discord();
+export var Serveur = new WebServer(Number(process.env.SERVER_PORT)||5000)
+export var Db = new DataBase(store, () => {
+  ReduxStore.dispatch(BoardGetter({force:false}))
+});
+ReduxStore.subscribe(() => console.log(ReduxStore.getState()))
 Serveur.AddToAppContext("Db",Db)
 Serveur.AddToAppContext("discord",DiscordClient)
 Serveur.AddToAppContext("store",store)
@@ -23,7 +27,6 @@ Serveur.AddListener("message",(socket : any,param : any)=>{
   socket.emit("test",param)
 })
 DiscordClient.DefaultFire(Serveur.GetSocket())
-console.log(ReduxStore)
 Serveur.ListenServer(()=>{
   ModuleLog("Serveur",`Le serveur est en écoute sur le port ${String(process.env.SERVER_PORT)} et fonctionne en ${String(process.env.NODE_ENV)}`)
 })
