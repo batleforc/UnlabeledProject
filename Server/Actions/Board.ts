@@ -26,7 +26,7 @@ export const BoardCreate = createAsyncThunk(
   "Board/Create",
   async ({ label }: { label: string }, { dispatch, getState }) => {
     await Db.InsertTab(label);
-    dispatch(BoardGetter({force:false}))
+    await dispatch(BoardGetter({force:false}))
   }
 );
 
@@ -35,19 +35,20 @@ export const BoardDelete = createAsyncThunk(
   "Board/Create",
   async ({ TabId }: { TabId: number }, { dispatch, getState }) => {
     await Db.DeleteTab(TabId)
-    dispatch(BoardGetter({force:false}))
+    await dispatch(BoardGetter({force:false}))
   }
 );
 
 export const BoardUpdate = createAsyncThunk(
   "Board/Update",
-  async ({ TabId, label, content }: { TabId: number, label?: string, content?: object }) => {
+  async ({ TabId, label, content }: { TabId: number, label?: string, content?: object },{dispatch}) => {
     if(label!==undefined){
       await Db.EditTabLabel(TabId,label)
     }
     if(content!==undefined){
       await Db.EditTabContent(TabId,JSON.stringify(content))
     }
+    await dispatch(BoardGetter({force:false}))
   }
 )
 
