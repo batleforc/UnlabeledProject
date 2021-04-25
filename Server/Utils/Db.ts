@@ -77,7 +77,7 @@ class DataBase {
         content
       )}' where id=${TabId}`
     );
-  InsertOrUpdate = (TabId: number, label: string, content: string) =>
+  InsertOrUpdateTab = (TabId: number, label: string, content: string) =>
     this.db?.run(
       `REPLACE INTO ${this.Table.tab} (label,content) VALUES ('${label}','${content}')`
     );
