@@ -1,5 +1,4 @@
 import Router from "@koa/router";
-import DataBase from "../../Utils/Db";
 import { Log } from "../../Utils/Log";
 import Store from "../../Actions/index";
 import { BoardCreate, BoardDelete, BoardUpdate } from "../../Actions/Board";

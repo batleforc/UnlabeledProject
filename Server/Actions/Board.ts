@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Db } from "../index";
-import {Log} from '../Utils/Log'
+
 export interface iBoard {
   id: number;
   label: string;
