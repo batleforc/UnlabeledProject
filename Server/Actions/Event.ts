@@ -21,12 +21,18 @@ export enum BotEvent {
   BotDisconnect = "BotDisconnect",
   BotUpdate = "BotUpdate",
   GuildUpdate = "guildUpdate",
-  
+
 }
 
 export enum TokenEvent {
   TokenCreate = "TokenCreate",
   TokenDelete = "TokenDelete",
+}
+
+export enum AppEvent{
+  Restart = "AppRestart",
+  Stop = "AppStop",
+  ConfUpdate = "ConfigUpdate"
 }
 
 interface event {}
