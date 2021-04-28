@@ -17,7 +17,7 @@ export enum VoiceEvent {
 }
 
 export enum BotEvent {
-  BotConnect = "BotConnect",
+  BotReady = "BotReady",
   BotDisconnect = "BotDisconnect",
   BotUpdate = "BotUpdate",
   GuildUpdate = "guildUpdate",

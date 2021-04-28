@@ -1,6 +1,6 @@
 import Router from "@koa/router";
 import Discord from "../../Utils/Discord";
-import { Song } from "../../Utils/VoiceHandler";
+import { Song } from "../../Actions/VoiceHandler";
 var Voice = new Router();
 
 Voice.get("/volume", async (ctx: any, next: any) => {
