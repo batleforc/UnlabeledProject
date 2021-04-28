@@ -3,17 +3,7 @@ import { canJoin } from "./Permissions";
 import { Server } from "socket.io";
 import { ErrorLog } from "./Log";
 import ytdl from "ytdl-core";
-export enum SongType {
-  link = 1,
-  YouTube = 2,
-  Spotify = 3,
-}
-
-export interface Song {
-  title: string;
-  url: string;
-  type: SongType;
-}
+import { SongType, Song } from '../Actions/VoiceHandler'
 
 export interface SongQueue {
   voiceChannel: VoiceChannel | null;
