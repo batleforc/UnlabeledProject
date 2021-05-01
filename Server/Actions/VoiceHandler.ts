@@ -180,3 +180,4 @@ const Voice = createSlice({
 });
 
 export const { DeleteSong } = Voice.actions;
+export default Voice.reducer
