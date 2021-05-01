@@ -17,7 +17,7 @@ export const BoardGetter = createAsyncThunk(
     { force }: { force?: boolean | undefined },
     { dispatch, getState }
   ) => {
-    dispatch(Board.actions.setReady(Db.db !== undefined));
+    dispatch(setReady(Db.db !== undefined));
     return Db.GetAllTab();
   }
 );
@@ -69,5 +69,5 @@ const Board = createSlice({
       state.Board = payload;
     }),
 });
-
+export const { setReady } = Board.actions
 export default Board.reducer;
