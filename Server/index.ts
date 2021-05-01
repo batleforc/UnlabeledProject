@@ -7,13 +7,15 @@ import Store from "./Utils/Store";
 import DataBase from "./Utils/Db";
 import Discord from "./Utils/Discord";
 import Api from "./Router/Api";
-import { BoardGetter, BoardCreate, BoardUpdate } from "./Actions/Board";
+import { BoardGetter } from "./Actions/Board";
+import { TokenGetter } from './Actions/Token';
 
 export var store = new Store();
 export var DiscordClient = new Discord();
 export var Serveur = new WebServer(Number(process.env.SERVER_PORT) || 5000);
 export var Db = new DataBase(store, () => {
   ReduxStore.dispatch(BoardGetter({ force: false }));
+  ReduxStore.dispatch(TokenGetter());
 });
 
 ReduxStore.subscribe(() => LogObject("Redux", ReduxStore.getState()));
