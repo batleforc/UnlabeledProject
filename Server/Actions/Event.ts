@@ -9,6 +9,7 @@ export enum BoardEvent {
 
 export enum VoiceEvent {
   VoiceJoin = "VoiceJoin",
+  VoiceChange = "VoiceChanChange",
   VoiceLeave = "VoiceLeave",
   VoiceUpdate = "VoiceUpdate",
   VoiceQueue = "VoiceQueueUpdate",
@@ -21,7 +22,6 @@ export enum BotEvent {
   BotDisconnect = "BotDisconnect",
   BotUpdate = "BotUpdate",
   GuildUpdate = "guildUpdate",
-
 }
 
 export enum TokenEvent {
@@ -29,7 +29,7 @@ export enum TokenEvent {
   TokenDelete = "TokenDelete",
 }
 
-export enum AppEvent{
+export enum AppEvent {
   ServeurRestart = "AppRestart",
   ServeurStop = "AppStop",
   ConfUpdate = "ConfigUpdate",
