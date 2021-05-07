@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { VoiceChannel, VoiceConnection } from "discord.js";
+import { DiscordClient } from "../index";
 import { canJoin } from "../Utils/Permissions";
 import ytdl from "ytdl-core";
 
@@ -60,7 +61,14 @@ export const Leave = createAsyncThunk("Voice/Leave", async () => {
 });
 export const Join = createAsyncThunk(
   "Voice/join",
-  async ({ voiceChan }: { voiceChan: VoiceChannel }, { getState }) => {
+  async (
+    { guildId, channelId }: { guildId: string; channelId: string },
+    { getState }
+  ) => {
+    var voiceChan = DiscordClient.GetOneChan(
+      guildId,
+      channelId
+    ) as VoiceChannel;
     if (canJoin(voiceChan)) {
       return voiceChan.join().then((value) => {
         SongGState.voiceChannel = voiceChan;
@@ -180,4 +188,4 @@ const Voice = createSlice({
 });
 
 export const { DeleteSong } = Voice.actions;
-export default Voice.reducer
+export default Voice.reducer;
