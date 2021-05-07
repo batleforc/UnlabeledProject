@@ -1,7 +1,6 @@
 import Discordjs, {
   ActivityType,
   PresenceData,
-  StreamOptions,
   VoiceChannel,
 } from "discord.js";
 import { Server } from "socket.io";
@@ -10,7 +9,6 @@ import VoiceHandler from "./VoiceHandler";
 class Discord {
   client: Discordjs.Client;
   Ready: Boolean;
-  Voice!: Discordjs.VoiceConnection;
   VoiceHandler: VoiceHandler;
   BotId: number;
   constructor() {
@@ -84,7 +82,6 @@ class Discord {
   GetBotId = () => this.BotId;
   GetClient = () => this.client;
   GetUser = () => this.client.user;
-  GetVoice = () => this.Voice;
   GetAllServer = () => this.client.guilds.cache;
   GetOneServer = (guildId: string) =>
     this.client.guilds.cache.find((value, index) => index === guildId);
