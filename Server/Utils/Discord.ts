@@ -35,7 +35,7 @@ class Discord {
   //#endregion
 
   //#region FireEvent
-  DefaultFire = (io: Server) => {
+  DefaultFire = (io: Server,WhenReady?:Function) => {
     this.FireWhenReady(io, () => {});
     this.FireWhenDisconnect(io, () => {});
     this.FireWhenGuildJoin(io, () => {});
@@ -82,6 +82,7 @@ class Discord {
   GetBotId = () => this.BotId;
   GetClient = () => this.client;
   GetUser = () => this.client.user;
+  GetPresence = () => this.GetUser().presence
   GetAllServer = () => this.client.guilds.cache;
   GetOneServer = (guildId: string) =>
     this.client.guilds.cache.find((value, index) => index === guildId);
