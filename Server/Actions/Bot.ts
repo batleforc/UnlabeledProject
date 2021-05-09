@@ -32,9 +32,9 @@ export const BotSetActivity = createAsyncThunk(
 );
 
 export const BotGetActivity = createAsyncThunk("Bot/GetActivity", async () => ({
-  status: DiscordClient.GetPresence().status,
-  name: DiscordClient.GetPresence().activities[0].name,
-  type: DiscordClient.GetPresence().activities[0].type,
+  status: DiscordClient.GetPresence()?.status||"",
+  name: DiscordClient.GetPresence()?.activities[0].name||"",
+  type: DiscordClient.GetPresence()?.activities[0].type||"",
 }));
 
 export interface iBot {
