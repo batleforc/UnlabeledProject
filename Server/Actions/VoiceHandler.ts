@@ -3,6 +3,7 @@ import { VoiceChannel, VoiceConnection } from "discord.js";
 import { DiscordClient } from "../index";
 import { canJoin } from "../Utils/Permissions";
 import ytdl from "ytdl-core";
+import FFmpeg from "prism-media";
 
 export enum SongType {
   link = 1,
@@ -145,6 +146,15 @@ const Player = createAsyncThunk(
   }
 );
 
+export const canPlay = createAsyncThunk("Voice/canPlay", async () => {
+  try {
+    FFmpeg.FFmpeg.getInfo();
+    return {canPlay : true};
+  } catch (error) {
+    return {canPlay: false,msg:error};
+  }
+});
+
 const Voice = createSlice({
   name: "Voice",
   initialState,
@@ -184,7 +194,10 @@ const Voice = createSlice({
       })
       .addCase(Join.fulfilled, (state, { payload }) => {
         state.canPlay = payload;
-      }),
+      })
+      .addCase(canPlay.fulfilled, (state, { payload }) => {
+        state.canPlay = payload.canPlay;
+      })
 });
 
 export const { DeleteSong } = Voice.actions;
