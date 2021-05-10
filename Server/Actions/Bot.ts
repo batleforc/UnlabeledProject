@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ActivityType } from "discord.js";
-import { DiscordClient, Db } from "../index";
+import { DiscordClient, Db,Serveur } from "../index";
 
 export const BotGet = createAsyncThunk("Bot/Get", async () =>
   DiscordClient.GetUser()
@@ -15,6 +15,14 @@ export const BotLogin = createAsyncThunk(
     });
   }
 );
+export const BotDisconnect = createAsyncThunk(
+  "Bot/disconnect",
+  async (nothing, { dispatch }) => {
+    DiscordClient.DisconnectClient(Serveur.GetSocket(), () => {
+      dispatch(BotGetActivity())
+    })
+  }
+)
 
 export const BotSetActivity = createAsyncThunk(
   "Bot/SetActivity",
@@ -69,7 +77,12 @@ const Bot = createSlice({
         state.Presence.Status = payload.status;
         state.Presence.name = payload.name;
         state.Presence.type = payload.type;
-      }),
+      })
+      .addCase(BotDisconnect.fulfilled, (state) => {
+        state.Ready = false
+        state.BotId = -1
+        state.Presence=initialState.Presence
+      })
 });
 
 export default Bot.reducer;
