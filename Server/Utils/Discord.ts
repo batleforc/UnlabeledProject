@@ -24,9 +24,9 @@ class Discord {
     this.client.login(token);
     this.BotId = botId;
   };
-  DisconnectClient = (io: Server) => {
+  DisconnectClient = (io: Server,whenReady?:Function) => {
     this.client = new Discordjs.Client();
-    this.DefaultFire(io);
+    this.DefaultFire(io,whenReady);
     this.BotId = -1;
     this.Ready = false;
     this.VoiceHandler.Leave(io);
