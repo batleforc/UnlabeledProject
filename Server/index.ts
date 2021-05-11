@@ -25,6 +25,7 @@ Serveur.AddToAppContext("Db", Db);
 Serveur.AddToAppContext("discord", DiscordClient);
 Serveur.AddToAppContext("store", store);
 Serveur.AddToAppContext("io", Serveur.GetSocket());
+Serveur.AddToAppContext("Redux",ReduxStore)
 Serveur.AddRouter(Api);
 
 Serveur.GetSocket().on("connection", (socket: any) => {
