@@ -1,22 +1,39 @@
 import Router from "@koa/router";
 import Discord from "../../Utils/Discord";
-import { Song } from "../../Actions/VoiceHandler";
+import {
+  Song,
+  getIsPaused,
+  getStatus,
+  GetVoiceStatus,
+  Join,
+  DeleteSong,
+  Leave,
+  setVolume,
+  Play,
+  Pause,
+  Resume,
+  Stop,
+  Skip
+} from "../../Actions/VoiceHandler";
+import Store from "../../Actions/index";
 var Voice = new Router();
 
 Voice.get("/volume", async (ctx: any, next: any) => {
-  ctx.body = (ctx.discord as Discord).getVoice().getVolume();
+  ctx.body = Store.getState().Voice.Volume;
   await next();
 })
   .get("/pause", async (ctx: any, next: any) => {
-    ctx.body = (ctx.discord as Discord).getVoice().getIsPaused();
+    ctx.body = getIsPaused();
     await next();
   })
   .get("/status", async (ctx: any, next: any) => {
-    ctx.body = (ctx.discord as Discord).getVoice().getStatus();
+    ctx.body = getStatus();
     await next();
   })
   .get("/", async (ctx: any, next: any) => {
-    ctx.body = (ctx.discord as Discord).getVoice().getVoiceStatus();
+    await Store.dispatch(GetVoiceStatus()).then(({payload}) => {
+      ctx.body = payload;
+    });
     await next();
   })
   .post("/join", async (ctx: any, next: any) => {
@@ -28,7 +45,7 @@ Voice.get("/volume", async (ctx: any, next: any) => {
         chanId: chanId === undefined,
       };
     } else {
-      (ctx.discord as Discord).VoiceJoin(guildId, chanId, ctx.io);
+      Store.dispatch(Join({ guildId: guildId, channelId: chanId }));
       ctx.body = {
         launched: true,
       };
@@ -36,14 +53,14 @@ Voice.get("/volume", async (ctx: any, next: any) => {
     await next();
   })
   .post("/skipAt", async (ctx: any, next: any) => {
-    var {id} = ctx.request.body
+    var { id } = ctx.request.body;
     if (id === undefined) {
       ctx.body = {
         message: "Param manquant",
         SongId: id === undefined,
       };
     } else {
-      (ctx.discord as Discord).getVoice().DeleteSong(ctx.io,id)
+      Store.dispatch(DeleteSong({ id: id }));
       ctx.body = {
         launched: true,
       };
@@ -51,7 +68,7 @@ Voice.get("/volume", async (ctx: any, next: any) => {
     await next();
   })
   .post("/leave", async (ctx: any, next: any) => {
-    (ctx.discord as Discord).VoiceLeave(ctx.io);
+    Store.dispatch(Leave());
     ctx.body = { launched: true };
     await next();
   })
@@ -60,7 +77,7 @@ Voice.get("/volume", async (ctx: any, next: any) => {
     if (vol === undefined) {
       ctx.body = { message: "Param manquant", vol: vol === undefined };
     } else {
-      (ctx.discord as Discord).getVoice().SetVolume(ctx.io, vol);
+      Store.dispatch(setVolume(vol));
       ctx.body = { launched: true };
     }
     await next();
@@ -70,28 +87,28 @@ Voice.get("/volume", async (ctx: any, next: any) => {
     if (toPlay === undefined) {
       ctx.body = { message: "Param manquant ", toPlay: toPlay === undefined };
     } else {
-      (ctx.discord as Discord).getVoice().Play(ctx.io, toPlay as Song, now);
+      Store.dispatch(Play({ song: (toPlay as Song), now: now }));
       ctx.body = { launched: true };
     }
     await next();
   })
   .post("/pause", async (ctx: any, next: any) => {
-    ctx.body = (ctx.discord as Discord).getVoice().Pause(ctx.io);
+    Store.dispatch(Pause())
     ctx.body = { launched: true };
     await next();
   })
   .post("/resume", async (ctx: any, next: any) => {
-    ctx.body = (ctx.discord as Discord).getVoice().Resume(ctx.io);
+    Store.dispatch(Resume())
     ctx.body = { launched: true };
     await next();
   })
   .post("/stop", async (ctx: any, next: any) => {
-    ctx.body = (ctx.discord as Discord).getVoice().Stop(ctx.io);
+    Store.dispatch(Stop())
     ctx.body = { launched: true };
     await next();
   })
   .post("/skip", async (ctx: any, next: any) => {
-    ctx.body = (ctx.discord as Discord).getVoice().Skip(ctx.io);
+    Store.dispatch(Skip())
     ctx.body = { launched: true };
     await next();
   });
