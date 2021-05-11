@@ -1,10 +1,11 @@
 import Router from "@koa/router";
 import { EnhancedStore } from "@reduxjs/toolkit";
+import Store from "../../Actions/index";
 import { TokenCreate, TokenDelete, TokenUpdate } from "../../Actions/Token";
 var Token = new Router();
 
 Token.get("/", async (ctx: any, next: any) => {
-  ctx.body = (ctx.Redux as EnhancedStore).getState().Token.Token;
+  ctx.body = Store.getState().Token.Token;
   await next();
 })
   .post("/", async (ctx: any, next: any) => {
@@ -13,10 +14,10 @@ Token.get("/", async (ctx: any, next: any) => {
       ctx.status = 400;
       ctx.body = { message: "Error one argument missing" };
     } else {
-      await ctx.Redux.dispatch(
+      await Store.dispatch(
         TokenCreate({ label: body.label, token: body.token })
       );
-      ctx.body = (ctx.Redux as EnhancedStore).getState().Token.Token;
+      ctx.body = Store.getState().Token.Token;
     }
     await next();
   })
@@ -26,9 +27,9 @@ Token.get("/", async (ctx: any, next: any) => {
       ctx.status = 400;
       ctx.body = { message: "Error one argument missing" };
     } else {
-      await ctx.Redux.dispatch(TokenDelete({ TokenId: Number(params) }));
+      await Store.dispatch(TokenDelete({ TokenId: Number(params) }));
     }
-    ctx.body = (ctx.Redux as EnhancedStore).getState().Token.Token;
+    ctx.body = Store.getState().Token.Token;
     await next();
   })
   .put("/:id", async (ctx: any, next: any) => {
@@ -41,11 +42,11 @@ Token.get("/", async (ctx: any, next: any) => {
       ctx.status = 400;
       ctx.body = { message: "Error one argument missing" };
     } else {
-      await ctx.Redux.dispatch(
+      await Store.dispatch(
         TokenUpdate({ id: ctx.params.id, label: body.label, token: body.token })
       );
     }
-    ctx.body = (ctx.Redux as EnhancedStore).getState().Token.Token;
+    ctx.body = Store.getState().Token.Token;
     await next();
   });
 
