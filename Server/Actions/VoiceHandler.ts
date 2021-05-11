@@ -39,6 +39,9 @@ export const initialState = {
   canPlay: false,
 } as VoiceState;
 
+export const getIsPaused = () => SongGState.connection?.dispatcher?.paused;
+export const getStatus = () => SongGState.connection?.status;
+
 export const GetVoiceStatus = createAsyncThunk(
   "Voice/GetState",
   async (nothing, { getState }) => {
@@ -112,8 +115,8 @@ export const Play = createAsyncThunk(
     if (now) {
       dispatch(Voice.actions.AddSongNow({ song: song }));
     } else dispatch(Voice.actions.AddSong({ song: song }));
-    if (voice.queue.length === 1) {
-      Player();
+    if (voice.queue.length <= 1) {
+      dispatch(Player());
     }
   }
 );
@@ -133,7 +136,7 @@ const Player = createAsyncThunk(
         )
         .on("finish", () => {
           dispatch(Voice.actions.ShiftSong());
-          Player();
+          dispatch(Player());
         })
         .on("error", (error) => {
           dispatch(Voice.actions.setPlaying(false));
@@ -149,9 +152,9 @@ const Player = createAsyncThunk(
 export const canPlay = createAsyncThunk("Voice/canPlay", async () => {
   try {
     FFmpeg.FFmpeg.getInfo();
-    return {canPlay : true};
+    return { canPlay: true };
   } catch (error) {
-    return {canPlay: false,msg:error};
+    return { canPlay: false, msg: error };
   }
 });
 
@@ -197,8 +200,8 @@ const Voice = createSlice({
       })
       .addCase(canPlay.fulfilled, (state, { payload }) => {
         state.canPlay = payload.canPlay;
-      })
+      }),
 });
 
-export const { DeleteSong } = Voice.actions;
+export const { DeleteSong, setVolume } = Voice.actions;
 export default Voice.reducer;
