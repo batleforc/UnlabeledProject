@@ -5,16 +5,13 @@ import Discordjs, {
 } from "discord.js";
 import { Server } from "socket.io";
 import { Log, ModuleLog } from "../Utils/Log";
-import VoiceHandler from "./VoiceHandler";
 class Discord {
   client: Discordjs.Client;
   Ready: Boolean;
-  VoiceHandler: VoiceHandler;
   BotId: number;
   constructor() {
     this.BotId = -1;
     this.client = new Discordjs.Client();
-    this.VoiceHandler = new VoiceHandler();
     this.Ready = false;
     ModuleLog("Discord", undefined, true);
   }
@@ -24,19 +21,21 @@ class Discord {
     this.client.login(token);
     this.BotId = botId;
   };
-  DisconnectClient = (io: Server,whenReady?:Function) => {
+  DisconnectClient = (io: Server, whenReady?: Function, onLeave?: Function) => {
     this.client = new Discordjs.Client();
-    this.DefaultFire(io,whenReady);
+    this.DefaultFire(io, whenReady);
     this.BotId = -1;
     this.Ready = false;
-    this.VoiceHandler.Leave(io);
+    if (onLeave) onLeave();
     io.emit("botUpdate");
   };
   //#endregion
 
   //#region FireEvent
-  DefaultFire = (io: Server,WhenReady?:Function) => {
-    this.FireWhenReady(io, () => {if(WhenReady)WhenReady()});
+  DefaultFire = (io: Server, WhenReady?: Function) => {
+    this.FireWhenReady(io, () => {
+      if (WhenReady) WhenReady();
+    });
     this.FireWhenDisconnect(io, () => {});
     this.FireWhenGuildJoin(io, () => {});
     if (process.env.NODE_ENV == "development") {
@@ -82,7 +81,7 @@ class Discord {
   GetBotId = () => this.BotId;
   GetClient = () => this.client;
   GetUser = () => this.client.user;
-  GetPresence = () => this.GetUser()?.presence
+  GetPresence = () => this.GetUser()?.presence;
   GetAllServer = () => this.client.guilds.cache;
   GetOneServer = (guildId: string) =>
     this.client.guilds.cache.find((value, index) => index === guildId);
@@ -102,16 +101,6 @@ class Discord {
         type: type,
       },
     });
-  //#endregion
-
-  //#region Voice
-  getVoice = () => this.VoiceHandler;
-  VoiceJoin = (guildId: string, channelId: string, io: Server) =>
-    this.VoiceHandler.Join(
-      this.GetOneChan(guildId, channelId) as VoiceChannel,
-      io
-    );
-  VoiceLeave = (io: Server) => this.VoiceHandler.Leave(io);
   //#endregion
 }
 

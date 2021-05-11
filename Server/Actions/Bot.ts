@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ActivityType } from "discord.js";
-import { DiscordClient, Db,Serveur } from "../index";
+import { DiscordClient, Db, Serveur } from "../index";
+import { Leave } from "./VoiceHandler";
 
 export const BotGet = createAsyncThunk("Bot/Get", async () =>
   DiscordClient.GetUser()
@@ -18,11 +19,17 @@ export const BotLogin = createAsyncThunk(
 export const BotDisconnect = createAsyncThunk(
   "Bot/disconnect",
   async (nothing, { dispatch }) => {
-    DiscordClient.DisconnectClient(Serveur.GetSocket(), () => {
-      dispatch(BotGetActivity())
-    })
+    DiscordClient.DisconnectClient(
+      Serveur.GetSocket(),
+      () => {
+        dispatch(BotGetActivity());
+      },
+      () => {
+        dispatch(Leave());
+      }
+    );
   }
-)
+);
 
 export const BotSetActivity = createAsyncThunk(
   "Bot/SetActivity",
@@ -40,9 +47,9 @@ export const BotSetActivity = createAsyncThunk(
 );
 
 export const BotGetActivity = createAsyncThunk("Bot/GetActivity", async () => ({
-  status: DiscordClient.GetPresence()?.status||"",
-  name: DiscordClient.GetPresence()?.activities[0].name||"",
-  type: DiscordClient.GetPresence()?.activities[0].type||"",
+  status: DiscordClient.GetPresence()?.status || "",
+  name: DiscordClient.GetPresence()?.activities[0].name || "",
+  type: DiscordClient.GetPresence()?.activities[0].type || "",
 }));
 
 export interface iBot {
@@ -79,10 +86,10 @@ const Bot = createSlice({
         state.Presence.type = payload.type;
       })
       .addCase(BotDisconnect.fulfilled, (state) => {
-        state.Ready = false
-        state.BotId = -1
-        state.Presence=initialState.Presence
-      })
+        state.Ready = false;
+        state.BotId = -1;
+        state.Presence = initialState.Presence;
+      }),
 });
 
 export default Bot.reducer;
