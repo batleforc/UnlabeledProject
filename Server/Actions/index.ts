@@ -3,14 +3,14 @@ import Board from "./Board";
 import Event from "./Event";
 import Token from "./Token";
 import Bot from "./Bot";
-import VoiceHandler from "./VoiceHandler";
+import Voice from "./VoiceHandler";
 
 const store = configureStore({
   reducer: {
     Board,
     Event,
     Token,
-    VoiceHandler,
+    Voice,
     Bot,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
