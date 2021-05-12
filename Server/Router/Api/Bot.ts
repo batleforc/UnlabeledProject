@@ -14,7 +14,7 @@ var Bot = new Router();
 
 Bot.get("/serveur", async (ctx: any, next: any) => {
   if (ctx.discord.Ready)
-    ctx.body = await Store.dispatch(BotGetAllParsedServeur());
+    ctx.body = (await Store.dispatch(BotGetAllParsedServeur())).payload;
   else
     ctx.body = {
       message: "Bot not started yet or not ready",
@@ -24,7 +24,7 @@ Bot.get("/serveur", async (ctx: any, next: any) => {
   .get("/chan/:id", async (ctx: any, next: any) => {
     var params = ctx.params.id;
     if (ctx.discord.Ready) {
-      ctx.body = await Store.dispatch(BotGetAllChan({ params: params }));
+      ctx.body = await (await (Store.dispatch(BotGetAllChan({ params: params })))).payload;
     } else ctx.body = [];
     await next();
   })
@@ -37,7 +37,7 @@ Bot.get("/serveur", async (ctx: any, next: any) => {
       if (ctx.discord.Ready) await Store.dispatch(BotDisconnect());
       await Store.dispatch(
         BotLogin({
-          id: store.getState().Token.Token.find((token:Token) => token.id === id),
+          id: id,
         })
       );
       ctx.body = { message: "all Is Green" };
