@@ -18,7 +18,7 @@ export const BotLogin = createAsyncThunk(
 );
 export const BotDisconnect = createAsyncThunk(
   "Bot/disconnect",
-  async (nothing, { dispatch }) => {
+  async (_, { dispatch }) => {
     DiscordClient.DisconnectClient(
       Serveur.GetSocket(),
       () => {
@@ -46,6 +46,11 @@ export const BotGetAllParsedServeur = createAsyncThunk(
       };
     })
 );
+
+export const BotGetAllChan = createAsyncThunk(
+  "Bot/GetAllChan",
+  async ({params}:{params:string}) => DiscordClient.GetAllChan(params)?.filter(value=>["text","voice"].includes(value.type))
+)
 
 export const BotSetActivity = createAsyncThunk(
   "Bot/SetActivity",
