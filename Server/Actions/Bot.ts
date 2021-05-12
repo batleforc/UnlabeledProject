@@ -23,12 +23,28 @@ export const BotDisconnect = createAsyncThunk(
       Serveur.GetSocket(),
       () => {
         dispatch(BotGetActivity());
+        dispatch(setReady(true));
       },
       () => {
         dispatch(Leave());
       }
     );
   }
+);
+
+export const BotGetAllParsedServeur = createAsyncThunk(
+  "Bot/GetAllServeur",
+  async () =>
+    DiscordClient.GetAllServer().map((value: any) => {
+      return {
+        id: value.id,
+        ServeurName: value.name,
+        ServeurAcronyme: value.nameAcronym,
+        Icon: value.iconURL(),
+        nbrMembre: value.memberCount,
+        ownerID: value.ownerID,
+      };
+    })
 );
 
 export const BotSetActivity = createAsyncThunk(
@@ -74,7 +90,11 @@ const initialState = {
 const Bot = createSlice({
   name: "Bot",
   initialState,
-  reducers: {},
+  reducers: {
+    setReady: (state, { payload }) => {
+      state.Ready = payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(BotLogin.fulfilled, (state, { payload }) => {
@@ -92,4 +112,5 @@ const Bot = createSlice({
       }),
 });
 
+export const { setReady } = Bot.actions;
 export default Bot.reducer;

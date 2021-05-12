@@ -9,7 +9,7 @@ import Discord from "./Utils/Discord";
 import Api from "./Router/Api";
 import { BoardGetter } from "./Actions/Board";
 import { TokenGetter } from './Actions/Token';
-import { BotGetActivity } from './Actions/Bot';
+import { BotGetActivity, setReady } from './Actions/Bot';
 
 export var store = new Store();
 export var DiscordClient = new Discord();
@@ -36,6 +36,7 @@ Serveur.AddListener("message", (socket: any, param: any) => {
 });
 DiscordClient.DefaultFire(Serveur.GetSocket(), () => {
   ReduxStore.dispatch(BotGetActivity())
+  ReduxStore.dispatch(setReady(true));
 });
 
 process.stdin.resume();
