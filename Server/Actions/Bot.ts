@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ActivityType } from "discord.js";
 import { DiscordClient, Db } from "../index";
 import { Leave } from "./VoiceHandler";
-import {SocketEmit, BotEvent} from './Event'
+import { SocketEmit, BotEvent } from "./Event";
 
 export const BotGet = createAsyncThunk("Bot/Get", async () =>
   DiscordClient.GetUser()
@@ -20,25 +20,23 @@ export const BotLogin = createAsyncThunk(
 export const BotDisconnect = createAsyncThunk(
   "Bot/disconnect",
   async (_, { dispatch }) => {
-    DiscordClient.DisconnectClient(
-      {
-        whenReady:() => {
-          dispatch(BotGetActivity());
-          dispatch(setReady(true));
-          dispatch(SocketEmit(BotEvent.BotReady))
-        },
-        onLeave:() => {
-          dispatch(Leave());
-          dispatch(SocketEmit(BotEvent.BotDisconnect))
-        },
-        BotUpdate: () => {
-          dispatch(SocketEmit(BotEvent.BotUpdate))
-        },
-        GuildUpdate: () => {
-          dispatch(SocketEmit(BotEvent.GuildUpdate))
-        }
-      }
-    );
+    DiscordClient.DisconnectClient({
+      whenReady: () => {
+        dispatch(BotGetActivity());
+        dispatch(setReady(true));
+        dispatch(SocketEmit(BotEvent.BotReady));
+      },
+      onLeave: () => {
+        dispatch(Leave());
+        dispatch(SocketEmit(BotEvent.BotDisconnect));
+      },
+      BotUpdate: () => {
+        dispatch(SocketEmit(BotEvent.BotUpdate));
+      },
+      GuildUpdate: () => {
+        dispatch(SocketEmit(BotEvent.GuildUpdate));
+      },
+    });
   }
 );
 
@@ -59,8 +57,11 @@ export const BotGetAllParsedServeur = createAsyncThunk(
 
 export const BotGetAllChan = createAsyncThunk(
   "Bot/GetAllChan",
-  async ({params}:{params:string}) => DiscordClient.GetAllChan(params)?.filter(value=>["text","voice"].includes(value.type))
-)
+  async ({ params }: { params: string }) =>
+    DiscordClient.GetAllChan(params)?.filter((value) =>
+      ["text", "voice"].includes(value.type)
+    )
+);
 
 export const BotSetActivity = createAsyncThunk(
   "Bot/SetActivity",
