@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { setUpdateBot } from "./Event";
 import axios from "axios";
 
 var Api = process.env.REACT_APP_SERVER + "/api/";
@@ -18,7 +17,6 @@ export const TokenGetter = createAsyncThunk(
   "token/get",
   async (value, { dispatch }) => {
     return axios.get(Api + "token").then((value) => {
-      dispatch(setUpdateBot(false));
       return value.data;
     });
   },
