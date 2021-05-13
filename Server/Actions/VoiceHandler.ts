@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { VoiceChannel, VoiceConnection } from "discord.js";
 import { DiscordClient } from "../index";
 import { canJoin } from "../Utils/Permissions";
+import { SocketEmit, VoiceEvent } from "./Event";
 import ytdl from "ytdl-core";
 import FFmpeg from "prism-media";
 
@@ -58,16 +59,17 @@ export const GetVoiceStatus = createAsyncThunk(
   }
 );
 
-export const Leave = createAsyncThunk("Voice/Leave", async () => {
+export const Leave = createAsyncThunk("Voice/Leave", async (_,{dispatch}) => {
   SongGState.connection?.disconnect();
   SongGState.voiceChannel = null;
+  dispatch(SocketEmit(VoiceEvent.VoiceLeave))
   return;
 });
 export const Join = createAsyncThunk(
   "Voice/join",
   async (
     { guildId, channelId }: { guildId: string; channelId: string },
-    { getState }
+    { dispatch }
   ) => {
     var voiceChan = DiscordClient.GetOneChan(
       guildId,
@@ -77,17 +79,20 @@ export const Join = createAsyncThunk(
       return voiceChan.join().then((value) => {
         SongGState.voiceChannel = voiceChan;
         SongGState.connection = value;
+        dispatch(SocketEmit(VoiceEvent.VoiceJoin))
         return true;
       });
     }
     return false;
   }
 );
-export const Pause = createAsyncThunk("Voice/Pause", async () => {
+export const Pause = createAsyncThunk("Voice/Pause", async (_, { dispatch }) => {
   SongGState.connection?.dispatcher?.pause();
+  dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
 });
-export const Resume = createAsyncThunk("Voice/Resume", async () => {
+export const Resume = createAsyncThunk("Voice/Resume", async (_, { dispatch }) => {
   SongGState.connection?.dispatcher?.resume();
+  dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
 });
 
 export const Stop = createAsyncThunk(
@@ -95,11 +100,13 @@ export const Stop = createAsyncThunk(
   async (nothing, { dispatch }) => {
     dispatch(Voice.actions.Stop());
     SongGState.connection?.dispatcher?.end();
+    dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
   }
 );
 
-export const Skip = createAsyncThunk("Voice/Skip", async () => {
+export const Skip = createAsyncThunk("Voice/Skip", async (_, { dispatch }) => {
   SongGState.connection?.dispatcher?.end();
+  dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
 });
 
 export const Play = createAsyncThunk(
@@ -118,6 +125,7 @@ export const Play = createAsyncThunk(
     if (voice.queue.length <= 1) {
       dispatch(Player());
     }
+    dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
   }
 );
 const Player = createAsyncThunk(
@@ -137,6 +145,7 @@ const Player = createAsyncThunk(
         .on("finish", () => {
           dispatch(Voice.actions.ShiftSong());
           dispatch(Player());
+          dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
         })
         .on("error", (error) => {
           dispatch(Voice.actions.setPlaying(false));
@@ -157,6 +166,14 @@ export const canPlay = createAsyncThunk("Voice/canPlay", async () => {
     return { canPlay: false, msg: error };
   }
 });
+
+export const setVolume = createAsyncThunk(
+  "Voice/SetVolume",
+  async (volume, { dispatch }) => {
+    dispatch(Voice.actions.setVolume(volume))
+    dispatch(SocketEmit(VoiceEvent.VoiceVolume))
+  }
+)
 
 const Voice = createSlice({
   name: "Voice",
@@ -203,5 +220,5 @@ const Voice = createSlice({
       }),
 });
 
-export const { DeleteSong, setVolume } = Voice.actions;
+export const { DeleteSong } = Voice.actions;
 export default Voice.reducer;
