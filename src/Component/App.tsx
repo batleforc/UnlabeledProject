@@ -12,10 +12,8 @@ import TokenComponent from "./Token";
 import NavBar from "./navbar";
 import BotCanPlay from "./Bot/modal";
 import io from "socket.io-client";
-import {
-  EventInit,
-} from "../Action/Event";
-import {  getVoice } from "../Action/Voice";
+import { EventInit } from "../Action/Event";
+import { getVoice } from "../Action/Voice";
 import Voice from "./Voice";
 var socket = io(process.env.REACT_APP_SERVER as string, {});
 export const App = ({ dispatch, Token, Event, Bot }: any) => {
@@ -37,7 +35,7 @@ export const App = ({ dispatch, Token, Event, Bot }: any) => {
   return (
     <div className="App">
       <NavBar />
-      <Route path={["/","/token"]} exact component={TokenComponent} />
+      <Route path={["/", "/token"]} exact component={TokenComponent} />
       <Route path="/voice" component={Voice} />
       <BotCanPlay />
     </div>

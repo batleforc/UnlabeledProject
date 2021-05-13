@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { BotGetter, BotServerGetter } from "./Bot";
 import { getStatus, getVoice } from "./Voice";
 
-
 export enum BoardEvent {
   BoardUpdate = "BoardUpdate",
   BoardCreate = "BoardCreate",
@@ -51,15 +50,15 @@ export const EventInit = createAsyncThunk(
   "Event/init",
   async ({ socket }: any, { dispatch }) => {
     socket.on(BotEvent.BotUpdate, () => {
-      dispatch(BotGetter({ force: true }))
-      dispatch(BotServerGetter())
+      dispatch(BotGetter({ force: true }));
+      dispatch(BotServerGetter());
     });
     socket.on(VoiceEvent.VoiceUpdate, () => {
-      dispatch(getVoice())
-    })
+      dispatch(getVoice());
+    });
     socket.on(VoiceEvent.VoiceJoin, () => {
-      dispatch(getStatus())
-    })
+      dispatch(getStatus());
+    });
   },
   {
     condition: (force: boolean | void, { getState }): boolean => {
@@ -73,9 +72,7 @@ export const EventInit = createAsyncThunk(
 const EventSlicer = createSlice({
   name: "Event",
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(EventInit.pending, (state) => {
