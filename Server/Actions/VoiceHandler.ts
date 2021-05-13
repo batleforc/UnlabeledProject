@@ -169,9 +169,17 @@ export const canPlay = createAsyncThunk("Voice/canPlay", async () => {
 
 export const setVolume = createAsyncThunk(
   "Voice/SetVolume",
-  async (volume:Number, { dispatch }) => {
+  async (volume: Number, { dispatch }) => {
     dispatch(Voice.actions.setVolume(volume))
     dispatch(SocketEmit(VoiceEvent.VoiceVolume))
+  }
+);
+
+export const DeleteSong = createAsyncThunk(
+  "Voice/DeleteSong",
+  async (id: number, { dispatch }) => {
+    dispatch(Voice.actions.DeleteSong(id))
+    dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
   }
 )
 
@@ -220,5 +228,4 @@ const Voice = createSlice({
       }),
 });
 
-export const { DeleteSong } = Voice.actions;
 export default Voice.reducer;
