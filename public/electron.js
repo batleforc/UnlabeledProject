@@ -2,7 +2,7 @@ const electron = require("electron");
 const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
-const { startServeur } = require("./elec/server");
+const { startServeur, stopServeur } = require("./elec/server");
 
 let mainWindow;
 const BaseFolder = path.join(__dirname);
@@ -34,7 +34,9 @@ const init = () => {
   app.on("window-all-closed", (e) => e.preventDefault());
 };
 
-const onQuit = () => {};
+const onQuit = () => {
+  stopServeur();
+};
 
 app.requestSingleInstanceLock() ? init() : app.quit();
 app.on("second-instance", () => mainWindow.show());

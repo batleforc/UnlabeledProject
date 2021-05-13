@@ -1,22 +1,15 @@
 import Discordjs, {
   ActivityType,
   PresenceData,
-  StreamOptions,
-  VoiceChannel,
 } from "discord.js";
-import { Server } from "socket.io";
 import { Log, ModuleLog } from "../Utils/Log";
-import VoiceHandler from "./VoiceHandler";
 class Discord {
   client: Discordjs.Client;
   Ready: Boolean;
-  Voice!: Discordjs.VoiceConnection;
-  VoiceHandler: VoiceHandler;
   BotId: number;
   constructor() {
     this.BotId = -1;
     this.client = new Discordjs.Client();
-    this.VoiceHandler = new VoiceHandler();
     this.Ready = false;
     ModuleLog("Discord", undefined, true);
   }
@@ -26,21 +19,25 @@ class Discord {
     this.client.login(token);
     this.BotId = botId;
   };
-  DisconnectClient = (io: Server) => {
+  DisconnectClient = (
+    { onLeave, whenReady,GuildUpdate,BotUpdate }: { onLeave?: Function; whenReady?: Function,GuildUpdate?:Function,BotUpdate?:Function }
+  ) => {
     this.client = new Discordjs.Client();
-    this.DefaultFire(io);
+    this.DefaultFire(BotUpdate,GuildUpdate,whenReady);
     this.BotId = -1;
     this.Ready = false;
-    this.VoiceHandler.Leave(io);
-    io.emit("botUpdate");
+    if (onLeave) onLeave();
+    if (BotUpdate) BotUpdate();
   };
   //#endregion
 
   //#region FireEvent
-  DefaultFire = (io: Server) => {
-    this.FireWhenReady(io, () => {});
-    this.FireWhenDisconnect(io, () => {});
-    this.FireWhenGuildJoin(io, () => {});
+  DefaultFire = (BotUpdate?:Function,GuildUpdate?:Function, WhenReady?: Function) => {
+    this.FireWhenReady(BotUpdate, () => {
+      if (WhenReady) WhenReady();
+    });
+    this.FireWhenDisconnect(BotUpdate, () => {});
+    this.FireWhenGuildJoin(GuildUpdate, () => {});
     if (process.env.NODE_ENV == "development") {
       this.FireWhenDebug();
       this.FireWhenWarn();
@@ -56,27 +53,27 @@ class Discord {
     this.client.on("error", (message: Error) =>
       Log("Discord", message.message)
     );
-  FireWhenReady = (io: Server, toDo: Function) =>
+  FireWhenReady = (BotUpdate?: Function, toDo?: Function) =>
     this.client.on("ready", () => {
       this.Ready = true;
-      io.emit("botUpdate");
       Log("Discord", "Bot Started");
       Log("Socket", "Tout les client sont actualiser");
-      toDo();
+      if (BotUpdate)BotUpdate();
+      if(toDo)toDo();
     });
-  FireWhenDisconnect = (io: Server, toDo: Function) =>
+  FireWhenDisconnect = (BotUpdate?: Function, toDo?: Function) =>
     this.client.on("disconnect", () => {
       this.Ready = false;
-      io.emit("botUpdate");
+      if (BotUpdate)BotUpdate();
+      if(toDo)toDo();
       Log("Discord", "Bot Off");
-      toDo();
     });
-  FireWhenGuildJoin = (io: Server, toDo: Function) =>
+  FireWhenGuildJoin = (GuildUpdate?: Function, toDo?: Function) =>
     this.client.on("guildCreate", (guild) => {
-      io.emit("guildUpdate");
+      if (GuildUpdate) GuildUpdate();
+      if(toDo) toDo();
       Log("Discord", "Bot join guild " + guild.name);
       Log("Socket", "Tout les client sont actualiser");
-      toDo();
     });
   //#endregion
 
@@ -84,7 +81,7 @@ class Discord {
   GetBotId = () => this.BotId;
   GetClient = () => this.client;
   GetUser = () => this.client.user;
-  GetVoice = () => this.Voice;
+  GetPresence = () => this.GetUser()?.presence;
   GetAllServer = () => this.client.guilds.cache;
   GetOneServer = (guildId: string) =>
     this.client.guilds.cache.find((value, index) => index === guildId);
@@ -104,16 +101,6 @@ class Discord {
         type: type,
       },
     });
-  //#endregion
-
-  //#region Voice
-  getVoice = () => this.VoiceHandler;
-  VoiceJoin = (guildId: string, channelId: string, io: Server) =>
-    this.VoiceHandler.Join(
-      this.GetOneChan(guildId, channelId) as VoiceChannel,
-      io
-    );
-  VoiceLeave = (io: Server) => this.VoiceHandler.Leave(io);
   //#endregion
 }
 

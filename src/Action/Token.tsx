@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { setUpdateBot } from "./Event";
 import axios from "axios";
 
 var Api = process.env.REACT_APP_SERVER + "/api/";
@@ -18,7 +17,6 @@ export const TokenGetter = createAsyncThunk(
   "token/get",
   async (value, { dispatch }) => {
     return axios.get(Api + "token").then((value) => {
-      dispatch(setUpdateBot(false));
       return value.data;
     });
   },
@@ -39,7 +37,6 @@ export const TokenCreate = createAsyncThunk(
         token: token,
       })
       .then((res) => {
-        dispatch(TokenGetter());
         return res.data;
       });
   },
@@ -54,10 +51,9 @@ export const TokenCreate = createAsyncThunk(
   }
 );
 export const TokenDelete = createAsyncThunk(
-  "token/post",
+  "token/Delete",
   async (id: any, { dispatch }) => {
     return axios.delete(`${Api}token/${id}`).then((res) => {
-      dispatch(TokenGetter());
       return res.data;
     });
   },
@@ -147,7 +143,10 @@ const TokenSlicer = createSlice({
       })
       .addCase(TokenCreate.fulfilled, (state, Action) => {
         state.Pending = false;
-        console.log(Action.payload);
+        state.AllToken= Action.payload
+      })
+      .addCase(TokenDelete.fulfilled, (state, {payload}) => {
+        state.AllToken= payload
       })
       .addCase(TokenActivate.pending, (state) => {
         state.Pending = true;

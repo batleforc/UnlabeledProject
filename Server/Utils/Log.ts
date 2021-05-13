@@ -60,6 +60,10 @@ export const Log = async (tag: string, message: string) => {
   logger.info(`[${tag}]=> ${new Date().toISOString()} : ${message}`);
 };
 
+export const LogObject = async (tag: string, message: object) => {
+  logger.info(message);
+};
+
 /**
  * * Permet de log une erreur
  * @param tag Qui envoie le message

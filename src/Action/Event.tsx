@@ -1,59 +1,63 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { BotGetter, BotServerGetter } from "./Bot";
+import { getStatus, getVoice } from "./Voice";
+
+export enum BoardEvent {
+  BoardUpdate = "BoardUpdate",
+  BoardCreate = "BoardCreate",
+  BoardDelete = "BoardDelete",
+}
+
+export enum VoiceEvent {
+  VoiceJoin = "VoiceJoin",
+  VoiceChange = "VoiceChanChange",
+  VoiceLeave = "VoiceLeave",
+  VoiceUpdate = "VoiceUpdate",
+  VoiceError = "VoiceError",
+  VoiceVolume = "VoiceVolume",
+}
+
+export enum BotEvent {
+  BotReady = "BotReady",
+  BotDisconnect = "BotDisconnect",
+  BotUpdate = "BotUpdate",
+  GuildUpdate = "guildUpdate",
+}
+
+export enum TokenEvent {
+  TokenCreate = "TokenCreate",
+  TokenDelete = "TokenDelete",
+  TokenUpdate = "TokenUpdate",
+}
+
+export enum AppEvent {
+  ServeurStart = "AppStart",
+  ServeurStop = "AppStop",
+  ConfUpdate = "ConfigUpdate",
+  ClientRestart = "ClientRestart",
+}
+
 interface Event {
-  ReloadBot: Boolean;
-  Ready: Boolean;
-  Pending: Boolean;
-  ResetBot: Boolean;
-  Voice: {
-    Change: Boolean;
-    Queue: Boolean;
-    Error: Boolean;
-    Playing: Boolean;
-    Join: Boolean;
-    Leave: Boolean;
-  };
+  Ready: boolean;
+  Pending: boolean;
 }
 const initialState = {
-  ReloadBot: false,
   Ready: false,
   Pending: false,
-  ResetBot: false,
-  Voice: {
-    Change: false,
-    Queue: false,
-    Error: false,
-    Playing: false,
-    Join: false,
-    Leave: false,
-  },
 } as Event;
 
 export const EventInit = createAsyncThunk(
   "Event/init",
   async ({ socket }: any, { dispatch }) => {
-    socket.on("botUpdate", () => {
-      dispatch(setUpdateBot(true));
+    socket.on(BotEvent.BotUpdate, () => {
+      dispatch(BotGetter({ force: true }));
+      dispatch(BotServerGetter());
     });
-    socket.on("botReset", () => {
-      dispatch(setResetBot(true));
+    socket.on(VoiceEvent.VoiceUpdate, () => {
+      dispatch(getVoice());
     });
-    socket.on("VoiceChange", () => {
-      dispatch(setVoiceChange(true));
-    });
-    socket.on("VoiceQueue", () => {
-      dispatch(setVoiceQueue(true));
-    });
-    socket.on("VoiceError", () => {
-      dispatch(setVoiceError(true));
-    });
-    socket.on("VoicePlaying", () => {
-      dispatch(setVoicePlaying(true));
-    });
-    socket.on("VoiceJoin", () => {
-      dispatch(setVoiceJoin(true));
-    });
-    socket.on("VoiceLeave", () => {
-      dispatch(setVoiceLeave(true));
+    socket.on(VoiceEvent.VoiceJoin, () => {
+      dispatch(getStatus());
     });
   },
   {
@@ -68,32 +72,7 @@ export const EventInit = createAsyncThunk(
 const EventSlicer = createSlice({
   name: "Event",
   initialState,
-  reducers: {
-    setUpdateBot: (state, { payload }) => {
-      state.ReloadBot = payload;
-    },
-    setResetBot: (state, { payload }) => {
-      state.ResetBot = payload;
-    },
-    setVoiceChange: (state, { payload }) => {
-      state.Voice.Change = payload;
-    },
-    setVoiceQueue: (state, { payload }) => {
-      state.Voice.Queue = payload;
-    },
-    setVoiceError: (state, { payload }) => {
-      state.Voice.Error = payload;
-    },
-    setVoicePlaying: (state, { payload }) => {
-      state.Voice.Playing = payload;
-    },
-    setVoiceJoin: (state, { payload }) => {
-      state.Voice.Join = payload;
-    },
-    setVoiceLeave: (state, { payload }) => {
-      state.Voice.Leave = payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(EventInit.pending, (state) => {
@@ -109,14 +88,4 @@ const EventSlicer = createSlice({
   },
 });
 
-export const {
-  setUpdateBot,
-  setResetBot,
-  setVoiceChange,
-  setVoiceError,
-  setVoiceJoin,
-  setVoiceLeave,
-  setVoicePlaying,
-  setVoiceQueue,
-} = EventSlicer.actions;
 export default EventSlicer.reducer;

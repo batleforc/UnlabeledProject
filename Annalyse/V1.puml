@@ -1,0 +1,246 @@
+@startuml
+package "Client React/Redux"{
+  class Bot{
+    img : any
+    user : any
+    link : string
+    Pending: Boolean
+    Serveur : Array_any
+    ActiveServeur : String
+    ActiveBot : number
+    ServeurChan: Array_any
+    canPlay : Array_any
+    BotGetter()
+    CanPlay()
+    BotServerGetter()
+    BotServerChanGetter()
+    reset()
+  }
+  class Event{
+    ReloadBot: Boolean
+    Ready:Boolean
+    Pending:Boolean
+    Voice_Change : Boolean
+    Voice_Queue : Boolean
+    Voice_Error: Boolean
+    Voice_Playing: Boolean
+    Voice_Join: Boolean
+    Voice_Leave: Boolean
+    EventInit()
+    SetUpdateBot()
+    SetResetBot()
+    SetVoiceChange()
+    SetVoiceError()
+    SetVoicePlaying()
+    SetVoiceLeave()
+  }
+
+  class Voice{
+    Pending:Boolean
+    Playing:Boolean
+    Volume:number
+    ChanId:String
+    GuildId:String
+    Status:Boolean
+    Asap:Boolean
+    Paused:Boolean
+    Queue : Any
+
+    SetChanId()
+    SetAsap()
+    JoinChan()
+    LeaveChan()
+    StopVoice()
+    SkipVoice()
+    StartVoice
+    SetVolume()
+    GetStatus()
+    GetVoice()
+    GetPause()
+    GetVolume()
+    SetChanIdAction()
+  }
+
+  interface Token{
+    id: number
+    label: string
+    token : string
+  }
+
+  class TokenState{
+    {field}allToken : Array(Token)
+    ActiveTokenId : number
+    Pending : Boolean
+
+    TokenGetter()
+    TokenCreate()
+    TokenDelete()
+    TokenActivate()
+    TokenDeactivate()
+  }
+
+  class showModal{
+    TokenForm: Boolean
+    CreateTab: Boolean
+    CreateButton: Boolean
+    Burger: Boolean
+    BoardParam: Boolean
+    queueSlide: Boolean
+    importExport: Boolean
+
+    ShowTokenForm()
+    HideTokenForm()
+    ShowCreateTab()
+    HideCreateTab()
+    showCreateButton()
+    HideCreateButton()
+    SetBurger()
+    SetBoardParam()
+    SetQueueSlide()
+    SetImportExport()
+  }
+
+  class sBoard{
+    Pending: Boolean
+    Board: Array_any
+    ActiveBoard: number
+    ActiveLayout : Array_any
+    Sound: String
+    Url: String
+    Button: String
+    Type: enumSongType
+    BoardAsChanged: Boolean
+    Editing: Boolean
+    Id: number
+    SetActiveBoard()
+    SetSound()
+    SetHandlerLayout()
+    Lock()
+    Unlock()
+    AddButton()
+    EditButton()
+    LoadButton()
+    RemoveButton()
+    ResetCreateButtonModal()
+    SetUrl()
+    SetButton()
+    SetType()
+    UpdateBoard()
+    GetBoardd()
+    DeleteBoard()
+    UpdateBoard()
+    CreateBoard()
+  }
+}
+
+package "Serveur"{
+  interface song{
+    title: string
+    url: string
+    type: SongType
+  }
+  interface SongQueue{
+    voiceChannel: VoiceChannel
+    connection : VoiceConnection
+    Volume: number
+    playing: Boolean
+    canPlay: Boolean
+    queue: Array__song
+  }
+  class VoiceHandler{
+    SongQueue : SongQueue
+    
+    GetQueue()
+    GetVolume()
+    GetServer()
+    GetChannel()
+    GetIsPaused()
+    GetStatus()
+    GetVoiceStatus()
+    Leave()
+    Join()
+    Pause()
+    Resume()
+    Stop()
+    Skip()
+    DeleteSong()
+    Play()
+    Player()
+    SetVolume()
+  }
+  class Store{
+    nconf : nconf
+    static soundBoard :any
+    CreateFolderIfNotExist()
+    AddFileConfig()
+    GetNConf()
+    GetConf()
+    SetConf()
+    GetVar()
+    SaveConf()
+  }
+  class Server{
+    app : KoaServeur
+    io : SocketIoServeur
+    Server : NodeHttp
+    Port : number
+
+    GetApp()
+    GetSocket()
+    GetServer()
+    AddRouter()
+    ListenServer()
+    AddToAppContext()
+    MountStatic()
+    AddListener()
+  }
+  class Discord{
+    Client : DiscordJsClient
+    Ready : Boolean
+    BotId : number
+    VoiceHandler : VoiceHandler
+    
+    LoginClient()
+    DisconnectClient()
+    DefaultFire()
+    FireWhenDebug()
+    FireWhenWarn()
+    FireWhenError()
+    FireWhenReady()
+    FireWhenDisconnect()
+    FireWhenGuildJoin()
+
+    GetBotId()
+    GetClient()
+    GetUser()
+    GetVoice()
+    GetAllServer()
+    GetOneServer()
+    GetAllChan()
+    GetOneChan()
+    SetPresenceFromPresenceData()
+    SetPresence()
+    getVoice()
+    VoiceJoin()
+    VoiceLeave()
+  }
+  class DataBase{
+    db : sqliteDatabase
+    Table : any
+
+    CreateTokenTable()
+    CreateTabTable()
+    FormatString()
+    InsertToken()
+    GetAllToken()
+    GetToken()
+    DeleteToken()
+    EditToken()
+    GetAllTab()
+    DeleteTab()
+    InsertTab()
+    EditTabLabel()
+    EditTabContent()
+  }
+}
+@enduml
