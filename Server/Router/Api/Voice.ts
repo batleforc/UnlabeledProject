@@ -60,7 +60,7 @@ Voice.get("/volume", async (ctx: any, next: any) => {
         SongId: id === undefined,
       };
     } else {
-      Store.dispatch(DeleteSong({ id: id }));
+      Store.dispatch(DeleteSong(id));
       ctx.body = {
         launched: true,
       };
