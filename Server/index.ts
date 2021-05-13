@@ -10,13 +10,16 @@ import Api from "./Router/Api";
 import { BoardGetter } from "./Actions/Board";
 import { TokenGetter } from "./Actions/Token";
 import { BotDisconnect } from "./Actions/Bot";
+import { SocketEmit, AppEvent } from "./Actions/Event";
 
 export var store = new Store();
 export var DiscordClient = new Discord();
 export var Serveur = new WebServer(Number(process.env.SERVER_PORT) || 5000);
 export var Db = new DataBase(store, () => {
+  ReduxStore.dispatch(BotDisconnect());
   ReduxStore.dispatch(BoardGetter({ force: false }));
   ReduxStore.dispatch(TokenGetter());
+  ReduxStore.dispatch(SocketEmit(AppEvent.ServeurStart))
 });
 
 ReduxStore.subscribe(() => LogObject("Redux", ReduxStore.getState()));
@@ -34,11 +37,11 @@ Serveur.GetSocket().on("connection", (socket: any) => {
 Serveur.AddListener("message", (socket: any, param: any) => {
   socket.emit("test", param);
 });
-ReduxStore.dispatch(BotDisconnect());
 
 process.stdin.resume();
 
 function exitHandler() {
+  ReduxStore.dispatch(SocketEmit(AppEvent.ServeurStop))
   process.exit();
 }
 
