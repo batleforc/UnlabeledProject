@@ -8,8 +8,8 @@ import DataBase from "./Utils/Db";
 import Discord from "./Utils/Discord";
 import Api from "./Router/Api";
 import { BoardGetter } from "./Actions/Board";
-import { TokenGetter } from './Actions/Token';
-import { BotGetActivity, setReady } from './Actions/Bot';
+import { TokenGetter } from "./Actions/Token";
+import { BotDisconnect } from "./Actions/Bot";
 
 export var store = new Store();
 export var DiscordClient = new Discord();
@@ -25,7 +25,7 @@ Serveur.AddToAppContext("Db", Db);
 Serveur.AddToAppContext("discord", DiscordClient);
 Serveur.AddToAppContext("store", store);
 Serveur.AddToAppContext("io", Serveur.GetSocket());
-Serveur.AddToAppContext("Redux",ReduxStore)
+Serveur.AddToAppContext("Redux", ReduxStore);
 Serveur.AddRouter(Api);
 
 Serveur.GetSocket().on("connection", (socket: any) => {
@@ -34,10 +34,7 @@ Serveur.GetSocket().on("connection", (socket: any) => {
 Serveur.AddListener("message", (socket: any, param: any) => {
   socket.emit("test", param);
 });
-DiscordClient.DefaultFire(Serveur.GetSocket(), () => {
-  ReduxStore.dispatch(BotGetActivity())
-  ReduxStore.dispatch(setReady(true));
-});
+ReduxStore.dispatch(BotDisconnect());
 
 process.stdin.resume();
 
