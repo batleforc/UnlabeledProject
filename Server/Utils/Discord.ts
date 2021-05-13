@@ -1,9 +1,7 @@
 import Discordjs, {
   ActivityType,
   PresenceData,
-  VoiceChannel,
 } from "discord.js";
-import { Server } from "socket.io";
 import { Log, ModuleLog } from "../Utils/Log";
 class Discord {
   client: Discordjs.Client;
@@ -21,23 +19,25 @@ class Discord {
     this.client.login(token);
     this.BotId = botId;
   };
-  DisconnectClient = (io: Server, whenReady?: Function, onLeave?: Function) => {
+  DisconnectClient = (
+    { onLeave, whenReady,GuildUpdate,BotUpdate }: { onLeave?: Function; whenReady?: Function,GuildUpdate?:Function,BotUpdate?:Function }
+  ) => {
     this.client = new Discordjs.Client();
-    this.DefaultFire(io, whenReady);
+    this.DefaultFire(BotUpdate,GuildUpdate,whenReady);
     this.BotId = -1;
     this.Ready = false;
     if (onLeave) onLeave();
-    io.emit("botUpdate");
+    if (BotUpdate) BotUpdate();
   };
   //#endregion
 
   //#region FireEvent
-  DefaultFire = (io: Server, WhenReady?: Function) => {
-    this.FireWhenReady(io, () => {
+  DefaultFire = (BotUpdate?:Function,GuildUpdate?:Function, WhenReady?: Function) => {
+    this.FireWhenReady(BotUpdate, () => {
       if (WhenReady) WhenReady();
     });
-    this.FireWhenDisconnect(io, () => {});
-    this.FireWhenGuildJoin(io, () => {});
+    this.FireWhenDisconnect(BotUpdate, () => {});
+    this.FireWhenGuildJoin(GuildUpdate, () => {});
     if (process.env.NODE_ENV == "development") {
       this.FireWhenDebug();
       this.FireWhenWarn();
@@ -53,27 +53,27 @@ class Discord {
     this.client.on("error", (message: Error) =>
       Log("Discord", message.message)
     );
-  FireWhenReady = (io: Server, toDo: Function) =>
+  FireWhenReady = (BotUpdate?: Function, toDo?: Function) =>
     this.client.on("ready", () => {
       this.Ready = true;
-      io.emit("botUpdate");
       Log("Discord", "Bot Started");
       Log("Socket", "Tout les client sont actualiser");
-      toDo();
+      if (BotUpdate)BotUpdate();
+      if(toDo)toDo();
     });
-  FireWhenDisconnect = (io: Server, toDo: Function) =>
+  FireWhenDisconnect = (BotUpdate?: Function, toDo?: Function) =>
     this.client.on("disconnect", () => {
       this.Ready = false;
-      io.emit("botUpdate");
+      if (BotUpdate)BotUpdate();
+      if(toDo)toDo();
       Log("Discord", "Bot Off");
-      toDo();
     });
-  FireWhenGuildJoin = (io: Server, toDo: Function) =>
+  FireWhenGuildJoin = (GuildUpdate?: Function, toDo?: Function) =>
     this.client.on("guildCreate", (guild) => {
-      io.emit("guildUpdate");
+      if (GuildUpdate) GuildUpdate();
+      if(toDo) toDo();
       Log("Discord", "Bot join guild " + guild.name);
       Log("Socket", "Tout les client sont actualiser");
-      toDo();
     });
   //#endregion
 

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ActivityType } from "discord.js";
-import { DiscordClient, Db, Serveur } from "../index";
+import { DiscordClient, Db } from "../index";
 import { Leave } from "./VoiceHandler";
+import {SocketEmit, BotEvent} from './Event'
 
 export const BotGet = createAsyncThunk("Bot/Get", async () =>
   DiscordClient.GetUser()
@@ -20,13 +21,22 @@ export const BotDisconnect = createAsyncThunk(
   "Bot/disconnect",
   async (_, { dispatch }) => {
     DiscordClient.DisconnectClient(
-      Serveur.GetSocket(),
-      () => {
-        dispatch(BotGetActivity());
-        dispatch(setReady(true));
-      },
-      () => {
-        dispatch(Leave());
+      {
+        whenReady:() => {
+          dispatch(BotGetActivity());
+          dispatch(setReady(true));
+          dispatch(SocketEmit(BotEvent.BotReady))
+        },
+        onLeave:() => {
+          dispatch(Leave());
+          dispatch(SocketEmit(BotEvent.BotDisconnect))
+        },
+        BotUpdate: () => {
+          dispatch(SocketEmit(BotEvent.BotUpdate))
+        },
+        GuildUpdate: () => {
+          dispatch(SocketEmit(BotEvent.GuildUpdate))
+        }
       }
     );
   }
