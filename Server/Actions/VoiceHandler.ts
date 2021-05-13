@@ -132,7 +132,10 @@ const Player = createAsyncThunk(
   "Voice/Player",
   async ({}, { getState, dispatch }) => {
     var { Voice: voice } = getState() as { Voice: VoiceState };
-    if (voice.queue.length === 0) return;
+    if (voice.queue.length === 0) {
+      dispatch(SocketEmit(VoiceEvent.VoiceUpdate))
+      return;
+    }
     if (voice.canPlay) {
       var dispatcher = SongGState.connection
         ?.play(
