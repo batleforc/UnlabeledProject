@@ -31,10 +31,10 @@ export enum TokenEvent {
 }
 
 export enum AppEvent {
-  ServeurRestart = "AppRestart",
+  ServeurStart = "AppStart",
   ServeurStop = "AppStop",
   ConfUpdate = "ConfigUpdate",
-  ClientRestart = "AppRestart",
+  ClientRestart = "ClientRestart",
 }
 
 interface event {}
