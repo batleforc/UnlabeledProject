@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Db } from "../index";
+import { SocketEmit, BoardEvent } from "./Event";
 
 export interface iBoard {
   id: number;
@@ -26,31 +27,43 @@ export const BoardCreate = createAsyncThunk(
   "Board/Create",
   async ({ label }: { label: string }, { dispatch, getState }) => {
     await Db.InsertTab(label);
-    await dispatch(BoardGetter({force:false}))
+    await dispatch(BoardGetter({ force: false })).then(() =>
+      dispatch(SocketEmit(BoardEvent.BoardCreate))
+    );
   }
 );
-
 
 export const BoardDelete = createAsyncThunk(
   "Board/Create",
   async ({ TabId }: { TabId: number }, { dispatch, getState }) => {
-    await Db.DeleteTab(TabId)
-    await dispatch(BoardGetter({force:false}))
+    await Db.DeleteTab(TabId);
+    await dispatch(BoardGetter({ force: false })).then(() =>
+    dispatch(SocketEmit(BoardEvent.BoardDelete))
+  );
   }
 );
 
 export const BoardUpdate = createAsyncThunk(
   "Board/Update",
-  async ({ TabId, label, content }: { TabId: number, label?: string, content?: object },{dispatch}) => {
-    if(label!==undefined){
-      await Db.EditTabLabel(TabId,label)
+  async (
+    {
+      TabId,
+      label,
+      content,
+    }: { TabId: number; label?: string; content?: object },
+    { dispatch }
+  ) => {
+    if (label !== undefined) {
+      await Db.EditTabLabel(TabId, label);
     }
-    if(content!==undefined){
-      await Db.EditTabContent(TabId,JSON.stringify(content))
+    if (content !== undefined) {
+      await Db.EditTabContent(TabId, JSON.stringify(content));
     }
-    await dispatch(BoardGetter({force:false}))
+    await dispatch(BoardGetter({ force: false })).then(() =>
+    dispatch(SocketEmit(BoardEvent.BoardUpdate))
+  );
   }
-)
+);
 
 const initialState = {
   Board: [],
@@ -69,5 +82,5 @@ const Board = createSlice({
       state.Board = payload;
     }),
 });
-export const { setReady } = Board.actions
+export const { setReady } = Board.actions;
 export default Board.reducer;
