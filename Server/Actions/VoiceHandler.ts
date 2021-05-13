@@ -169,7 +169,7 @@ export const canPlay = createAsyncThunk("Voice/canPlay", async () => {
 
 export const setVolume = createAsyncThunk(
   "Voice/SetVolume",
-  async (volume, { dispatch }) => {
+  async (volume:Number, { dispatch }) => {
     dispatch(Voice.actions.setVolume(volume))
     dispatch(SocketEmit(VoiceEvent.VoiceVolume))
   }
