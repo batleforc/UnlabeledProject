@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Db } from "../index";
+import { SocketEmit, TokenEvent } from "./Event";
 
 export interface Token {
   id: number;
@@ -14,36 +15,41 @@ export interface iTokenState {
 
 export const TokenGetter = createAsyncThunk(
   "Token/Get",
-  async(undefin,{dispatch}) => {
-    dispatch(setReady(Db.db !== undefined))
+  async (undefin, { dispatch }) => {
+    dispatch(setReady(Db.db !== undefined));
     return Db.GetAllToken();
   }
-)
+);
 
 export const TokenCreate = createAsyncThunk(
   "Token/Create",
-  async ({ label, token }: { label: string, token: string }, { dispatch }) => {
+  async ({ label, token }: { label: string; token: string }, { dispatch }) => {
     await Db.InsertToken(label, token);
-    await dispatch(TokenGetter());
+    await dispatch(TokenGetter()).then(() =>
+      dispatch(SocketEmit(TokenEvent.TokenCreate))
+    );
   }
-)
+);
 
 export const TokenDelete = createAsyncThunk(
   "Token/Delete",
-  async ({ TokenId }: { TokenId: number },{dispatch}) => {
+  async ({ TokenId }: { TokenId: number }, { dispatch }) => {
     await Db.DeleteToken(TokenId);
-    await dispatch(TokenGetter());
+    await dispatch(TokenGetter()).then(() =>
+      dispatch(SocketEmit(TokenEvent.TokenDelete))
+    );
   }
-)
+);
 
 export const TokenUpdate = createAsyncThunk(
   "Token/Update",
-  async ({id,label,token}:Token,{dispatch}) => {
-    await Db.EditToken(id,label,token)
-    await dispatch(TokenGetter())
+  async ({ id, label, token }: Token, { dispatch }) => {
+    await Db.EditToken(id, label, token);
+    await dispatch(TokenGetter()).then(() =>
+    dispatch(SocketEmit(TokenEvent.TokenUpdate))
+  );
   }
-)
-
+);
 
 const initialState = {
   Token: [],
@@ -54,14 +60,14 @@ const Token = createSlice({
   initialState,
   reducers: {
     setReady: (state, { payload }) => {
-      state.Ready=payload
-    }
+      state.Ready = payload;
+    },
   },
   extraReducers: (builder) =>
     builder.addCase(TokenGetter.fulfilled, (state, { payload }) => {
       state.Token = payload;
-    })
-})
+    }),
+});
 
-export const { setReady } = Token.actions
+export const { setReady } = Token.actions;
 export default Token.reducer;

@@ -27,6 +27,7 @@ export enum BotEvent {
 export enum TokenEvent {
   TokenCreate = "TokenCreate",
   TokenDelete = "TokenDelete",
+  TokenUpdate = "TokenUpdate",
 }
 
 export enum AppEvent {
