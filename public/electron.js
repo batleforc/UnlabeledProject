@@ -36,6 +36,7 @@ const init = () => {
 
 const onQuit = () => {
   stopServeur();
+  app.quit();
 };
 
 app.requestSingleInstanceLock() ? init() : app.quit();
