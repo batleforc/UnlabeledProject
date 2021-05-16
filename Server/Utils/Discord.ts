@@ -1,6 +1,7 @@
 import Discordjs, {
   ActivityType,
   PresenceData,
+  PresenceStatusData,
 } from "discord.js";
 import { Log, ModuleLog } from "../Utils/Log";
 class Discord {
@@ -93,9 +94,9 @@ class Discord {
   //#region PresenceHandler
   SetPresenceFromPresenceData = (presence: PresenceData) =>
     this.client.user?.setPresence(presence);
-  SetPresence = (online: boolean, name: string, type: ActivityType) =>
+  SetPresence = (online: PresenceStatusData, name: string, type: ActivityType) =>
     this.SetPresenceFromPresenceData({
-      status: online ? "online" : "idle",
+      status: online,
       activity: {
         name: name,
         type: type,
