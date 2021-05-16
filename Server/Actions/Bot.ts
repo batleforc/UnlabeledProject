@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ActivityType } from "discord.js";
+import { ActivityType, PresenceStatusData } from "discord.js";
 import { DiscordClient, Db } from "../index";
 import { Leave } from "./VoiceHandler";
 import { SocketEmit, BotEvent } from "./Event";
@@ -70,7 +70,7 @@ export const BotSetActivity = createAsyncThunk(
       online,
       name,
       type,
-    }: { online: boolean; name: string; type: ActivityType },
+    }: { online: PresenceStatusData; name: string; type: ActivityType },
     { dispatch }
   ) => {
     DiscordClient.SetPresence(online, name, type);
