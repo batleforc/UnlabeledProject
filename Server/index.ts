@@ -11,6 +11,7 @@ import { BoardGetter } from "./Actions/Board";
 import { TokenGetter } from "./Actions/Token";
 import { BotDisconnect } from "./Actions/Bot";
 import { SocketEmit, AppEvent } from "./Actions/Event";
+import { Leave } from "./Actions/VoiceHandler";
 
 export var store = new Store();
 export var DiscordClient = new Discord();
@@ -19,7 +20,7 @@ export var Db = new DataBase(store, () => {
   ReduxStore.dispatch(BotDisconnect());
   ReduxStore.dispatch(BoardGetter({ force: false }));
   ReduxStore.dispatch(TokenGetter());
-  ReduxStore.dispatch(SocketEmit(AppEvent.ServeurStart))
+  ReduxStore.dispatch(SocketEmit(AppEvent.ServeurStart));
 });
 
 ReduxStore.subscribe(() => LogObject("Redux", ReduxStore.getState()));
@@ -41,7 +42,9 @@ Serveur.AddListener("message", (socket: any, param: any) => {
 process.stdin.resume();
 
 function exitHandler() {
-  ReduxStore.dispatch(SocketEmit(AppEvent.ServeurStop))
+  ReduxStore.dispatch(SocketEmit(AppEvent.ServeurStop));
+  ReduxStore.dispatch(Leave());
+  ReduxStore.dispatch(BotDisconnect());
   process.exit();
 }
 
