@@ -3,6 +3,7 @@ const pack = require("../../package.json");
 const isDev = require("electron-is-dev");
 const { Tray, Menu } = require("electron");
 const path = require("path");
+const { restartServeur } = require("./server");
 
 let tray = null;
 
@@ -24,6 +25,11 @@ function createMenu(quit, openInClient) {
     {
       label: "Open in client",
       click: openInClient,
+    },
+    { type: "separator" },
+    {
+      label: "Restart serveur",
+      click: () => restartServeur(),
     },
     { type: "separator" },
     { label: "Exit", click: () => quit() },
