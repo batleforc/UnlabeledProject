@@ -1,12 +1,13 @@
 const open = require("open");
 const pack = require("../../package.json");
+const isDev = require("electron-is-dev");
 const { Tray, Menu } = require("electron");
 const path = require("path");
 
 let tray = null;
 
 async function openInBrowser() {
-  open("http://localhost:5000");
+  open(`http://localhost:${isDev ? "3000" : "5000"}`);
 }
 
 function createMenu(quit, openInClient) {
