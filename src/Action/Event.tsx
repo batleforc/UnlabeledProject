@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { BotGetter, BotServerGetter } from "./Bot";
+import { BotGetter, BotPresenceGetter, BotServerGetter } from "./Bot";
 import { getStatus, getVoice } from "./Voice";
 
 export enum BoardEvent {
@@ -52,6 +52,7 @@ export const EventInit = createAsyncThunk(
     socket.on(BotEvent.BotUpdate, () => {
       dispatch(BotGetter({ force: true }));
       dispatch(BotServerGetter());
+      dispatch(BotPresenceGetter())
     });
     socket.on(VoiceEvent.VoiceUpdate, () => {
       dispatch(getVoice());

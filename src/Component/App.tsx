@@ -6,6 +6,7 @@ import {
   BotServerGetter,
   CanPlay,
   BotServeurChanGetter,
+  BotPresenceGetter,
 } from "../Action/Bot";
 import { Route } from "react-router-dom";
 import TokenComponent from "./Token";
@@ -21,6 +22,7 @@ export const App = ({ dispatch, Token, Event, Bot }: any) => {
     dispatch(TokenGetter());
     dispatch(CanPlay());
     dispatch(BotGetter({})).then(() => dispatch(BotServerGetter()));
+    dispatch(BotPresenceGetter())
     dispatch(getVoice()).then(({ payload }: any) => {
       if (payload.Chan && payload.Server) {
         dispatch(BotServeurChanGetter(payload.Server.id));
