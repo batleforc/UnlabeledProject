@@ -12,20 +12,22 @@ interface User {
   ActiveBot: number;
   ServeurChan: [any] | [];
   canPlay: any;
+  Presence: {
+    Status: string;
+    name: string;
+    type: string;
+  };
 }
 
 export const BotGetter = createAsyncThunk(
   "Bot/get",
-  async ({ force }: { force?: boolean | undefined }, { dispatch }) => {
+  async ({ force }: { force?: boolean }, { dispatch }) => {
     return axios
       .get(process.env.REACT_APP_SERVER + "/api/me")
       .then((value) => value.data);
   },
   {
-    condition: (
-      { force }: { force?: boolean | undefined },
-      { getState }
-    ): boolean => {
+    condition: ({ force }: { force?: boolean }, { getState }): boolean => {
       var test = getState();
       if ((test as any).Bot.user !== null && force !== true) return false;
       return true;
@@ -45,7 +47,7 @@ export const CanPlay = createAsyncThunk(
 export const BotServerGetter = createAsyncThunk(
   "Bot/serveur/get",
   async (value, { dispatch }) => {
-    return axios.get(ApiBot + "serveur").then((value) => value.data);
+    return axios.get(ApiBot + "serveur").then((value2) => value2.data);
   },
   {
     condition: (force: boolean | void, { getState }): boolean => {
@@ -64,6 +66,32 @@ export const BotServeurChanGetter = createAsyncThunk(
       .then((res) => ({ id: value, res: res.data }));
   }
 );
+export const BotPresenceGetter = createAsyncThunk(
+  "Bot/presence/getter",
+  async () => {
+    return axios.get(`${ApiBot}presence`).then((value2) => value2.data);
+  }
+);
+export const BotPresenceSetter = createAsyncThunk(
+  "Bot/presence/Setter",
+  async ({
+    online,
+    name,
+    type,
+  }: {
+    online: string;
+    name: string;
+    type: string;
+  }) => {
+    return axios
+      .post(`${ApiBot}presence`, {
+        online,
+        name,
+        type,
+      })
+      .then((value2) => value2.data);
+  }
+);
 
 const initialState = {
   img: null,
@@ -77,6 +105,11 @@ const initialState = {
   canPlay: {
     canPlay: true,
   },
+  Presence: {
+    Status: "",
+    name: "",
+    type: "",
+  },
 } as User;
 
 const BotSlicer = createSlice({
@@ -85,6 +118,15 @@ const BotSlicer = createSlice({
   reducers: {
     reset: (state) => {
       state = initialState;
+    },
+    setStatus: (state, { payload }) => {
+      state.Presence.Status = payload;
+    },
+    setName: (state, { payload }) => {
+      state.Presence.name = payload;
+    },
+    setType: (state, { payload }) => {
+      state.Presence.type = payload;
     },
   },
   extraReducers: (builder) => {
@@ -135,9 +177,13 @@ const BotSlicer = createSlice({
       })
       .addCase(getVoice.fulfilled, (state, { payload }) => {
         if (payload.Server) state.ActiveServeur = payload.Server.id;
+      })
+      .addCase(BotPresenceGetter.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.Presence = payload;
       });
   },
 });
 
-export const { reset } = BotSlicer.actions;
+export const { reset, setStatus, setName, setType } = BotSlicer.actions;
 export default BotSlicer.reducer;
