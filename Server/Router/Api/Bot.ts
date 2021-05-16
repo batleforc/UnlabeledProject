@@ -7,6 +7,7 @@ import {
   BotGetAllChan,
   BotGetAllParsedServeur,
   BotLogin,
+  BotSetActivity,
 } from "../../Actions/Bot";
 import store from "../../Actions/index";
 import { Token } from "../../Actions/Token";
@@ -47,6 +48,16 @@ Bot.get("/serveur", async (ctx: any, next: any) => {
   .post("/stop", async (ctx: any, next: any) => {
     Store.dispatch(BotDisconnect())
     ctx.body = { message: "all Is Green" };
+    await next();
+  })
+  .get("/presence", async (ctx: any, next: any) => {
+    ctx.body = Store.getState().Bot.Presence
+    await next();
+  })
+  .post("/presence", async (ctx: any, next: any) => {
+    var { online, name, type } = ctx.request.body;
+    await Store.dispatch(BotSetActivity({ online: online, name: name, type: type }))
+    ctx.body = Store.getState().Bot.Presence
     await next();
   });
 
