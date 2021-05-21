@@ -16,10 +16,13 @@ import io from "socket.io-client";
 import { EventInit } from "../Action/Event";
 import { getVoice } from "../Action/Voice";
 import Voice from "./Voice";
+import { needUpdate } from "../Action/showModal";
+import NeedUpdateModal from './Modal/needUpdate'
 var socket = io(process.env.REACT_APP_SERVER as string, {});
 export const App = ({ dispatch, Token, Event, Bot }: any) => {
   useEffect(() => {
     dispatch(TokenGetter());
+    dispatch(needUpdate())
     dispatch(CanPlay());
     dispatch(BotGetter({})).then(() => dispatch(BotServerGetter()));
     dispatch(BotPresenceGetter())
@@ -40,6 +43,7 @@ export const App = ({ dispatch, Token, Event, Bot }: any) => {
       <Route path={["/", "/token"]} exact component={TokenComponent} />
       <Route path="/voice" component={Voice} />
       <BotCanPlay />
+      <NeedUpdateModal />
     </div>
   );
 };
