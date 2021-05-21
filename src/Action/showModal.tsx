@@ -95,7 +95,7 @@ const ShowModalSlicer = createSlice({
   },
   extraReducers: builder =>
     builder.addCase(needUpdate.fulfilled, (state, { payload }) => {
-      state.needUpdate = true// payload.status !== 0;
+      state.needUpdate = payload.status !== 0;
       state.versionGithub = payload.version;
     })
 });
