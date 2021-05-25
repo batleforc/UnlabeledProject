@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ActivityType, PresenceStatusData } from "discord.js";
+import { ActivityType, PresenceStatusData, VoiceChannel } from "discord.js";
 import { DiscordClient, Db } from "../index";
 import { Leave } from "./VoiceHandler";
 import { SocketEmit, BotEvent } from "./Event";
@@ -60,7 +60,10 @@ export const BotGetAllChan = createAsyncThunk(
   async ({ params }: { params: string }) =>
     DiscordClient.GetAllChan(params)?.filter((value) =>
       ["text", "voice"].includes(value.type)
-    )
+    ).map((chan) => ({
+      ...chan,
+      connected:chan.type==="voice"?(chan as VoiceChannel).members:[]
+    }))
 );
 
 export const BotSetActivity = createAsyncThunk(
