@@ -78,7 +78,7 @@ Voice.get("/volume", async (ctx: any, next: any) => {
       ctx.body = { message: "Param manquant", vol: vol === undefined };
     } else {
       Store.dispatch(setVolume(vol));
-      ctx.body = { launched: true };
+      ctx.body = Store.getState().Voice.Volume;
     }
     await next();
   })

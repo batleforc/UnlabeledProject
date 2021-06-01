@@ -158,6 +158,9 @@ const VoiceSlicer = createSlice({
         state.Pending = false;
         state.Volume = payload;
       })
+      .addCase(setVolume.fulfilled, (state, { payload }) => {
+        state.Volume = payload;
+      })
       .addCase(getVoice.pending, (state, payload) => {
         state.Pending = true;
       })
