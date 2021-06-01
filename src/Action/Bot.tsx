@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getVoice } from "./Voice";
 import axios from "axios";
 var ApiBot = process.env.REACT_APP_SERVER + "/api/bot/";
-interface User {
+export interface User {
   img: any;
   user: any;
   link: string;
-  Pending: Boolean;
+  Pending: boolean;
   Serveur: [any] | [];
-  ActiveServeur: String;
+  ActiveServeur: string;
   ActiveBot: number;
   ServeurChan: [any] | [];
   canPlay: any;

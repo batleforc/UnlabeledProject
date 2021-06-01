@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { BotServeurChanGetter } from "../../Action/Bot";
 import { setChanIdAction } from "../../Action/Voice";
 
 const ChanSelect = ({ Bot, dispatch, Voice }: any) => {
@@ -7,6 +8,7 @@ const ChanSelect = ({ Bot, dispatch, Voice }: any) => {
     <select
       className="bg-grey focus:outline-none select-none"
       value={Voice.ChanId}
+      onClick={()=>dispatch(BotServeurChanGetter(Bot.ActiveServeur))}
       onChange={(event) => dispatch(setChanIdAction(event.currentTarget.value))}
     >
       <option className="text-black" value={-1} key="none" disabled>
@@ -29,7 +31,7 @@ const ChanSelect = ({ Bot, dispatch, Voice }: any) => {
         Bot.ServeurChan?.filter((value: any) => value.type === "voice").map(
           (value: any) => (
             <option key={value.id} value={value.id}>
-              {value.name}
+              {value.name}{"   "}{value.connected.length}/99
             </option>
           )
         )}

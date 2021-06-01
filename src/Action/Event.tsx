@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { BotGetter, BotPresenceGetter, BotServerGetter } from "./Bot";
+import { BotGetter, BotPresenceGetter, BotServerGetter, BotServeurChanGetter } from "./Bot";
 import { getStatus, getVoice } from "./Voice";
-
+import {User} from './Bot'
 export enum BoardEvent {
   BoardUpdate = "BoardUpdate",
   BoardCreate = "BoardCreate",
@@ -48,7 +48,7 @@ const initialState = {
 
 export const EventInit = createAsyncThunk(
   "Event/init",
-  async ({ socket }: any, { dispatch }) => {
+  async ({ socket }: any, { dispatch, getState }) => {
     socket.on(BotEvent.BotUpdate, () => {
       dispatch(BotGetter({ force: true }));
       dispatch(BotServerGetter());
@@ -59,6 +59,7 @@ export const EventInit = createAsyncThunk(
     });
     socket.on(VoiceEvent.VoiceJoin, () => {
       dispatch(getStatus());
+      dispatch(BotServeurChanGetter((getState() as {Bot:User}).Bot.ActiveServeur))
     });
   },
   {
